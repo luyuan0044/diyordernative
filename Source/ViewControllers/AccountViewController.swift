@@ -1,40 +1,32 @@
 //
-//  RootTabBarController.swift
+//  AccountViewController.swift
 //  diyordernative
 //
-//  Created by Richard Lu on 2017-12-12.
+//  Created by Richard Lu on 2017-12-13.
 //  Copyright © 2017 goopter. All rights reserved.
 //
 
 import UIKit
 
-class RootTabBarController: UITabBarController {
+class AccountViewController: BaseViewController {
 
-    let tabBarTitleIcon: Array<(String, UIImage)> = [
-        (HomeViewController.title, HomeViewController.icon),
-        (HotItemViewController.title, HotItemViewController.icon),
-        (OrderViewController.title, OrderViewController.icon),
-        (AccountViewController.title, AccountViewController.icon),
-    ]
+    static let title = "Account"
+    
+    static let icon = #imageLiteral(resourceName: "icon_account")
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        tabBar.tintColor = UIConstants.appThemeColor
-        for index in 0..<tabBar.items!.count {
-            let tabBarItem = tabBar.items![index]
-            tabBarItem.title = tabBarTitleIcon[index].0
-            tabBarItem.image = tabBarTitleIcon[index].1
-        }
+        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
+        tabBarItem = UITabBarItem (title: AccountViewController.title, image: AccountViewController.icon, tag: 3)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

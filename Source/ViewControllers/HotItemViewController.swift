@@ -1,33 +1,26 @@
 //
-//  RootTabBarController.swift
+//  HotItemViewController.swift
 //  diyordernative
 //
-//  Created by Richard Lu on 2017-12-12.
+//  Created by Richard Lu on 2017-12-13.
 //  Copyright © 2017 goopter. All rights reserved.
 //
 
 import UIKit
 
-class RootTabBarController: UITabBarController {
+class HotItemViewController: BaseViewController {
 
-    let tabBarTitleIcon: Array<(String, UIImage)> = [
-        (HomeViewController.title, HomeViewController.icon),
-        (HotItemViewController.title, HotItemViewController.icon),
-        (OrderViewController.title, OrderViewController.icon),
-        (AccountViewController.title, AccountViewController.icon),
-    ]
+    static let title = "Hot"
+    
+    static let icon = #imageLiteral(resourceName: "icon_hot")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
-        tabBar.tintColor = UIConstants.appThemeColor
-        for index in 0..<tabBar.items!.count {
-            let tabBarItem = tabBar.items![index]
-            tabBarItem.title = tabBarTitleIcon[index].0
-            tabBarItem.image = tabBarTitleIcon[index].1
-        }
+        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
+        tabBarItem = UITabBarItem (title: HotItemViewController.title, image: HotItemViewController.icon, tag: 1)
     }
 
     override func didReceiveMemoryWarning() {
