@@ -13,7 +13,7 @@ class BannerItem: Mappable {
     var groupId: Int?
     var productId: Int?
     var storeCategory: Int?
-    var width: Int?
+    var width: String?
     var format: Int?
     var title: String?
     var rating: Int?
@@ -35,4 +35,15 @@ class BannerItem: Mappable {
         self.city <- map["city"]
         self.imageUrl <- map["img_url"]
     }
+}
+
+extension BannerItem {
+    func getBannerDisplayWidth () -> bannerDisplayWidth {
+        return self.width == "4" ? bannerDisplayWidth.full : bannerDisplayWidth.half
+    }
+}
+
+enum bannerDisplayWidth {
+    case full
+    case half
 }

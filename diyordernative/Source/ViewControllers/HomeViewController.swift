@@ -24,7 +24,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var bottomCollectionView: UICollectionView!
     
-    let bannerItemPadding: CGFloat = 8
+    let bannerItemPadding: CGFloat = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
+        bottomCollectionView.showsVerticalScrollIndicator = false
         
         fetch()
     }
@@ -60,6 +61,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 
                 if _status == .success {
                     self.bannerItems.append(contentsOf: items!)
+                    self.sortBannerItemForDisplay()
                 }
                 
                 DispatchQueue.main.async {
@@ -77,6 +79,30 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     func refreshBannerItemCollectionView () {
         bottomCollectionView.reloadData()
         bottomCollectionView.layoutIfNeeded()
+    }
+    
+    /**
+     Sort array of banner items to fit collection view display
+     */
+    func sortBannerItemForDisplay () {
+        var result: [BannerItem] = []
+        var shouldFindLast = false
+        var lastHalfWidthItemIdx = 0
+        for idx in 0..<bannerItems.count {
+            let item = bannerItems[idx]
+            if item.getBannerDisplayWidth() == .half {
+                if !shouldFindLast {
+                    result.append(item)
+                    lastHalfWidthItemIdx = result.count - 1
+                } else {
+                    result.insert(item, at: lastHalfWidthItemIdx + 1)
+                }
+                shouldFindLast = !shouldFindLast
+            } else {
+                result.append(item)
+            }
+        }
+        self.bannerItems = result
     }
     
     // MARK: - UICollectionViewDataSource
@@ -100,10 +126,26 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         let bannerItem = bannerItems[indexPath.row]
         let itemHeight = collectionView.frame.width * 0.4
-        let numberOfItemPerLine = 4 / bannerItem.width
-        let itemWidth = collectionView.frame.width - CGFloat(numberOfItemPerLine + 1) * bannerItemPadding
+        let displayWidth = bannerItem.getBannerDisplayWidth()
+        var numberOfItemPerLine = 2
+        if displayWidth == bannerDisplayWidth.full {
+            numberOfItemPerLine = 1
+        }
+        let itemWidth = (collectionView.frame.width - CGFloat(numberOfItemPerLine + 1) * bannerItemPadding) / CGFloat(numberOfItemPerLine)
         
         return CGSize (width: itemWidth, height: itemHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets (top: bannerItemPadding, left: bannerItemPadding, bottom: bannerItemPadding, right: bannerItemPadding)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return bannerItemPadding
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return bannerItemPadding
     }
 }
 
