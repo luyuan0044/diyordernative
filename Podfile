@@ -8,4 +8,5 @@ target 'diyordernative' do
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'SDWebImage', '~> 3.8'
   pod 'Alamofire', '~> 4.4'
+  pod 'Cloudinary', '~> 2.0.2'
 end

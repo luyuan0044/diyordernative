@@ -10,6 +10,16 @@
 		792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127201FE1EC11006C5F42 /* BannerItem.swift */; };
 		792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127221FE1F0E2006C5F42 /* HotItem.swift */; };
 		792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127241FE1F742006C5F42 /* HotItemManager.swift */; };
+		792F96551FE2EB6D00A67ADC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96541FE2EB6D00A67ADC /* ApiManager.swift */; };
+		792F96571FE3015A00A67ADC /* OauthKeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96561FE3015A00A67ADC /* OauthKeyPair.swift */; };
+		792F96591FE3019E00A67ADC /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96581FE3019E00A67ADC /* Enums.swift */; };
+		792F965B1FE3022C00A67ADC /* BannerItemLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */; };
+		792F965D1FE302F200A67ADC /* LanguageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F965C1FE302F200A67ADC /* LanguageControl.swift */; };
+		792F965F1FE303E700A67ADC /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F965E1FE303E700A67ADC /* Language.swift */; };
+		792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96601FE320D200A67ADC /* UrlHelper.swift */; };
+		792F96631FE3310100A67ADC /* BannerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96621FE3310100A67ADC /* BannerItemCell.swift */; };
+		792F96651FE33FB500A67ADC /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96641FE33FB500A67ADC /* ImageHelper.swift */; };
+		792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */; };
 		794380271FE0A2ED00F6594D /* IconLabelButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */; };
 		794380291FE0A31800F6594D /* IconLabelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794380281FE0A31800F6594D /* IconLabelButtonView.swift */; };
 		7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7943802A1FE0B15200F6594D /* RootNavigationController.swift */; };
@@ -61,6 +71,16 @@
 		792127201FE1EC11006C5F42 /* BannerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItem.swift; sourceTree = "<group>"; };
 		792127221FE1F0E2006C5F42 /* HotItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItem.swift; sourceTree = "<group>"; };
 		792127241FE1F742006C5F42 /* HotItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemManager.swift; sourceTree = "<group>"; };
+		792F96541FE2EB6D00A67ADC /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		792F96561FE3015A00A67ADC /* OauthKeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthKeyPair.swift; sourceTree = "<group>"; };
+		792F96581FE3019E00A67ADC /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemLoader.swift; sourceTree = "<group>"; };
+		792F965C1FE302F200A67ADC /* LanguageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageControl.swift; sourceTree = "<group>"; };
+		792F965E1FE303E700A67ADC /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		792F96601FE320D200A67ADC /* UrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlHelper.swift; sourceTree = "<group>"; };
+		792F96621FE3310100A67ADC /* BannerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemCell.swift; sourceTree = "<group>"; };
+		792F96641FE33FB500A67ADC /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryHelper.swift; sourceTree = "<group>"; };
 		794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconLabelButtonView.xib; sourceTree = "<group>"; };
 		794380281FE0A31800F6594D /* IconLabelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelButtonView.swift; sourceTree = "<group>"; };
 		7943802A1FE0B15200F6594D /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
@@ -131,6 +151,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		792F96531FE2EAD300A67ADC /* ApiResponseWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */,
+				7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */,
+				7953130C1FE1F97000B940F8 /* ApiResponse.swift */,
+			);
+			path = ApiResponseWrapper;
+			sourceTree = "<group>";
+		};
 		79BC08C61FE090C100D53620 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +217,7 @@
 				79BC08D21FE090C100D53620 /* AppDelegate.swift */,
 				79FDBA611FE093D300E72807 /* SysConstants.swift */,
 				79FDBA631FE093F600E72807 /* UIConstants.swift */,
+				792F96581FE3019E00A67ADC /* Enums.swift */,
 				79BC08D91FE090C100D53620 /* diyordernative.xcdatamodeld */,
 				79FDBA601FE093AC00E72807 /* Helpers */,
 				79FDBA5E1FE0935B00E72807 /* Models */,
@@ -233,11 +264,11 @@
 		79FDBA5E1FE0935B00E72807 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				792F96531FE2EAD300A67ADC /* ApiResponseWrapper */,
+				792F96561FE3015A00A67ADC /* OauthKeyPair.swift */,
 				792127201FE1EC11006C5F42 /* BannerItem.swift */,
 				792127221FE1F0E2006C5F42 /* HotItem.swift */,
-				795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */,
-				7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */,
-				7953130C1FE1F97000B940F8 /* ApiResponse.swift */,
+				792F965E1FE303E700A67ADC /* Language.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -247,6 +278,7 @@
 			children = (
 				794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */,
 				794380281FE0A31800F6594D /* IconLabelButtonView.swift */,
+				792F96621FE3310100A67ADC /* BannerItemCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,6 +286,12 @@
 		79FDBA601FE093AC00E72807 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */,
+				792F96541FE2EB6D00A67ADC /* ApiManager.swift */,
+				792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */,
+				792F965C1FE302F200A67ADC /* LanguageControl.swift */,
+				792F96601FE320D200A67ADC /* UrlHelper.swift */,
+				792F96641FE33FB500A67ADC /* ImageHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,6 +473,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-diyordernative/Pods-diyordernative-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/OAuthSwiftAlamofire/OAuthSwiftAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
@@ -444,6 +483,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwiftAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
@@ -484,10 +524,18 @@
 				792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */,
 				7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */,
 				79ADC8411FE1B2A10022B513 /* AccountViewController.swift in Sources */,
+				792F965D1FE302F200A67ADC /* LanguageControl.swift in Sources */,
+				792F965B1FE3022C00A67ADC /* BannerItemLoader.swift in Sources */,
 				79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */,
+				792F96571FE3015A00A67ADC /* OauthKeyPair.swift in Sources */,
+				792F96551FE2EB6D00A67ADC /* ApiManager.swift in Sources */,
+				792F96631FE3310100A67ADC /* BannerItemCell.swift in Sources */,
+				792F96651FE33FB500A67ADC /* ImageHelper.swift in Sources */,
 				7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */,
 				792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */,
+				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
+				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
 				79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */,
 				79FDBA6C1FE098B700E72807 /* BaseTableViewController.swift in Sources */,
@@ -496,9 +544,11 @@
 				79BC08DB1FE090C100D53620 /* diyordernative.xcdatamodeld in Sources */,
 				79FDBA681FE0981E00E72807 /* BaseViewController.swift in Sources */,
 				79FDBA6F1FE098DE00E72807 /* BaseCollectionViewController.swift in Sources */,
+				792F965F1FE303E700A67ADC /* Language.swift in Sources */,
 				795313091FE1F8AC00B940F8 /* BaseApiResponse.swift in Sources */,
 				7943802D1FE0B36100F6594D /* RootTabBarController.swift in Sources */,
 				79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */,
+				792F96591FE3019E00A67ADC /* Enums.swift in Sources */,
 				792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

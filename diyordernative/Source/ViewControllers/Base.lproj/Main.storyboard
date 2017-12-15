@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,19 +46,63 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6TC-pj-n3z">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="375" height="169"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KRW-13-Drn">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BannerItemCell" id="KRW-13-Drn" customClass="BannerItemCell" customModule="diyordernative" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sBn-nY-j1a">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzL-Hq-3fx">
+                                                    <rect key="frame" x="8" y="8" width="359" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQc-6D-miJ">
+                                                    <rect key="frame" x="331.5" y="144" width="35.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cda-tj-2nH">
+                                                    <rect key="frame" x="8" y="142.5" width="100" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="3ak-SR-Jtc"/>
+                                                        <constraint firstAttribute="width" secondItem="cda-tj-2nH" secondAttribute="height" multiplier="5" id="QuZ-4i-9QS"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="kzL-Hq-3fx" secondAttribute="trailing" constant="8" id="09e-I5-XUK"/>
+                                            <constraint firstItem="sBn-nY-j1a" firstAttribute="top" secondItem="KRW-13-Drn" secondAttribute="top" id="BUT-pF-JdG"/>
+                                            <constraint firstAttribute="trailing" secondItem="sBn-nY-j1a" secondAttribute="trailing" id="Cb5-SG-2Mr"/>
+                                            <constraint firstAttribute="bottom" secondItem="sBn-nY-j1a" secondAttribute="bottom" id="CwA-wx-VY2"/>
+                                            <constraint firstAttribute="bottom" secondItem="FQc-6D-miJ" secondAttribute="bottom" constant="8" id="Om1-U1-UlF"/>
+                                            <constraint firstItem="kzL-Hq-3fx" firstAttribute="top" secondItem="KRW-13-Drn" secondAttribute="top" constant="8" id="Txk-a8-D4N"/>
+                                            <constraint firstAttribute="trailing" secondItem="FQc-6D-miJ" secondAttribute="trailing" constant="8" id="Udz-yN-Ylv"/>
+                                            <constraint firstItem="FQc-6D-miJ" firstAttribute="centerY" secondItem="cda-tj-2nH" secondAttribute="centerY" id="YLZ-6s-cSq"/>
+                                            <constraint firstItem="FQc-6D-miJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KRW-13-Drn" secondAttribute="leading" symbolic="YES" id="Ztu-hb-mLh"/>
+                                            <constraint firstItem="sBn-nY-j1a" firstAttribute="leading" secondItem="KRW-13-Drn" secondAttribute="leading" id="bbb-my-IEn"/>
+                                            <constraint firstItem="cda-tj-2nH" firstAttribute="leading" secondItem="KRW-13-Drn" secondAttribute="leading" constant="8" id="kCn-Yx-rCP"/>
+                                            <constraint firstItem="kzL-Hq-3fx" firstAttribute="leading" secondItem="KRW-13-Drn" secondAttribute="leading" constant="8" id="rnL-xj-v71"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cityLabel" destination="FQc-6D-miJ" id="HyU-eA-5RV"/>
+                                            <outlet property="itemImageView" destination="sBn-nY-j1a" id="bAg-sA-4Ce"/>
+                                            <outlet property="ratingImageView" destination="cda-tj-2nH" id="BrO-pI-frV"/>
+                                            <outlet property="titleLabel" destination="kzL-Hq-3fx" id="Aa0-57-YYi"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
