@@ -15,7 +15,12 @@ class RootNavigationController: UINavigationController {
 
         // Do any additional setup after loading the view.
         
-        navigationBar.isHidden = true
+        navigationBar.isHidden = false
+        navigationBar.isTranslucent = false
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.barTintColor = UIConstants.appThemeColor
     }
 
     override func didReceiveMemoryWarning() {

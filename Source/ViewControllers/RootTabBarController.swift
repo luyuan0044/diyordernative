@@ -10,24 +10,12 @@ import UIKit
 
 class RootTabBarController: UITabBarController {
 
-    let tabBarTitleIcon: Array<(String, UIImage)> = [
-        (HomeViewController.title, HomeViewController.icon),
-        (HotItemViewController.title, HotItemViewController.icon),
-        (OrderViewController.title, OrderViewController.icon),
-        (AccountViewController.title, AccountViewController.icon),
-    ]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         tabBar.tintColor = UIConstants.appThemeColor
-        for index in 0..<tabBar.items!.count {
-            let tabBarItem = tabBar.items![index]
-            tabBarItem.title = tabBarTitleIcon[index].0
-            tabBarItem.image = tabBarTitleIcon[index].1
-        }
     }
 
     override func didReceiveMemoryWarning() {
