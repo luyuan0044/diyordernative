@@ -16,6 +16,8 @@ struct SysConstants
     
     static let REST_PATH_BANNER_ITEM    = BASE_URL + "/api/v6/hlst"
     
+    static let REST_PATH_STORE_CATEGORY = BASE_URL + "/api/v6/hs"
+    
     static let REST_PATH_HOT_ITEM       = BASE_URL + "/api/v6/hsearch"
     
     // MARK: - Language

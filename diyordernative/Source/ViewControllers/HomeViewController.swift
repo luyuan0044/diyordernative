@@ -20,11 +20,21 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     var bannerItems: [BannerItem] = []
     
+    var storeCategoryItems: [StoreCategory] = []
+    
     @IBOutlet weak var topCollectionView: UICollectionView!
+    
+    @IBOutlet weak var topCollectionViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var bottomCollectionView: UICollectionView!
     
+    @IBOutlet weak var rightBarButtonItem: UIBarButtonItem!
+    
     let bannerItemPadding: CGFloat = 5
+    
+    let numberOfStoreCategoryItemsPerLine: CGFloat = 5
+    
+    let heightOfSingleLineOfStoreCategoryItems: CGFloat = 64
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +46,12 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
         bottomCollectionView.showsVerticalScrollIndicator = false
+        
+        topCollectionView.delegate = self
+        topCollectionView.dataSource = self
+        
+        rightBarButtonItem.target = self
+        rightBarButtonItem.action = #selector(onRightButtonItemTapped(_:))
         
         fetch()
     }
@@ -52,10 +68,12 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
      */
     func fetch ()
     {
+        bannerItems = []
+        storeCategoryItems = []
+        
         let taskGroup = DispatchGroup ()
         DispatchQueue.global(qos: .userInitiated).async {
             taskGroup.enter()
-            
             BannerItemLoader.startRequestBannerItem(completion: {
                 _status, items in
                 
@@ -70,6 +88,23 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 
                 taskGroup.leave()
             })
+            
+            taskGroup.enter()
+            StoreCategoryLoader.startRequestStoreCategory (completion: {
+                _status, items in
+                
+                if _status == .success {
+                    self.storeCategoryItems.append(contentsOf: items!)
+                }
+                
+                DispatchQueue.main.async {
+                    self.refreshStoreCategoryCollectionView()
+                    
+                    self.topCollectionViewHeightConstraint.constant = self.topCollectionView.contentSize.height
+                }
+                
+                taskGroup.leave()
+            })
         }
     }
     
@@ -79,6 +114,23 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     func refreshBannerItemCollectionView () {
         bottomCollectionView.reloadData()
         bottomCollectionView.layoutIfNeeded()
+    }
+    
+    /**
+     Refresh store category item collection view
+     */
+    func refreshStoreCategoryCollectionView () {
+        topCollectionView.reloadData()
+        topCollectionView.layoutIfNeeded()
+    }
+    
+    /**
+     Right button item tap event handler
+     */
+    @objc private func onRightButtonItemTapped (_ sender: AnyObject?) {
+        let languages = LanguageControl.shared.getAvaliableAppLanguages();
+        LanguageControl.shared.setAppLanguage(languages[1])
+        fetch()
     }
     
     /**
@@ -108,14 +160,28 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bannerItems.count
+        if collectionView == bottomCollectionView {
+            return bannerItems.count
+        }
+        else {
+            return storeCategoryItems.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerItemCell.key, for: indexPath) as! BannerItemCell
+        let cell: UICollectionViewCell!
         
-        let bannerItem = bannerItems[indexPath.row]
-        cell.update(item: bannerItem)
+        if collectionView == bottomCollectionView {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerItemCell.key, for: indexPath)
+            
+            let bannerItem = bannerItems[indexPath.row]
+            (cell as! BannerItemCell).update(item: bannerItem)
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreCategoryCell.key, for: indexPath)
+            
+            let storeCategoryItem = storeCategoryItems[indexPath.row]
+            (cell as! StoreCategoryCell).update(storeCategory: storeCategoryItem)
+        }
         
         return cell
     }
@@ -124,28 +190,47 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let bannerItem = bannerItems[indexPath.row]
-        let itemHeight = collectionView.frame.width * 0.4
-        let displayWidth = bannerItem.getBannerDisplayWidth()
-        var numberOfItemPerLine = 2
-        if displayWidth == bannerDisplayWidth.full {
-            numberOfItemPerLine = 1
+        if collectionView == bottomCollectionView {
+            let bannerItem = bannerItems[indexPath.row]
+            let itemHeight = collectionView.frame.width * 0.4
+            let displayWidth = bannerItem.getBannerDisplayWidth()
+            var numberOfItemPerLine = 2
+            if displayWidth == bannerDisplayWidth.full {
+                numberOfItemPerLine = 1
+            }
+            let itemWidth = (collectionView.frame.width - CGFloat(numberOfItemPerLine + 1) * bannerItemPadding) / CGFloat(numberOfItemPerLine)
+            
+            return CGSize (width: itemWidth, height: itemHeight)
+        } else {
+            let itemWidth = collectionView.frame.width / numberOfStoreCategoryItemsPerLine
+            let itemHeight = heightOfSingleLineOfStoreCategoryItems
+            
+            return CGSize (width: itemWidth, height: itemHeight)
         }
-        let itemWidth = (collectionView.frame.width - CGFloat(numberOfItemPerLine + 1) * bannerItemPadding) / CGFloat(numberOfItemPerLine)
-        
-        return CGSize (width: itemWidth, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets (top: bannerItemPadding, left: bannerItemPadding, bottom: bannerItemPadding, right: bannerItemPadding)
+        if collectionView == bottomCollectionView {
+            return UIEdgeInsets (top: bannerItemPadding, left: bannerItemPadding, bottom: bannerItemPadding, right: bannerItemPadding)
+        } else {
+            return UIEdgeInsets (top: 0, left: 0, bottom: bannerItemPadding, right: 0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return bannerItemPadding
+        if collectionView == bottomCollectionView {
+            return bannerItemPadding
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return bannerItemPadding
+        if collectionView == bottomCollectionView {
+            return bannerItemPadding
+        } else {
+            return 0
+        }
     }
 }
 

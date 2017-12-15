@@ -11,6 +11,8 @@ import SDWebImage
 
 class BannerItemCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     static let key = "BannerItemCell"
     
     static let nib = UINib (nibName: key, bundle: nil)

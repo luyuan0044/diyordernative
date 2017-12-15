@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class IconLabelButtonView: UIView {
     
@@ -15,6 +16,10 @@ class IconLabelButtonView: UIView {
     static let nib = UINib (nibName: key, bundle: nil)
 
     @IBOutlet var contentView: UIView!
+    
+    @IBOutlet weak var iconImageView: UIImageView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +37,31 @@ class IconLabelButtonView: UIView {
     {
         Bundle.main.loadNibNamed(IconLabelButtonView.key, owner: self, options: nil)
         addSubview(contentView)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.clipsToBounds = true
+        
+        titleLabel.textColor = UIColor.darkGray
+        
         contentView.bounds = self.bounds
-        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[childView]|",
+                                                      options: [],
+                                                      metrics: nil,
+                                                      views: ["childView": contentView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[childView]|",
+                                                      options: [],
+                                                      metrics: nil,
+                                                      views: ["childView": contentView]))
+    }
+    
+    func update (storeCategory: StoreCategory) {
+        iconImageView.sd_setImage(with: URL(string: storeCategory.imageUrl!)!)
+        
+        titleLabel.text = storeCategory.name
     }
 }
