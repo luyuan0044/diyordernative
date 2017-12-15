@@ -1,21 +1,25 @@
 //
-//  RootNavigationController.swift
-//  diyordernative
+//  OrderViewController.swift
+//  
 //
-//  Created by Richard Lu on 2017-12-12.
-//  Copyright © 2017 goopter. All rights reserved.
+//  Created by Richard Lu on 2017-12-13.
 //
 
 import UIKit
 
-class RootNavigationController: UINavigationController {
+class OrderViewController: BaseViewController {
 
+    static let title = "Order"
+    
+    static let icon = #imageLiteral(resourceName: "icon_order")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        navigationBar.isHidden = true
+        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
+        tabBarItem = UITabBarItem (title: OrderViewController.title, image: OrderViewController.icon, tag: 2)
     }
 
     override func didReceiveMemoryWarning() {

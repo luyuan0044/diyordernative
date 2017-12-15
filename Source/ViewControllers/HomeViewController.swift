@@ -8,15 +8,24 @@
 
 import UIKit
 import Foundation
+import Alamofire
 
 class HomeViewController: BaseViewController {
-
+    
+    static let title = "Home"
+    
+    static let icon = #imageLiteral(resourceName: "icon_home")
+    
+    @IBOutlet weak var topCollectionView: UICollectionView!
+    
+    @IBOutlet weak var bottomCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        navigationController?.navigationBar.isHidden = true
-        tabBarItem = UITabBarItem (title: "Home", image: #imageLiteral(resourceName: "icon_home"), tag: 0)
+        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
+        tabBarItem = UITabBarItem (title: HomeViewController.title, image: HomeViewController.icon, tag: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,7 +36,7 @@ class HomeViewController: BaseViewController {
     // fetch data for view controller from server
     func fetch ()
     {
-        var taskGroup = DispatchGroup ()
+        let taskGroup = DispatchGroup ()
         DispatchQueue.global(qos: .userInitiated).async {
             taskGroup.enter()
         }
