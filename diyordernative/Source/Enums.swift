@@ -37,3 +37,8 @@ enum apiStatus: Int {
     
     case itemOutOfStock             = 1000
 }
+
+enum colletionViewDisplayStyle {
+    case grid
+    case list
+}

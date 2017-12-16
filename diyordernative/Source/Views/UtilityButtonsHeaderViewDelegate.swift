@@ -1,0 +1,16 @@
+//
+//  UtilityButtonsHeaderViewDelegate.swift
+//  diyordernative
+//
+//  Created by Richard Lu on 2017-12-15.
+//  Copyright © 2017 goopter. All rights reserved.
+//
+
+import Foundation
+
+protocol UtilityButtonsHeaderViewDelegate {
+    func onFirstButtonTapped ()
+    func onSecondButtonTapped ()
+    func onSquareButtonTapped ()
+    func onRightButtonTapped ()
+}

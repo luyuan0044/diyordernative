@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import ObjectMapper
 
-class HotItem {
+class HotItem: Mappable {
     var storeCategory: Int?
     var groupId: String?
     var productId: Int?
@@ -26,4 +27,12 @@ class HotItem {
     var storeName: String?
     var latitude: String?
     var longtitude: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+    }
 }
