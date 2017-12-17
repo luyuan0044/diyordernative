@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907CEDD1FE6424800A617E1 /* Utils.swift */; };
 		792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127201FE1EC11006C5F42 /* BannerItem.swift */; };
 		792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127221FE1F0E2006C5F42 /* HotItem.swift */; };
 		792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127241FE1F742006C5F42 /* HotItemManager.swift */; };
@@ -82,6 +83,7 @@
 		0DAB040D9B6640E8D3B5AA89 /* Pods_diyordernativeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_diyordernativeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB6AB920D4613ACC19D9DFB /* Pods-diyordernative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-diyordernative.release.xcconfig"; path = "Pods/Target Support Files/Pods-diyordernative/Pods-diyordernative.release.xcconfig"; sourceTree = "<group>"; };
 		7630F4725898C0F1445ED6AC /* Pods_diyordernative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_diyordernative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7907CEDD1FE6424800A617E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		792127201FE1EC11006C5F42 /* BannerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItem.swift; sourceTree = "<group>"; };
 		792127221FE1F0E2006C5F42 /* HotItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItem.swift; sourceTree = "<group>"; };
 		792127241FE1F742006C5F42 /* HotItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemManager.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				792F965C1FE302F200A67ADC /* LanguageControl.swift */,
 				792F96601FE320D200A67ADC /* UrlHelper.swift */,
 				792F96641FE33FB500A67ADC /* ImageHelper.swift */,
+				7907CEDD1FE6424800A617E1 /* Utils.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */,
 				792EC60E1FE488CE00B4C563 /* UtilityButtonsHeaderViewDelegate.swift in Sources */,
 				792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */,
+				7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */,
 				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				792EC6151FE4ACA000B4C563 /* CollectionLoadingFooterView.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,

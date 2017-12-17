@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bm-pF-SaM">
-                    <rect key="frame" x="240" y="0.0" width="80" height="50"/>
+                    <rect key="frame" x="240" y="0.0" width="80" height="49"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="P7n-GC-cPg"/>
                     </constraints>
@@ -27,40 +27,50 @@
                     <rect key="frame" x="239.5" y="0.0" width="0.5" height="50"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="0.5" id="02A-bi-cFx"/>
+                        <constraint firstAttribute="width" constant="1" id="02A-bi-cFx"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0Y-jN-1Y5">
-                    <rect key="frame" x="189.5" y="0.0" width="50" height="50"/>
+                    <rect key="frame" x="190.5" y="0.0" width="49" height="49"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="F0Y-jN-1Y5" secondAttribute="height" id="X5V-Dw-9ou"/>
                     </constraints>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGQ-Ct-NeE">
-                    <rect key="frame" x="0.0" y="0.0" width="95" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="49"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsH-s7-f74">
-                    <rect key="frame" x="95" y="0.0" width="94.5" height="50"/>
+                    <rect key="frame" x="95.5" y="0.0" width="95" height="49"/>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHA-ok-ROo">
+                    <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="eFq-vN-ceN"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="qGQ-Ct-NeE" secondAttribute="bottom" id="2Jb-SB-Tni"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="qGQ-Ct-NeE" secondAttribute="bottom" constant="1" id="2Jb-SB-Tni"/>
                 <constraint firstItem="1bm-pF-SaM" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="5O1-zC-YKW"/>
                 <constraint firstItem="Q1t-tm-ZMc" firstAttribute="bottom" secondItem="VXr-Tz-HHm" secondAttribute="bottom" id="AN4-kM-pqH"/>
+                <constraint firstItem="HHA-ok-ROo" firstAttribute="trailing" secondItem="VXr-Tz-HHm" secondAttribute="trailing" id="SLR-sD-cfi"/>
                 <constraint firstItem="nsH-s7-f74" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="XYc-Z7-mje"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="nsH-s7-f74" secondAttribute="bottom" id="bIr-DF-E7E"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="nsH-s7-f74" secondAttribute="bottom" constant="1" id="bIr-DF-E7E"/>
+                <constraint firstAttribute="bottom" secondItem="HHA-ok-ROo" secondAttribute="bottom" id="dYz-3Z-nCe"/>
                 <constraint firstItem="nsH-s7-f74" firstAttribute="leading" secondItem="qGQ-Ct-NeE" secondAttribute="trailing" id="fQ9-cX-QEm"/>
                 <constraint firstItem="1bm-pF-SaM" firstAttribute="trailing" secondItem="VXr-Tz-HHm" secondAttribute="trailing" id="fqP-Bm-AgR"/>
                 <constraint firstItem="Q1t-tm-ZMc" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="h1o-Pl-MLE"/>
                 <constraint firstItem="nsH-s7-f74" firstAttribute="width" secondItem="qGQ-Ct-NeE" secondAttribute="width" id="jbu-jf-Lk6"/>
                 <constraint firstItem="1bm-pF-SaM" firstAttribute="leading" secondItem="Q1t-tm-ZMc" secondAttribute="trailing" id="k1P-Ie-wFI"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="F0Y-jN-1Y5" secondAttribute="bottom" id="nSA-50-Zu0"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="F0Y-jN-1Y5" secondAttribute="bottom" constant="1" id="nSA-50-Zu0"/>
                 <constraint firstItem="Q1t-tm-ZMc" firstAttribute="leading" secondItem="F0Y-jN-1Y5" secondAttribute="trailing" id="nV8-VL-pgJ"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="1bm-pF-SaM" secondAttribute="bottom" id="nfO-fh-CXT"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="1bm-pF-SaM" secondAttribute="bottom" constant="1" id="nfO-fh-CXT"/>
                 <constraint firstItem="F0Y-jN-1Y5" firstAttribute="leading" secondItem="nsH-s7-f74" secondAttribute="trailing" id="oTn-Gv-gAH"/>
                 <constraint firstItem="qGQ-Ct-NeE" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="ojF-dM-Syr"/>
                 <constraint firstItem="qGQ-Ct-NeE" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="p9r-Ka-9w5"/>
+                <constraint firstItem="HHA-ok-ROo" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="pG9-gD-FxO"/>
                 <constraint firstItem="F0Y-jN-1Y5" firstAttribute="top" secondItem="VXr-Tz-HHm" secondAttribute="top" id="tgu-g9-aJ3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>

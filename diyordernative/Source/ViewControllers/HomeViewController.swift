@@ -129,7 +129,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
      */
     @objc private func onRightButtonItemTapped (_ sender: AnyObject?) {
         let languages = LanguageControl.shared.getAvaliableAppLanguages();
-        LanguageControl.shared.setAppLanguage(languages[1])
+        LanguageControl.shared.setAppLanguage(languages[0])
         fetch()
     }
     

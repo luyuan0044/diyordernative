@@ -24,6 +24,8 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     var colletionViewDisplayStyle: colletionViewDisplayStyle = .grid
     
+    var colletionViewDisplayStyleIcon: UIImage { get { return colletionViewDisplayStyle == .grid ? #imageLiteral(resourceName: "icon_grid") : #imageLiteral(resourceName: "icon_list") } }
+    
     let hotItemPadding: CGFloat = 5
     
     var numberOfItemPerLine: CGFloat { get { return colletionViewDisplayStyle == .grid ? 2 : 1 } }
@@ -45,6 +47,9 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         
         hotItemCollectionView.dataSource = self
         hotItemCollectionView.delegate = self
+        // sticky header setup
+        let layout = hotItemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.sectionHeadersPinToVisibleBounds = true
         
         fetch()
     }
@@ -57,6 +62,29 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     // MARK: - Implementation
     
     func fetch () {
+        //TODO: show loading box here
+        
+        let taskGroup = DispatchGroup ()
+        taskGroup.enter()
+        loadHotItemTask (completion: {
+            taskGroup.leave()
+        })
+        
+        taskGroup.enter()
+        loadHotItemCategoryTask (completion: {
+            taskGroup.leave()
+        })
+        
+        taskGroup.notify(queue: DispatchQueue.main, execute: {
+            //TODO: hide loading box
+        })
+    }
+    
+    func loadMore () {
+        loadHotItemTask (completion: nil)
+    }
+    
+    private func loadHotItemCategoryTask (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             HotItemLoader.startRequestHotItemCategory(completion: {
                 _status, items in
@@ -68,6 +96,26 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 DispatchQueue.main.async {
                     self.refreshHotItemCollectionView()
                 }
+                
+                completion?()
+            })
+        }
+    }
+    
+    private func loadHotItemTask (completion: (() -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            HotItemLoader.startRequestHotItems(urlparams: [:], completion: {
+                _status, items in
+                
+                if _status == .success {
+                    self.hotItems = items
+                }
+                
+                DispatchQueue.main.async {
+                    self.refreshHotItemSection()
+                }
+                
+                completion?()
             })
         }
     }
@@ -77,11 +125,26 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         hotItemCollectionView.layoutIfNeeded()
     }
     
+    func refreshHotItemSection () {
+        hotItemCollectionView.reloadSections(IndexSet (integer: 1))
+        hotItemCollectionView.layoutIfNeeded()
+    }
+    
+    func switchCollectionViewDisplayStyle () {
+        colletionViewDisplayStyle = colletionViewDisplayStyle == .grid ? .list : .grid
+        refreshHotItemCollectionView()
+    }
+    
     // MARKL - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
+        if hotItems != nil {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
+            
+            let hotItem = hotItems![indexPath.row]
+            cell.update(hotItem: hotItem)
+            
+            return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
             
@@ -90,7 +153,15 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hotItems == nil ? 1 : hotItems!.count
+        if section == 0 {
+            return 0
+        } else {
+            return hotItems == nil ? 1 : hotItems!.count
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -104,7 +175,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
             } else {
                 let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UtilityButtonsHeaderView.key, for: indexPath) as! UtilityButtonsHeaderView
                 view.delegate = self
-                view.setup()
+                view.setup(firstButtonTitle: "Relevance", secondButtonTitle: "Volume", squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "Filter")
                 
                 return view
             }
@@ -118,18 +189,14 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0 {
-            return CGSize (width: collectionView.frame.width, height: 0.1)
-        } else {
-            let interItemSpace = (numberOfItemPerLine - 1) * hotItemPadding
-            let itemWidth: CGFloat = (collectionView.frame.width - interItemSpace) / numberOfItemPerLine
-            let itemHeight: CGFloat = itemWidth * 1.5
-            return CGSize (width: itemWidth, height: itemHeight)
-        }
+        let interItemSpace = (numberOfItemPerLine - 1) * hotItemPadding
+        let itemWidth: CGFloat = (collectionView.frame.width - interItemSpace) / numberOfItemPerLine
+        let itemHeight: CGFloat = itemWidth * 1.5
+        return CGSize (width: itemWidth, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return hotItemPadding
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -150,7 +217,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize (width: collectionView.frame.width, height: 0.1)
+            return CGSize (width: collectionView.frame.width, height: 0)
         } else {
             return CGSize (width: collectionView.frame.width, height: heightOfHeader)
         }
@@ -167,7 +234,10 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     }
     
     func onSquareButtonTapped() {
-        
+        switchCollectionViewDisplayStyle()
+        if let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: 1)) {
+            (header as! UtilityButtonsHeaderView).updateSquareButtonIcon(iconImage: colletionViewDisplayStyleIcon)
+        }
     }
     
     func onRightButtonTapped() {

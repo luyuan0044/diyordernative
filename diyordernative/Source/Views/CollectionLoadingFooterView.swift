@@ -29,9 +29,10 @@ class CollectionLoadingFooterView: UICollectionReusableView {
         if hasMoreData {
             loadingActivityIndicator.startAnimating()
             loadingActivityIndicator.isHidden = false
-        } else {
             titleLabel.text = "loading more data"
+        } else {
             loadingActivityIndicator.isHidden = true
+            titleLabel.text = "no more data"
         }
     }
 }

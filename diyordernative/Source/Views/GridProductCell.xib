@@ -70,6 +70,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZK-mF-SaC">
+                        <rect key="frame" x="5" y="8" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,6 +87,7 @@
                 <constraint firstItem="C3W-fq-byI" firstAttribute="leading" secondItem="fJh-Hj-9vh" secondAttribute="leading" id="IYb-EI-cbp"/>
                 <constraint firstAttribute="trailing" secondItem="vLG-mx-74O" secondAttribute="trailing" constant="5" id="Ix9-sr-neM"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gzz-q0-Mcl" secondAttribute="bottom" constant="5" id="KdU-vl-lip"/>
+                <constraint firstItem="lZK-mF-SaC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="No8-OE-xg4"/>
                 <constraint firstItem="C3W-fq-byI" firstAttribute="top" secondItem="WzV-5W-06M" secondAttribute="bottom" constant="5" id="WJq-lj-q8R"/>
                 <constraint firstItem="wRw-3Z-WZl" firstAttribute="leading" secondItem="WzV-5W-06M" secondAttribute="trailing" constant="5" id="YW1-Xd-wna"/>
                 <constraint firstItem="fJh-Hj-9vh" firstAttribute="top" secondItem="3VO-7p-Al9" secondAttribute="bottom" constant="5" id="amX-wc-bgD"/>
@@ -89,6 +96,7 @@
                 <constraint firstItem="fJh-Hj-9vh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="j5U-yg-Skx"/>
                 <constraint firstItem="wRw-3Z-WZl" firstAttribute="centerY" secondItem="WzV-5W-06M" secondAttribute="centerY" id="k2a-cd-fss"/>
                 <constraint firstAttribute="trailing" secondItem="fJh-Hj-9vh" secondAttribute="trailing" constant="5" id="oUy-yv-3Kg"/>
+                <constraint firstItem="lZK-mF-SaC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="q3J-Wd-sja"/>
                 <constraint firstItem="gzz-q0-Mcl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="r4h-zC-sbS"/>
                 <constraint firstAttribute="trailing" secondItem="3VO-7p-Al9" secondAttribute="trailing" id="rC6-rt-f6u"/>
                 <constraint firstItem="3VO-7p-Al9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rZu-Pp-TAU"/>
@@ -100,6 +108,7 @@
             <size key="customSize" width="170" height="262"/>
             <connections>
                 <outlet property="currentPriceLabel" destination="C3W-fq-byI" id="dgC-hV-hEe"/>
+                <outlet property="discountPercentageLabel" destination="lZK-mF-SaC" id="Eah-5F-Hjc"/>
                 <outlet property="nameLabel" destination="fJh-Hj-9vh" id="CXl-cp-VSu"/>
                 <outlet property="priceLabel" destination="r6G-gu-via" id="rHc-AF-F2d"/>
                 <outlet property="productImageView" destination="3VO-7p-Al9" id="jVf-ho-j0W"/>

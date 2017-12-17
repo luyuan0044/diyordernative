@@ -22,20 +22,43 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var rightButton: UIButton!
     
+    let font = UIFont.systemFont(ofSize: 14)
+    
     var delegate: UtilityButtonsHeaderViewDelegate? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        firstButton.setTitleColor(UIColor.gray, for: .normal)
+        firstButton.titleLabel?.font = font
+        firstButton.addTarget(self, action: #selector(onFirstButtonTapped(_:)), for: .touchUpInside)
         
+        secondButton.setTitleColor(UIColor.gray, for: .normal)
+        secondButton.titleLabel?.font = font
+        secondButton.addTarget(self, action: #selector(onSecondButtonTapped(_:)), for: .touchUpInside)
+        
+        squareButton.tintColor = UIColor.gray
+        squareButton.imageEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
+        squareButton.addTarget(self, action: #selector(onSquareButtonTapped(_:)), for: .touchUpInside)
+        
+        rightButton.setTitleColor(UIColor.gray, for: .normal)
+        rightButton.titleLabel?.font = font
+        rightButton.addTarget(self, action: #selector(onRightButtonTapped(_:)), for: .touchUpInside)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
     }
     
-    func setup () {
+    func setup (firstButtonTitle: String, secondButtonTitle: String, squareIcon: UIImage, rightButtonTitle: String) {
         
+        firstButton.setTitle(firstButtonTitle, for: .normal)
+        
+        secondButton.setTitle(secondButtonTitle, for: .normal)
+        
+        squareButton.setImage(squareIcon, for: .normal)
+        
+        rightButton.setTitle(rightButtonTitle, for: .normal)
     }
     
     @objc private func onFirstButtonTapped (_ sender: AnyObject?) {
@@ -52,5 +75,9 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     @objc private func onRightButtonTapped (_ sender: AnyObject?) {
         delegate?.onRightButtonTapped()
+    }
+    
+    func updateSquareButtonIcon (iconImage: UIImage) {
+        squareButton.setImage(iconImage, for: .normal)
     }
 }

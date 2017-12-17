@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class GridProductCell: UICollectionViewCell {
 
     static let key = "GridProductCell"
     
     static let nib = UINib (nibName: key, bundle: nil)
+    
+    let defaultImage = #imageLiteral(resourceName: "image_shopping_medium")
     
     @IBOutlet weak var productImageView: UIImageView!
     
@@ -30,13 +33,75 @@ class GridProductCell: UICollectionViewCell {
     
     @IBOutlet weak var soldCountLabel: UILabel!
     
+    @IBOutlet weak var discountPercentageLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        productImageView.contentMode = .scaleAspectFit
+        productImageView.clipsToBounds = true
+        productImageView.image = defaultImage
+        
+        nameLabel.textColor = UIColor.darkGray
+        
+        storeNameLabel.textColor = UIColor.gray
+        
+        currentPriceLabel.textColor = UIConstants.appThemeColor
+        
+        priceLabel.textColor = UIColor.lightGray
+        
+        reviewCountLabel.textColor = UIColor.lightGray
+        
+        soldCountLabel.textColor = UIColor.lightGray
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+    }
+    
+    func update (hotItem: HotItem) {
+        nameLabel.text = hotItem.name
         
+        storeNameLabel.text = hotItem.storeName
+        
+        if let numberOfReviews = hotItem.reviewCount, numberOfReviews != 0 {
+            reviewCountLabel.text = "(\(numberOfReviews))"
+            reviewCountLabel.isHidden = false
+        } else {
+            reviewCountLabel.isHidden = true
+        }
+        
+        if let soldCount = hotItem.soldCount, soldCount != 0 {
+            soldCountLabel.text = "\(soldCount) sold"
+            soldCountLabel.isHidden = false
+        } else {
+            soldCountLabel.isHidden = true
+        }
+        
+        if let imageUrl = hotItem.imageUrl {
+            let urlStr = ImageHelper.getFormattedImageUrl(imageId: imageUrl, size: productImageView.frame.size)!
+            if let url = URL (string: urlStr) {
+                productImageView.sd_setImage(with: url, placeholderImage: defaultImage)
+            }
+        }
+        
+        let price = hotItem.price != nil ? "\(hotItem.price!)" : "0"
+        if hotItem.shouldInvokeSpecialPrice () {
+            discountPercentageLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            discountPercentageLabel.isHidden = false
+            discountPercentageLabel.text = " -\(Int(hotItem.getDiscountPercentage()))% "
+            priceLabel.isHidden = false
+            let priceAttributeString = NSAttributedString (string: price, attributes: [NSAttributedStringKey.strikethroughStyle : NSNumber(integerLiteral: NSUnderlineStyle.styleSingle.rawValue)])
+            priceLabel.attributedText = priceAttributeString
+            currentPriceLabel.text = "\(hotItem.specialPrice!)"
+        } else {
+            discountPercentageLabel.isHidden = true
+            priceLabel.isHidden = true
+            currentPriceLabel.text = price
+        }
+        
+        ratingImageView.image = ImageHelper.getRatingStartImage(by: hotItem.rating).withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        ratingImageView.tintColor = UIConstants.appThemeColor
     }
 }

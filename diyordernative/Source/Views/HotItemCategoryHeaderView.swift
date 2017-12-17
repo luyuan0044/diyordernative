@@ -43,6 +43,7 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
         // Initialization code
         
         hotItemCategoryScrollView.backgroundColor = UIConstants.appThemeColor
+        hotItemCategoryScrollView.showsHorizontalScrollIndicator = false
     }
     
     override func prepareForReuse() {
@@ -64,30 +65,37 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
         
         categoryButtons = []
         var offsetX: CGFloat = 0
+        let allButton = configButton (title: "All", offsetX: &offsetX)
+        hotItemCategoryScrollView.addSubview(allButton)
+        categoryButtons!.append(allButton)
         for hotItemCategory in hotItemCategories! {
-            let name = hotItemCategory.name ?? ""
-            let fontAttributes = NSAttributedStringKey.font
-            let size = (name as NSString).size(withAttributes: [fontAttributes: font])
-            let width = size.width + categoryButtonPadding
-            
-            let button = UIButton (frame: CGRect(x: offsetX, y: 0, width: width, height: hotItemCategoryScrollView.frame.height))
-            button.setTitle(name, for: .normal)
-            button.setTitleColor(normalCategoryButtonTitleColor, for: .normal)
-            button.titleLabel?.font = font
-            button.addTarget(self, action: #selector(handleOnCategoryButtonTapped(_:)), for: .touchUpInside)
-            
+            let button = configButton(title: hotItemCategory.name, offsetX: &offsetX)
             hotItemCategoryScrollView.addSubview(button)
             categoryButtons!.append(button)
-            
-            offsetX += width
         }
         hotItemCategoryScrollView.contentSize = CGSize (width: offsetX, height: hotItemCategoryScrollView.frame.height)
         
         let highlightButton = categoryButtons![currentSelectedButtonIndex]
         highlight (button: highlightButton)
         
-        tabIndicatorView = UIView(frame: CGRect(x: highlightButton.frame.midX, y: hotItemCategoryScrollView.frame.height - heightOfTabIndicatorView, width: highlightButton.frame.width, height: heightOfTabIndicatorView))
+        tabIndicatorView = UIView(frame: CGRect(x: highlightButton.frame.minX, y: hotItemCategoryScrollView.frame.height - heightOfTabIndicatorView, width: highlightButton.frame.width, height: heightOfTabIndicatorView))
+        tabIndicatorView?.backgroundColor = UIColor.white
         hotItemCategoryScrollView.addSubview(tabIndicatorView!)
+    }
+    
+    private func configButton (title: String?, offsetX: inout CGFloat) -> UIButton {
+        let name = title ?? ""
+        let fontAttributes = NSAttributedStringKey.font
+        let size = (name as NSString).size(withAttributes: [fontAttributes: font])
+        let width = size.width + categoryButtonPadding
+        
+        let button = UIButton (frame: CGRect(x: offsetX, y: 0, width: width, height: hotItemCategoryScrollView.frame.height))
+        button.setTitle(name, for: .normal)
+        button.setTitleColor(normalCategoryButtonTitleColor, for: .normal)
+        button.titleLabel?.font = font
+        button.addTarget(self, action: #selector(handleOnCategoryButtonTapped(_:)), for: .touchUpInside)
+        offsetX += width
+        return button
     }
     
     private func highlight (button: UIButton) {
@@ -102,7 +110,7 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
     
     private func moveTabIndicatorViewTo (button: UIButton) {
         UIView.animate(withDuration: 0.1, animations: {
-            self.tabIndicatorView!.frame = CGRect(x: button.frame.minX, y: 0, width: button.frame.width, height: self.hotItemCategoryScrollView.frame.height)
+            self.tabIndicatorView!.frame = CGRect(x: button.frame.minX, y: self.hotItemCategoryScrollView.frame.height - self.heightOfTabIndicatorView, width: button.frame.width, height: self.hotItemCategoryScrollView.frame.height)
         })
     }
     
@@ -112,20 +120,25 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
         }
         
         let indexOfTappedButton = categoryButtons!.index(of: sender!)!
+        if currentSelectedButtonIndex == indexOfTappedButton {
+            return
+        }
+        
         let previousSelectedButton = categoryButtons![currentSelectedButtonIndex]
         
         dehighlight (button: previousSelectedButton)
         
-        highlight(button: previousSelectedButton)
+        currentSelectedButtonIndex = indexOfTappedButton
+        
+        highlight(button: sender!)
         moveTabIndicatorViewTo(button: sender!)
         
-        adjustScollViewOffset(index: indexOfTappedButton)
-        currentSelectedButtonIndex = indexOfTappedButton
+        adjustScollViewOffset(index: currentSelectedButtonIndex)
     }
     
     private func adjustScollViewOffset (index: Int) {
         let button = categoryButtons![index]
-        let buttonX = button.frame.midX
+        let buttonX = button.frame.minX
         
         var scrollPosition: CGFloat = 0
         if (index != 0 && index != categoryButtons!.count - 1) {
