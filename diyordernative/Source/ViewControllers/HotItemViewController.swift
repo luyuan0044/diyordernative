@@ -8,7 +8,9 @@
 
 import UIKit
 
-class HotItemViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UtilityButtonsHeaderViewDelegate {
+class HotItemViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UtilityButtonsHeaderViewDelegate, RightSlideFilterViewControllerDelegate {
+    
+    
 
     // MARK: - Properties
     
@@ -31,6 +33,10 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     var numberOfItemPerLine: CGFloat { get { return colletionViewDisplayStyle == .grid ? 2 : 1 } }
     
     let heightOfHeader: CGFloat = 40
+    
+    var rightSlideFilterViewController: RightSlideFilterViewController? = nil
+    
+    var isRightSlideFilterViewControllerPresented = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +139,29 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     func switchCollectionViewDisplayStyle () {
         colletionViewDisplayStyle = colletionViewDisplayStyle == .grid ? .list : .grid
         refreshHotItemCollectionView()
+    }
+    
+    func showRightSlideFilterViewController () {
+        if rightSlideFilterViewController == nil {
+            rightSlideFilterViewController = RightSlideFilterViewController()
+            rightSlideFilterViewController?.delegate = self
+            rightSlideFilterViewController?.modalPresentationStyle = .overFullScreen
+            rightSlideFilterViewController?.modalTransitionStyle = .crossDissolve
+        }
+        
+        present(rightSlideFilterViewController!, animated: true, completion: {
+            self.isRightSlideFilterViewControllerPresented = true;
+        })
+    }
+    
+    func hideRightSlideFilterViewContrller () {
+        guard isRightSlideFilterViewControllerPresented || rightSlideFilterViewController != nil else {
+            return
+        }
+        
+        rightSlideFilterViewController?.dismiss(animated: true, completion: {
+            self.isRightSlideFilterViewControllerPresented = false
+        })
     }
     
     // MARKL - UICollectionViewDataSource
@@ -241,7 +270,21 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     }
     
     func onRightButtonTapped() {
-        
+        showRightSlideFilterViewController()
+    }
+    
+    // MARK: - RightSlideFilterViewControllerDelegate
+    
+    func onHideButtonTapped() {
+        hideRightSlideFilterViewContrller()
+    }
+    
+    func onResetButtonTapped() {
+        hideRightSlideFilterViewContrller()
+    }
+    
+    func onConfirmButtonTapped() {
+        hideRightSlideFilterViewContrller()
     }
 
     /*

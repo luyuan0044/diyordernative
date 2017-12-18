@@ -27,7 +27,7 @@ class RightSlideFilterViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        modalPresentationStyle = .overFullScreen
+        view.backgroundColor = UIColor.clear
         
         rightBackgroundView.backgroundColor = UIColor.white
         
@@ -51,15 +51,15 @@ class RightSlideFilterViewController: UIViewController {
     }
     
     @objc private func onConfirmButtonTapped (_ sender: AnyObject?) {
-        
+        delegate?.onConfirmButtonTapped()
     }
     
     @objc private func onResetButtonTapped (_ sender: AnyObject?) {
-        
+        delegate?.onResetButtonTapped()
     }
     
     @objc private func onHideButtonTapped (_ sender: AnyObject?) {
-        
+        delegate?.onHideButtonTapped()
     }
     
 

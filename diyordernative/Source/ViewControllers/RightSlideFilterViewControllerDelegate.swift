@@ -11,5 +11,5 @@ import Foundation
 protocol RightSlideFilterViewControllerDelegate {
     func onHideButtonTapped ()
     func onResetButtonTapped ()
-    func onConfirmBU
+    func onConfirmButtonTapped ()
 }
