@@ -1,17 +1,16 @@
 //
-//  GridProductCell.swift
+//  ListProductCell.swift
 //  diyordernative
 //
-//  Created by Richard Lu on 2017-12-15.
+//  Created by Yuan Lu on 2017-12-17.
 //  Copyright © 2017 goopter. All rights reserved.
 //
 
 import UIKit
-import SDWebImage
 
-class GridProductCell: UICollectionViewCell {
-
-    static let key = "GridProductCell"
+class ListProductCell: UICollectionViewCell {
+    
+    static let key = "ListProductCell"
     
     static let nib = UINib (nibName: key, bundle: nil)
     
@@ -34,7 +33,7 @@ class GridProductCell: UICollectionViewCell {
     @IBOutlet weak var soldCountLabel: UILabel!
     
     @IBOutlet weak var discountPercentageLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -56,10 +55,6 @@ class GridProductCell: UICollectionViewCell {
         reviewCountLabel.textColor = UIColor.lightGray
         
         soldCountLabel.textColor = UIColor.lightGray
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
     
     func update (hotItem: HotItem) {

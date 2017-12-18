@@ -50,9 +50,12 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         hotItemCollectionView.register(UtilityButtonsHeaderView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UtilityButtonsHeaderView.key)
         hotItemCollectionView.register(CollectionLoadingFooterView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: CollectionLoadingFooterView.key)
         hotItemCollectionView.register(GridProductCell.nib, forCellWithReuseIdentifier: GridProductCell.key)
+        hotItemCollectionView.register(ListProductCell.nib, forCellWithReuseIdentifier: ListProductCell.key)
         
         hotItemCollectionView.dataSource = self
         hotItemCollectionView.delegate = self
+        
+        hotItemCollectionView.backgroundColor = UIColor.groupTableViewBackground
         // sticky header setup
         let layout = hotItemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
@@ -100,8 +103,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 }
                 
                 DispatchQueue.main.async {
-                    self.refreshHotItemCollectionView()
-                }
+                    self.refreshHotItemCollectionView()                }
                 
                 completion?()
             })
@@ -168,12 +170,21 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if hotItems != nil {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
-            
             let hotItem = hotItems![indexPath.row]
-            cell.update(hotItem: hotItem)
             
-            return cell
+            if colletionViewDisplayStyle == .grid {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
+                
+                cell.update(hotItem: hotItem)
+                
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListProductCell.key, for: indexPath) as! ListProductCell
+                
+                cell.update(hotItem: hotItem)
+                
+                return cell
+            }
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridProductCell.key, for: indexPath) as! GridProductCell
             
@@ -209,7 +220,9 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 return view
             }
         } else {
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionLoadingFooterView.key, for: indexPath)
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionLoadingFooterView.key, for: indexPath) as! CollectionLoadingFooterView
+            
+            view.backgroundColor = UIColor.groupTableViewBackground
             
             return view
         }
@@ -220,7 +233,10 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let interItemSpace = (numberOfItemPerLine - 1) * hotItemPadding
         let itemWidth: CGFloat = (collectionView.frame.width - interItemSpace) / numberOfItemPerLine
-        let itemHeight: CGFloat = itemWidth * 1.5
+        var itemHeight: CGFloat = itemWidth * 1.5
+        if colletionViewDisplayStyle == .list {
+            itemHeight = 140
+        }
         return CGSize (width: itemWidth, height: itemHeight)
     }
     
@@ -229,7 +245,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return hotItemPadding / 2
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

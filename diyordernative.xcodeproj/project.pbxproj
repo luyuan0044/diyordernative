@@ -43,6 +43,8 @@
 		795313091FE1F8AC00B940F8 /* BaseApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */; };
 		7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */; };
 		7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130C1FE1F97000B940F8 /* ApiResponse.swift */; };
+		7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7961D2181FE79E9000C739C1 /* ListProductCell.swift */; };
+		7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7961D2191FE79E9000C739C1 /* ListProductCell.xib */; };
 		79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */; };
 		79ADC8411FE1B2A10022B513 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC8401FE1B2A10022B513 /* AccountViewController.swift */; };
 		79BC08D31FE090C100D53620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BC08D21FE090C100D53620 /* AppDelegate.swift */; };
@@ -122,6 +124,8 @@
 		795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiResponse.swift; sourceTree = "<group>"; };
 		7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListApiResponse.swift; sourceTree = "<group>"; };
 		7953130C1FE1F97000B940F8 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		7961D2181FE79E9000C739C1 /* ListProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductCell.swift; sourceTree = "<group>"; };
+		7961D2191FE79E9000C739C1 /* ListProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProductCell.xib; sourceTree = "<group>"; };
 		79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		79ADC8401FE1B2A10022B513 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		79BC08CF1FE090C100D53620 /* diyordernative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diyordernative.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,6 +332,8 @@
 				792EC60D1FE488CE00B4C563 /* UtilityButtonsHeaderViewDelegate.swift */,
 				792EC60F1FE4912C00B4C563 /* GridProductCell.swift */,
 				792EC6101FE4912C00B4C563 /* GridProductCell.xib */,
+				7961D2181FE79E9000C739C1 /* ListProductCell.swift */,
+				7961D2191FE79E9000C739C1 /* ListProductCell.xib */,
 				792EC6131FE4ACA000B4C563 /* CollectionLoadingFooterView.swift */,
 				792EC6141FE4ACA000B4C563 /* CollectionLoadingFooterView.xib */,
 			);
@@ -486,6 +492,7 @@
 				792EC6161FE4ACA000B4C563 /* CollectionLoadingFooterView.xib in Resources */,
 				792EC6121FE4912C00B4C563 /* GridProductCell.xib in Resources */,
 				7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */,
+				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
 				792EC6031FE45E2600B4C563 /* HotItemCategoryHeaderView.xib in Resources */,
 			);
@@ -598,6 +605,7 @@
 				7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */,
 				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				792EC6151FE4ACA000B4C563 /* CollectionLoadingFooterView.swift in Sources */,
+				7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
 				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
