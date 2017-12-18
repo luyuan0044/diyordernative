@@ -17,4 +17,6 @@ struct UIConstants
     static let appThemeColor: UIColor = UIColor(red: 204 / rgbRatio, green: 43 / rgbRatio, blue: 0 / rgbRatio, alpha: 1)
     
     static let restaurantThemeColor: UIColor = UIColor(red: 246 / rgbRatio, green: 140 / rgbRatio, blue: 25 / rgbRatio, alpha: 1)
+    
+    static let transparentBlackColor: UIColor = UIColor.white.withAlphaComponent(0.6)
 }
