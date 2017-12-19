@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         LanguageControl.shared.initAppLanguage()
         
+        LocationHelper.shared.updateLocation()
+        
         return true
     }
 
