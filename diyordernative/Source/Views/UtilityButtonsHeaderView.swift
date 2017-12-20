@@ -56,13 +56,13 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     func setup (firstButtonTitle: String, secondButtonTitle: String, squareIcon: UIImage, rightButtonTitle: String) {
         
-        firstButton.setTitle(firstButtonTitle, for: .normal)
+        firstButton.setTitle(LanguageControl.shared.getLocalizeString(by: firstButtonTitle), for: .normal)
         
-        secondButton.setTitle(secondButtonTitle, for: .normal)
+        secondButton.setTitle(LanguageControl.shared.getLocalizeString(by: secondButtonTitle), for: .normal)
         
         squareButton.setImage(squareIcon, for: .normal)
         
-        rightButton.setTitle(rightButtonTitle, for: .normal)
+        rightButton.setTitle(LanguageControl.shared.getLocalizeString(by: rightButtonTitle), for: .normal)
     }
     
     @objc private func onFirstButtonTapped (_ sender: AnyObject?) {

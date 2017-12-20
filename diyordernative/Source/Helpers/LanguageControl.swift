@@ -33,7 +33,7 @@ class LanguageControl {
         }
         
         if let language = readAppLanguage() {
-            appLanguage = language
+            setAppLanguage(language)
         }
         else {
             let systemLanguageKey = Locale.preferredLanguages[0]
@@ -119,11 +119,19 @@ class LanguageControl {
         return nil
     }
     
-    func getLocalizeString(by key: String) -> String {
-        return appBundle!.localizedString(forKey: key, value: "", table: nil)
+    func getLocalizeString(by key: String?) -> String {
+        guard key != nil else {
+            return ""
+        }
+        
+        return appBundle!.localizedString(forKey: key!, value: "", table: nil)
     }
     
-    func getLocalizeString(by key: String, with language: Language) -> String {
+    func getLocalizeString(by key: String?, with language: Language) -> String {
+        guard key != nil else {
+            return ""
+        }
+        
         let bundlePath = Bundle.main.path(forResource: language.key, ofType: "lproj")
         let bundle: Bundle?
         
@@ -136,7 +144,7 @@ class LanguageControl {
         if bundle == nil {
             return ""
         } else {
-            return bundle!.localizedString(forKey: key, value: "", table: nil)
+            return bundle!.localizedString(forKey: key!, value: "", table: nil)
         }
     }
 }

@@ -14,7 +14,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     // MARK: - Properties
     
-    static let tabTitle = "Home"
+    static let tabTitle = "home"
     
     static let icon = #imageLiteral(resourceName: "icon_home")
     
@@ -129,7 +129,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
      */
     @objc private func onRightButtonItemTapped (_ sender: AnyObject?) {
         let languages = LanguageControl.shared.getAvaliableAppLanguages();
-        LanguageControl.shared.setAppLanguage(languages[0])
+        LanguageControl.shared.setAppLanguage(languages[1])
         fetch()
     }
     

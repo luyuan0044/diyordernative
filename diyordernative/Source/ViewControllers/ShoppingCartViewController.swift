@@ -12,7 +12,7 @@ class ShoppingCartViewController: BaseViewController {
 
     // MARK: - Properties
     
-    static let tabTitle = "Cart"
+    static let tabTitle = "cart"
     
     static let icon = #imageLiteral(resourceName: "icon_cart")
     

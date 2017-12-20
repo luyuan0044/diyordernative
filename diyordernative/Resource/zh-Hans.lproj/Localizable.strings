@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  diyordernative
+
+  Created by Yuan Lu on 2017-12-19.
+  Copyright © 2017 goopter. All rights reserved.
+*/
+
+"home" = "主页";
+
+"hot" = "热销";
+
+"order" = "订单";
+
+"cart" = "购物车";
+
+"account" = "账户";
+
+"filter" = "筛选";
+
+"relevance" = "综合排序";
+
+"distance" = "距离排序";
+
+"volume" = "销量";
+
+"rating" = "评价";
+
+"price low to high" = "价格由低到高";
+
+"price high to low" = "价格由高到低";

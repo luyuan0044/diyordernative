@@ -26,7 +26,7 @@ class RootTabBarController: UITabBarController {
         tabBar.tintColor = UIConstants.appThemeColor
         for index in 0..<tabBar.items!.count {
             let tabBarItem = tabBar.items![index]
-            tabBarItem.title = tabBarTitleIcon[index].0
+            tabBarItem.title = LanguageControl.shared.getLocalizeString(by: tabBarTitleIcon[index].0)
             tabBarItem.image = tabBarTitleIcon[index].1
         }
     }

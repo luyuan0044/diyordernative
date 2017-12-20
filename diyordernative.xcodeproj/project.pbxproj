@@ -12,6 +12,7 @@
 		7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */; };
 		790DC2B91FE8F66B00A04AFA /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DC2B81FE8F66B00A04AFA /* LocationHelper.swift */; };
 		790DC2BB1FE8FC0A00A04AFA /* LocationHelperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DC2BA1FE8FC0A00A04AFA /* LocationHelperDelegate.swift */; };
+		790DC2C01FEA3A2100A04AFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 790DC2C21FEA3A2100A04AFA /* Localizable.strings */; };
 		791456531FE668A70045A62D /* RightSlideFilterViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791456521FE668A70045A62D /* RightSlideFilterViewControllerDelegate.swift */; };
 		792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127201FE1EC11006C5F42 /* BannerItem.swift */; };
 		792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127221FE1F0E2006C5F42 /* HotItem.swift */; };
@@ -100,6 +101,11 @@
 		7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RightSlideFilterViewController.xib; sourceTree = "<group>"; };
 		790DC2B81FE8F66B00A04AFA /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		790DC2BA1FE8FC0A00A04AFA /* LocationHelperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelperDelegate.swift; sourceTree = "<group>"; };
+		790DC2BC1FEA396300A04AFA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		790DC2BD1FEA396800A04AFA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		790DC2C11FEA3A2100A04AFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		790DC2C31FEA3A2700A04AFA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		790DC2C41FEA3A2800A04AFA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		791456521FE668A70045A62D /* RightSlideFilterViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightSlideFilterViewControllerDelegate.swift; sourceTree = "<group>"; };
 		792127201FE1EC11006C5F42 /* BannerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItem.swift; sourceTree = "<group>"; };
 		792127221FE1F0E2006C5F42 /* HotItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItem.swift; sourceTree = "<group>"; };
@@ -291,6 +297,7 @@
 				79C3C6FD1FE8EB8600693C72 /* Burnaby.gpx */,
 				79C3C6FE1FE8EBF800693C72 /* Vancouver.gpx */,
 				79BC08DC1FE090C100D53620 /* Assets.xcassets */,
+				790DC2C21FEA3A2100A04AFA /* Localizable.strings */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -497,6 +504,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 79BC08C61FE090C100D53620;
 			productRefGroup = 79BC08D01FE090C100D53620 /* Products */;
@@ -516,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				794380271FE0A2ED00F6594D /* IconLabelButtonView.xib in Resources */,
+				790DC2C01FEA3A2100A04AFA /* Localizable.strings in Resources */,
 				79FDBA661FE0959700E72807 /* LaunchScreen.storyboard in Resources */,
 				792EC60B1FE486CD00B4C563 /* UtilityButtonsHeaderView.xib in Resources */,
 				79BC08DD1FE090C100D53620 /* Assets.xcassets in Resources */,
@@ -702,10 +712,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		790DC2C21FEA3A2100A04AFA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				790DC2C11FEA3A2100A04AFA /* en */,
+				790DC2C31FEA3A2700A04AFA /* zh-Hans */,
+				790DC2C41FEA3A2800A04AFA /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		79BC08D61FE090C100D53620 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				79BC08D71FE090C100D53620 /* Base */,
+				790DC2BC1FEA396300A04AFA /* zh-Hans */,
+				790DC2BD1FEA396800A04AFA /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -717,6 +739,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -774,6 +797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -826,7 +850,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SSFYC2Q9U6;
+				DEVELOPMENT_TEAM = 5JYS6CF7W7;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -843,7 +867,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SSFYC2Q9U6;
+				DEVELOPMENT_TEAM = 5JYS6CF7W7;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -9,7 +9,7 @@ import UIKit
 
 class OrderViewController: BaseViewController {
 
-    static let tabTitle = "Order"
+    static let tabTitle = "order"
     
     static let icon = #imageLiteral(resourceName: "icon_order")
     

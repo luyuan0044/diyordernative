@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  diyordernative
+
+  Created by Yuan Lu on 2017-12-19.
+  Copyright © 2017 goopter. All rights reserved.
+*/
+
+"home" = "Home";
+
+"hot" = "Hot";
+
+"order" = "Order";
+
+"cart" = "Cart";
+
+"account" = "Account";
+
+"filter" = "Filter";
+
+"relevance" = "Relevance";
+
+"distance" = "Distance";
+
+"volume" = "Volume";
+
+"rating" = "Rating";
+
+"price low to high" = "Price low to high";
+
+"price high to low" = "Price high to low";

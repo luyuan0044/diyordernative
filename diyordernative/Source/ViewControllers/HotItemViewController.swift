@@ -12,7 +12,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
    
     // MARK: - Properties
     
-    static let tabTitle = "Hot"
+    static let tabTitle = "hot"
     
     static let icon = #imageLiteral(resourceName: "icon_hot")
     
@@ -364,7 +364,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 
                 if firstTitle == nil { firstTitle = hotItemListingSorts!.first!.name! }
                 
-                view.setup(firstButtonTitle: firstTitle!, secondButtonTitle: hotItemTabSort!.name!, squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "Filter")
+                view.setup(firstButtonTitle: firstTitle!, secondButtonTitle: hotItemTabSort!.name!, squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "filter")
                 
                
                 
@@ -490,7 +490,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
             cell = UITableViewCell (style: .default, reuseIdentifier: "SortPopupCell")
         }
         
-        cell!.textLabel?.text = sortItem.name
+        cell!.textLabel?.text = LanguageControl.shared.getLocalizeString(by: sortItem.name)
         cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
         cell!.textLabel?.textColor = UIColor.lightGray
         cell!.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)

@@ -10,7 +10,7 @@ import UIKit
 
 class AccountViewController: BaseViewController {
 
-    static let tabTitle = "Account"
+    static let tabTitle = "account"
     
     static let icon = #imageLiteral(resourceName: "icon_account")
     
