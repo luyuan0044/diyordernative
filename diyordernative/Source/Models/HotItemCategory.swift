@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class HotItemCategory: Mappable {
-    var id: Int?
+    var id: String?
     var name: String?
     var children: [HotItemCategory]?
     

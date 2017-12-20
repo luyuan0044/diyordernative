@@ -28,9 +28,29 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     @IBOutlet weak var hideSortPopupPanelViewButton: UIButton!
     
+    var currentHotItemCategoryId: String? = nil
+    
+    var currentHotItemSortId: String? = nil
+    
+    var keyword: String? = nil
+    
+    var priceRange: (String?, String?)? = nil
+    
     var hotItemCategories: [HotItemCategory]? = nil
     
     var hotItemSorts: [HotItemSort]? = nil
+    
+    var hotItemListingSorts: [HotItemSort]? {
+        get {
+            return hotItemSorts?.filter{$0.type == hotItemSortType.list.rawValue}
+        }
+    }
+    
+    var hotItemTabSort: HotItemSort? {
+        get {
+            return hotItemSorts?.filter{$0.type == hotItemSortType.tab.rawValue}[0]
+        }
+    }
     
     var hotItems: [HotItem]? = nil
     
@@ -143,6 +163,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 items in
                 
                 self.hotItemSorts = items
+                self.currentHotItemSortId = self.hotItemSorts!.first!.id
                 
                 DispatchQueue.main.async {
                     self.refreshSortPopupTableView()
@@ -154,7 +175,8 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     private func loadHotItemTask (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            HotItemLoader.startRequestHotItems(urlparams: [:], completion: {
+            let urlparams = self.getUrlParams()
+            HotItemLoader.startRequestHotItems(_urlparams: urlparams, completion: {
                 _status, items in
                 
                 if _status == .success {
@@ -244,6 +266,45 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         hideSortPopupView()
     }
     
+    func setHotItemCategoryId (_ id: String?) {
+        currentHotItemCategoryId = id
+    }
+    
+    func setHotItemSortId (_ id: String?) {
+        currentHotItemSortId = id
+    }
+    
+    func setKeyword (_ keyword: String?) {
+        self.keyword = keyword
+    }
+    
+    func getUrlParams () -> [String: String]? {
+        var result: [String: String]? = nil
+        
+        if let filterid = currentHotItemCategoryId {
+            if result == nil {
+                result = [:]
+            }
+            result!["tid"] = "\(filterid)"
+        }
+        
+        if let sortid = currentHotItemSortId {
+            if result == nil {
+                result = [:]
+            }
+            result!["sort"] = sortid
+        }
+        
+        if let keyword = keyword {
+            if result == nil {
+                result = [:]
+            }
+            result!["keywords"] = keyword
+        }
+        
+        return result
+    }
+    
     // MARKL - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -293,7 +354,19 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
             } else {
                 let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UtilityButtonsHeaderView.key, for: indexPath) as! UtilityButtonsHeaderView
                 view.delegate = self
-                view.setup(firstButtonTitle: "Relevance", secondButtonTitle: "Volume", squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "Filter")
+                
+                var firstTitle: String? = nil
+                if let sortId = currentHotItemSortId {
+                    firstTitle = hotItemListingSorts!.filter{$0.id! == sortId}.first?.name
+                    let sort = hotItemSorts!.filter{$0.id == currentHotItemSortId}.first!
+                     view.updateSelectedSort(sortItem: sort)
+                }
+                
+                if firstTitle == nil { firstTitle = hotItemListingSorts!.first!.name! }
+                
+                view.setup(firstButtonTitle: firstTitle!, secondButtonTitle: hotItemTabSort!.name!, squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "Filter")
+                
+               
                 
                 return view
             }
@@ -357,7 +430,9 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     }
     
     func onSecondButtonTapped() {
-        
+        setHotItemSortId(hotItemTabSort?.id)
+        refreshSortPopupTableView()
+        loadHotItemTask(completion: nil)
     }
     
     func onSquareButtonTapped() {
@@ -377,7 +452,10 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     // MARK: - HotItemCategoryHeaderViewDelegate
     
-    func onHotItemCategoryTapped(selectedHotItemCategory: HotItemCategory) {
+    func onHotItemCategoryTapped(selectedHotItemCategory: HotItemCategory?) {
+        setHotItemCategoryId (selectedHotItemCategory?.id)
+        loadHotItemTask (completion: nil)
+        
         if !sortPopupPanelView.isHidden {
             hideSortPopupView()
         }
@@ -400,13 +478,13 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotItemSorts == nil ? 0 : hotItemSorts!.count
+        return hotItemListingSorts == nil ? 0 : hotItemListingSorts!.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "SortPopupCell")
         
-        let sortItem = hotItemSorts![indexPath.row]
+        let sortItem = hotItemListingSorts![indexPath.row]
         
         if cell == nil {
             cell = UITableViewCell (style: .default, reuseIdentifier: "SortPopupCell")
@@ -415,14 +493,31 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         cell!.textLabel?.text = sortItem.name
         cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
         cell!.textLabel?.textColor = UIColor.lightGray
+        cell!.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        
+        if sortItem.id == currentHotItemSortId {
+            cell!.accessoryType = .checkmark
+        } else {
+            cell!.accessoryType = .none
+        }
         
         return cell!
     }
     
+    // MARK: - UITableViewDelegate
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sortItem = hotItemListingSorts![indexPath.row]
+        setHotItemSortId(sortItem.id)
+        loadHotItemTask(completion: nil)
+        
+        let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: 1)) as! UtilityButtonsHeaderView
+        header.updateSelectedSort(sortItem: sortItem)
+        
         hideSortPopupView()
+        refreshSortPopupTableView()
     }
-
+    
     /*
     // MARK: - Navigation
 

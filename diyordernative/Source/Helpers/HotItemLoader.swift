@@ -11,16 +11,18 @@ import ObjectMapper
 
 class HotItemLoader {
     
-    static func startRequestHotItems (urlparams: [String: String], completion: @escaping (apiStatus, [HotItem]?) -> Void) {
-        let language = LanguageControl.shared.getAppLanguage().serverKey
-        var urlParams = urlparams
-        urlParams["lan"] = language
-        urlParams["page"] = "1"
-        urlParams["limit"] = "20"
-        if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
-            urlParams["latlon"] = latlonStr
+    static func startRequestHotItems (_urlparams: [String: String]?, completion: @escaping (apiStatus, [HotItem]?) -> Void) {
+        var urlParams = _urlparams
+        if urlParams == nil {
+            urlParams = [:]
         }
-        let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: urlParams)
+        urlParams!["lan"] = LanguageControl.shared.getAppLanguage().serverKey
+        urlParams!["page"] = "1"
+        urlParams!["limit"] = "20"
+        if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
+            urlParams!["latlon"] = latlonStr
+        }
+        let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: urlParams!)
         let path = SysConstants.REST_PATH_HOT_ITEM + formattedUrlParams
         
         var status = apiStatus.unknownError

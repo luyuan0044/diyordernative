@@ -16,7 +16,7 @@ class BannerItem: Mappable {
     var width: String?
     var format: Int?
     var title: String?
-    var rating: Int?
+    var rating: Float?
     var city: String?
     var imageUrl: String?
     

@@ -19,7 +19,7 @@ class HotItem: Mappable {
     var endDateTime: String?
     var name: String?
     var soldCount: Int?
-    var rating: Int?
+    var rating: Float?
     var reviewCount: Int?
     var imageUrl: String?
     var stockQuantity: Int?

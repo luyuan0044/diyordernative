@@ -42,3 +42,8 @@ enum colletionViewDisplayStyle {
     case grid
     case list
 }
+
+enum hotItemSortType: String {
+    case list = "List"
+    case tab = "Tab"
+}

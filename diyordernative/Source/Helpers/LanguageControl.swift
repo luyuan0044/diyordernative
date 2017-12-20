@@ -20,6 +20,8 @@ class LanguageControl {
     
     private var appLanguage: Language!
     
+    private var appBundle: Bundle?
+    
     /**
      Initialize application language and avaliable application languages
      */
@@ -72,6 +74,13 @@ class LanguageControl {
     func setAppLanguage (_ language: Language) {
         appLanguage = language
         archiveAppLanguage ()
+        
+        let path = Bundle.main.path(forResource: appLanguage.key, ofType: "lproj")
+        if path != nil {
+            appBundle = Bundle (path: path!)
+        } else {
+            appBundle = Bundle.main
+        }
     }
     
     /**
@@ -108,6 +117,27 @@ class LanguageControl {
         }
         
         return nil
+    }
+    
+    func getLocalizeString(by key: String) -> String {
+        return appBundle!.localizedString(forKey: key, value: "", table: nil)
+    }
+    
+    func getLocalizeString(by key: String, with language: Language) -> String {
+        let bundlePath = Bundle.main.path(forResource: language.key, ofType: "lproj")
+        let bundle: Bundle?
+        
+        if bundlePath != nil {
+            bundle = Bundle (path: bundlePath!)
+        } else {
+            bundle = Bundle.main
+        }
+        
+        if bundle == nil {
+            return ""
+        } else {
+            return bundle!.localizedString(forKey: key, value: "", table: nil)
+        }
     }
 }
 

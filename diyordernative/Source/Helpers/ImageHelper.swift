@@ -16,12 +16,37 @@ class ImageHelper {
         return CloudinaryHelper.getUrl(imageId: imageId, size: size)
     }
     
-    static func getRatingStartImage (by rating: Int?) -> UIImage {
+    /**
+     Get rating image , if the rating is nil will return defaul image
+     
+     - parameter rating: rating value of Float
+     
+     - returns: rating star image
+     */
+    static func getRatingStartImage (by rating: Float?) -> UIImage {
         if rating == nil {
             return #imageLiteral(resourceName: "icon_rating_star_0")
         }
         
-        let imageUrl = "icon_rating_star_\(rating!)"
+        var ratingValue: Float = 0
+        
+        let floor = floorf(rating!)
+        let ceiling = ceilf(rating!)
+        
+        let toFloor = rating! - floor
+        let toCeiling = ceiling - rating!
+        
+        if toFloor > toCeiling {
+            ratingValue = floor
+        } else if toCeiling > toFloor {
+            ratingValue = ceiling
+        } else {
+            ratingValue = rating!
+        }
+        
+        let intRatingValue = Int(ratingValue * 10)
+        
+        let imageUrl = "icon_rating_star_\(intRatingValue)"
         if let image = UIImage (named: imageUrl) {
             return image
         }

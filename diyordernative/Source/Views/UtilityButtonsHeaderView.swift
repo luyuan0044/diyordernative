@@ -26,22 +26,26 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     var delegate: UtilityButtonsHeaderViewDelegate? = nil
     
+    let normalTitleColor = UIColor.gray
+    
+    let highlightTitleColor = UIConstants.appThemeColor
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        firstButton.setTitleColor(UIColor.gray, for: .normal)
+        firstButton.setTitleColor(highlightTitleColor, for: .normal)
         firstButton.titleLabel?.font = font
         firstButton.addTarget(self, action: #selector(onFirstButtonTapped(_:)), for: .touchUpInside)
         
-        secondButton.setTitleColor(UIColor.gray, for: .normal)
+        secondButton.setTitleColor(normalTitleColor, for: .normal)
         secondButton.titleLabel?.font = font
         secondButton.addTarget(self, action: #selector(onSecondButtonTapped(_:)), for: .touchUpInside)
         
-        squareButton.tintColor = UIColor.gray
+        squareButton.tintColor = normalTitleColor
         squareButton.imageEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
         squareButton.addTarget(self, action: #selector(onSquareButtonTapped(_:)), for: .touchUpInside)
         
-        rightButton.setTitleColor(UIColor.gray, for: .normal)
+        rightButton.setTitleColor(normalTitleColor, for: .normal)
         rightButton.titleLabel?.font = font
         rightButton.addTarget(self, action: #selector(onRightButtonTapped(_:)), for: .touchUpInside)
     }
@@ -66,6 +70,8 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     }
     
     @objc private func onSecondButtonTapped (_ sender: AnyObject?) {
+        firstButton.setTitleColor(normalTitleColor, for: .normal)
+        secondButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
         delegate?.onSecondButtonTapped()
     }
     
@@ -79,5 +85,16 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     func updateSquareButtonIcon (iconImage: UIImage) {
         squareButton.setImage(iconImage, for: .normal)
+    }
+    
+    func updateSelectedSort (sortItem: HotItemSort) {
+        if sortItem.type == hotItemSortType.tab.rawValue {
+            firstButton.setTitleColor(normalTitleColor, for: .normal)
+            secondButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
+        } else {
+            firstButton.titleLabel?.text = sortItem.name
+            firstButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
+            secondButton.setTitleColor(normalTitleColor, for: .normal)
+        }
     }
 }

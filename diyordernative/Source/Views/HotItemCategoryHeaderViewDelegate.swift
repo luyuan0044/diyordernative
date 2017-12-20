@@ -9,5 +9,5 @@
 import Foundation
 
 protocol HotItemCategoryHeaderViewDelegate {
-    func onHotItemCategoryTapped (selectedHotItemCategory: HotItemCategory)
+    func onHotItemCategoryTapped (selectedHotItemCategory: HotItemCategory?)
 }

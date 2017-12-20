@@ -137,8 +137,13 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
         moveTabIndicatorViewTo(button: sender!)
         adjustScollViewOffset(index: currentSelectedButtonIndex)
         
-        let hotItemCategory = hotItemCategories![currentSelectedButtonIndex]
-        delegate?.onHotItemCategoryTapped(selectedHotItemCategory: hotItemCategory)
+        if (currentSelectedButtonIndex != 0)
+        {
+            let hotItemCategory = hotItemCategories![currentSelectedButtonIndex - 1]
+            delegate?.onHotItemCategoryTapped(selectedHotItemCategory: hotItemCategory)
+        } else {
+            delegate?.onHotItemCategoryTapped(selectedHotItemCategory: nil)
+        }
     }
     
     private func adjustScollViewOffset (index: Int) {
