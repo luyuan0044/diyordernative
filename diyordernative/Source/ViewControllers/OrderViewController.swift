@@ -9,7 +9,7 @@ import UIKit
 
 class OrderViewController: BaseViewController {
 
-    static let title = "Order"
+    static let tabTitle = "Order"
     
     static let icon = #imageLiteral(resourceName: "icon_order")
     
@@ -19,7 +19,8 @@ class OrderViewController: BaseViewController {
         // Do any additional setup after loading the view.
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
-        tabBarItem = UITabBarItem (title: OrderViewController.title, image: OrderViewController.icon, tag: 2)
+        tabBarItem = UITabBarItem (title: OrderViewController.tabTitle, image: OrderViewController.icon, tag: 2)
+        self.title = OrderViewController.tabTitle
     }
 
     override func didReceiveMemoryWarning() {

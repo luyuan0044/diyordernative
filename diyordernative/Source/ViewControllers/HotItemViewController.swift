@@ -8,19 +8,29 @@
 
 import UIKit
 
-class HotItemViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UtilityButtonsHeaderViewDelegate, RightSlideFilterViewControllerDelegate {
-    
-    
-
+class HotItemViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UtilityButtonsHeaderViewDelegate, HotItemCategoryHeaderViewDelegate, RightSlideFilterViewControllerDelegate {
+   
     // MARK: - Properties
     
-    static let title = "Hot"
+    static let tabTitle = "Hot"
     
     static let icon = #imageLiteral(resourceName: "icon_hot")
     
     @IBOutlet weak var hotItemCollectionView: UICollectionView!
     
+    @IBOutlet weak var sortPopupPanelView: UIView!
+    
+    @IBOutlet weak var sortPopupTableView: UITableView!
+    
+    @IBOutlet weak var sortPopupTableViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var sortPopupPanelViewTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var hideSortPopupPanelViewButton: UIButton!
+    
     var hotItemCategories: [HotItemCategory]? = nil
+    
+    var hotItemSorts: [HotItemSort]? = nil
     
     var hotItems: [HotItem]? = nil
     
@@ -44,7 +54,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         // Do any additional setup after loading the view.
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
-        tabBarItem = UITabBarItem (title: HotItemViewController.title, image: HotItemViewController.icon, tag: 1)
+        tabBarItem = UITabBarItem (title: HotItemViewController.tabTitle, image: HotItemViewController.icon, tag: 1)
         
         hotItemCollectionView.register(HotItemCategoryHeaderView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: HotItemCategoryHeaderView.key)
         hotItemCollectionView.register(UtilityButtonsHeaderView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UtilityButtonsHeaderView.key)
@@ -59,6 +69,17 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         // sticky header setup
         let layout = hotItemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
+        
+        sortPopupPanelView.backgroundColor = UIConstants.transparentBlackColor
+        sortPopupPanelView.isHidden = true
+        
+        sortPopupTableView.isHidden = true
+        sortPopupTableView.delegate = self
+        sortPopupTableView.dataSource = self
+        sortPopupTableView.isScrollEnabled = false
+        
+        hideSortPopupPanelViewButton.backgroundColor = UIColor.clear
+        hideSortPopupPanelViewButton.addTarget(self, action: #selector(handleOnHideSortPopupPanelViewButtonTapped(_:)), for: .touchUpInside)
         
         fetch()
     }
@@ -84,6 +105,11 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
             taskGroup.leave()
         })
         
+        taskGroup.enter()
+        loadHotItemSortItemsTask (completion: {
+            taskGroup.leave()
+        })
+        
         taskGroup.notify(queue: DispatchQueue.main, execute: {
             //TODO: hide loading box
         })
@@ -103,8 +129,24 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 }
                 
                 DispatchQueue.main.async {
-                    self.refreshHotItemCollectionView()                }
+                    self.refreshHotItemCollectionView()
+                }
                 
+                completion?()
+            })
+        }
+    }
+    
+    private func loadHotItemSortItemsTask (completion: (() -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            HotItemLoader.startLoadHotItemSort(completion: {
+                items in
+                
+                self.hotItemSorts = items
+                
+                DispatchQueue.main.async {
+                    self.refreshSortPopupTableView()
+                }
                 completion?()
             })
         }
@@ -138,6 +180,11 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         hotItemCollectionView.layoutIfNeeded()
     }
     
+    func refreshSortPopupTableView () {
+        sortPopupTableView.reloadData()
+        sortPopupPanelView.layoutIfNeeded()
+    }
+    
     func switchCollectionViewDisplayStyle () {
         colletionViewDisplayStyle = colletionViewDisplayStyle == .grid ? .list : .grid
         refreshHotItemCollectionView()
@@ -164,6 +211,37 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         rightSlideFilterViewController?.dismiss(animated: true, completion: {
             self.isRightSlideFilterViewControllerPresented = false
         })
+    }
+    
+    func showSortPopupView () {
+        sortPopupPanelView.isHidden = false
+        let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath (row: 0, section: 1))!
+        let yPosition = header.frame.maxY
+        sortPopupPanelViewTopConstraint.constant = yPosition
+        view.layoutSubviews()
+        sortPopupTableView.isHidden = false
+        UIView.animate(withDuration: 0.2, animations: {
+            self.sortPopupTableViewHeightConstraint.constant = self.sortPopupTableView.contentSize.height
+            self.view.layoutSubviews()
+        })
+    }
+    
+    func hideSortPopupView () {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.sortPopupTableViewHeightConstraint.constant = 0
+            self.view.layoutSubviews()
+        }, completion: {
+            isFinished in
+            
+            if isFinished {
+                self.sortPopupTableView.isHidden = true
+                self.sortPopupPanelView.isHidden = true
+            }
+        })
+    }
+    
+    @objc private func handleOnHideSortPopupPanelViewButtonTapped (_ sender: AnyObject?) {
+        hideSortPopupView()
     }
     
     // MARKL - UICollectionViewDataSource
@@ -210,7 +288,7 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
                 let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HotItemCategoryHeaderView.key, for: indexPath) as! HotItemCategoryHeaderView
                 
                 view.update(hotItemCategories: self.hotItemCategories)
-                
+                view.delegate = self
                 return view
             } else {
                 let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: UtilityButtonsHeaderView.key, for: indexPath) as! UtilityButtonsHeaderView
@@ -271,7 +349,11 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     // MARK: - UtilityButtonsHeaderViewDelegate
     
     func onFirstButtonTapped() {
-        
+        if sortPopupTableView.isHidden {
+            showSortPopupView()
+        } else {
+            hideSortPopupView()
+        }
     }
     
     func onSecondButtonTapped() {
@@ -287,6 +369,18 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     func onRightButtonTapped() {
         showRightSlideFilterViewController()
+        
+        if !sortPopupPanelView.isHidden {
+            hideSortPopupView()
+        }
+    }
+    
+    // MARK: - HotItemCategoryHeaderViewDelegate
+    
+    func onHotItemCategoryTapped(selectedHotItemCategory: HotItemCategory) {
+        if !sortPopupPanelView.isHidden {
+            hideSortPopupView()
+        }
     }
     
     // MARK: - RightSlideFilterViewControllerDelegate
@@ -301,6 +395,32 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     
     func onConfirmButtonTapped() {
         hideRightSlideFilterViewContrller()
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return hotItemSorts == nil ? 0 : hotItemSorts!.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "SortPopupCell")
+        
+        let sortItem = hotItemSorts![indexPath.row]
+        
+        if cell == nil {
+            cell = UITableViewCell (style: .default, reuseIdentifier: "SortPopupCell")
+        }
+        
+        cell!.textLabel?.text = sortItem.name
+        cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell!.textLabel?.textColor = UIColor.lightGray
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        hideSortPopupView()
     }
 
     /*

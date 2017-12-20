@@ -18,6 +18,10 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var hotItemCategoryScrollView: UIScrollView!
     
+    var delegate: HotItemCategoryHeaderViewDelegate? = nil
+    
+    var hotItemCategories: [HotItemCategory]? = nil
+    
     var tabIndicatorView: UIView? = nil
     
     let heightOfTabIndicatorView: CGFloat = 3
@@ -63,6 +67,7 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
             return
         }
         
+        self.hotItemCategories = hotItemCategories
         categoryButtons = []
         var offsetX: CGFloat = 0
         let allButton = configButton (title: "All", offsetX: &offsetX)
@@ -127,13 +132,13 @@ class HotItemCategoryHeaderView: UICollectionReusableView {
         let previousSelectedButton = categoryButtons![currentSelectedButtonIndex]
         
         dehighlight (button: previousSelectedButton)
-        
         currentSelectedButtonIndex = indexOfTappedButton
-        
         highlight(button: sender!)
         moveTabIndicatorViewTo(button: sender!)
-        
         adjustScollViewOffset(index: currentSelectedButtonIndex)
+        
+        let hotItemCategory = hotItemCategories![currentSelectedButtonIndex]
+        delegate?.onHotItemCategoryTapped(selectedHotItemCategory: hotItemCategory)
     }
     
     private func adjustScollViewOffset (index: Int) {

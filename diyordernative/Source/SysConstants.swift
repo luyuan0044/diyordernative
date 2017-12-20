@@ -45,4 +45,8 @@ struct SysConstants
     static let AVALIABEL_APP_LANGUAGE_INDEX : [Int] = [0, 1, 2]
     
     static let DEFAULT_APP_LANGUAGE_INDEX : Int = 0
+    
+    // MARK: - Local file path
+    
+    static let HOT_ITEM_SORT_ITEMS_JSON_FILE       = "HotItemSortItems"
 }

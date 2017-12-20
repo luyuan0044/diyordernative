@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class UrlHelper {
     
@@ -28,5 +29,13 @@ class UrlHelper {
         }
         
         return result
+    }
+    
+    static func getFormattedUrlLatAndLon (coordinate: CLLocationCoordinate2D?) -> String? {
+        guard coordinate != nil else {
+            return nil
+        }
+        
+        return "\(coordinate!.latitude),\(coordinate!.longitude)"
     }
 }

@@ -14,7 +14,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     // MARK: - Properties
     
-    static let title = "Home"
+    static let tabTitle = "Home"
     
     static let icon = #imageLiteral(resourceName: "icon_home")
     
@@ -41,7 +41,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         // Do any additional setup after loading the view, typically from a nib.
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
-        tabBarItem = UITabBarItem (title: HomeViewController.title, image: HomeViewController.icon, tag: 0)
+        tabBarItem = UITabBarItem (title: HomeViewController.tabTitle, image: HomeViewController.icon, tag: 0)
         
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self

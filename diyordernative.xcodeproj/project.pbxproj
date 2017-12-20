@@ -41,6 +41,8 @@
 		794380291FE0A31800F6594D /* IconLabelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794380281FE0A31800F6594D /* IconLabelButtonView.swift */; };
 		7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7943802A1FE0B15200F6594D /* RootNavigationController.swift */; };
 		7943802D1FE0B36100F6594D /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7943802C1FE0B36100F6594D /* RootTabBarController.swift */; };
+		794599F61FE9AA2400419612 /* ShoppingCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */; };
+		794599F91FE9CCDC00419612 /* HotItemCategoryHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794599F81FE9CCDC00419612 /* HotItemCategoryHeaderViewDelegate.swift */; };
 		795313071FE1F7E400B940F8 /* HotItemFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795313061FE1F7E400B940F8 /* HotItemFilterManager.swift */; };
 		795313091FE1F8AC00B940F8 /* BaseApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */; };
 		7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */; };
@@ -66,6 +68,9 @@
 		79FDBA681FE0981E00E72807 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA671FE0981E00E72807 /* BaseViewController.swift */; };
 		79FDBA6C1FE098B700E72807 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA6B1FE098B700E72807 /* BaseTableViewController.swift */; };
 		79FDBA6F1FE098DE00E72807 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA6E1FE098DE00E72807 /* BaseCollectionViewController.swift */; };
+		79FF87081FE9DC81004AF317 /* HotItemSortItems.json in Resources */ = {isa = PBXBuildFile; fileRef = 79FF87071FE9DC81004AF317 /* HotItemSortItems.json */; };
+		79FF870A1FE9DD60004AF317 /* HotItemSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FF87091FE9DD60004AF317 /* HotItemSort.swift */; };
+		79FF870C1FE9DE74004AF317 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FF870B1FE9DE74004AF317 /* Sort.swift */; };
 		F99D502A79DDB661E3D0F255 /* Pods_diyordernative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7630F4725898C0F1445ED6AC /* Pods_diyordernative.framework */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +129,8 @@
 		794380281FE0A31800F6594D /* IconLabelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelButtonView.swift; sourceTree = "<group>"; };
 		7943802A1FE0B15200F6594D /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		7943802C1FE0B36100F6594D /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
+		794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewController.swift; sourceTree = "<group>"; };
+		794599F81FE9CCDC00419612 /* HotItemCategoryHeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemCategoryHeaderViewDelegate.swift; sourceTree = "<group>"; };
 		795313061FE1F7E400B940F8 /* HotItemFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemFilterManager.swift; sourceTree = "<group>"; };
 		795313081FE1F8AC00B940F8 /* BaseApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiResponse.swift; sourceTree = "<group>"; };
 		7953130A1FE1F8C000B940F8 /* ListApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListApiResponse.swift; sourceTree = "<group>"; };
@@ -157,6 +164,9 @@
 		79FDBA671FE0981E00E72807 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		79FDBA6B1FE098B700E72807 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		79FDBA6E1FE098DE00E72807 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		79FF87071FE9DC81004AF317 /* HotItemSortItems.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotItemSortItems.json; sourceTree = "<group>"; };
+		79FF87091FE9DD60004AF317 /* HotItemSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemSort.swift; sourceTree = "<group>"; };
+		79FF870B1FE9DE74004AF317 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		A913C7541CDEFA461BB81B09 /* Pods_diyordernativeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_diyordernativeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44B1F6B6AB880F522A2F882 /* Pods-diyordernative.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-diyordernative.debug.xcconfig"; path = "Pods/Target Support Files/Pods-diyordernative/Pods-diyordernative.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,8 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				79BC08E11FE090C100D53620 /* Info.plist */,
-				79C3C6FD1FE8EB8600693C72 /* Burnaby.gpx */,
-				79C3C6FE1FE8EBF800693C72 /* Vancouver.gpx */,
 				79FDBA5B1FE092FD00E72807 /* Resource */,
 				79FDBA5A1FE092E300E72807 /* Source */,
 			);
@@ -279,6 +287,9 @@
 		79FDBA5B1FE092FD00E72807 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				79FF87071FE9DC81004AF317 /* HotItemSortItems.json */,
+				79C3C6FD1FE8EB8600693C72 /* Burnaby.gpx */,
+				79C3C6FE1FE8EBF800693C72 /* Vancouver.gpx */,
 				79BC08DC1FE090C100D53620 /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -293,6 +304,7 @@
 				79BC08D41FE090C100D53620 /* HomeViewController.swift */,
 				79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */,
 				79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */,
+				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
 				7943802A1FE0B15200F6594D /* RootNavigationController.swift */,
 				7943802C1FE0B36100F6594D /* RootTabBarController.swift */,
 				7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */,
@@ -320,6 +332,8 @@
 				792127201FE1EC11006C5F42 /* BannerItem.swift */,
 				792127221FE1F0E2006C5F42 /* HotItem.swift */,
 				792EC6041FE45F3C00B4C563 /* HotItemCategory.swift */,
+				79FF87091FE9DD60004AF317 /* HotItemSort.swift */,
+				79FF870B1FE9DE74004AF317 /* Sort.swift */,
 				792F965E1FE303E700A67ADC /* Language.swift */,
 				79E449801FE3BB7B005F4FCC /* StoreCategory.swift */,
 			);
@@ -335,6 +349,7 @@
 				79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */,
 				792EC6001FE45E2600B4C563 /* HotItemCategoryHeaderView.swift */,
 				792EC6011FE45E2600B4C563 /* HotItemCategoryHeaderView.xib */,
+				794599F81FE9CCDC00419612 /* HotItemCategoryHeaderViewDelegate.swift */,
 				792EC6081FE486CD00B4C563 /* UtilityButtonsHeaderView.swift */,
 				792EC6091FE486CD00B4C563 /* UtilityButtonsHeaderView.xib */,
 				792EC60D1FE488CE00B4C563 /* UtilityButtonsHeaderViewDelegate.swift */,
@@ -509,6 +524,7 @@
 				7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */,
 				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
+				79FF87081FE9DC81004AF317 /* HotItemSortItems.json in Resources */,
 				792EC6031FE45E2600B4C563 /* HotItemCategoryHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,6 +624,7 @@
 				79ADC8411FE1B2A10022B513 /* AccountViewController.swift in Sources */,
 				792F965D1FE302F200A67ADC /* LanguageControl.swift in Sources */,
 				792EC6071FE4810400B4C563 /* HotItemLoader.swift in Sources */,
+				794599F61FE9AA2400419612 /* ShoppingCartViewController.swift in Sources */,
 				792F965B1FE3022C00A67ADC /* BannerItemLoader.swift in Sources */,
 				79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */,
 				792F96571FE3015A00A67ADC /* OauthKeyPair.swift in Sources */,
@@ -622,6 +639,8 @@
 				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				792EC6151FE4ACA000B4C563 /* CollectionLoadingFooterView.swift in Sources */,
 				7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */,
+				79FF870C1FE9DE74004AF317 /* Sort.swift in Sources */,
+				794599F91FE9CCDC00419612 /* HotItemCategoryHeaderViewDelegate.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
 				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
@@ -646,6 +665,7 @@
 				792F96591FE3019E00A67ADC /* Enums.swift in Sources */,
 				792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */,
 				791456531FE668A70045A62D /* RightSlideFilterViewControllerDelegate.swift in Sources */,
+				79FF870A1FE9DD60004AF317 /* HotItemSort.swift in Sources */,
 				792EC6111FE4912C00B4C563 /* GridProductCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,7 +826,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -823,7 +843,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

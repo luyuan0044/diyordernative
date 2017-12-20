@@ -11,10 +11,11 @@ import UIKit
 class RootTabBarController: UITabBarController {
 
     let tabBarTitleIcon: Array<(String, UIImage)> = [
-        (HomeViewController.title, HomeViewController.icon),
-        (HotItemViewController.title, HotItemViewController.icon),
-        (OrderViewController.title, OrderViewController.icon),
-        (AccountViewController.title, AccountViewController.icon),
+        (HomeViewController.tabTitle, HomeViewController.icon),
+        (HotItemViewController.tabTitle, HotItemViewController.icon),
+        (OrderViewController.tabTitle, OrderViewController.icon),
+        (ShoppingCartViewController.tabTitle, ShoppingCartViewController.icon),
+        (AccountViewController.tabTitle, AccountViewController.icon),
     ]
     
     override func viewDidLoad() {

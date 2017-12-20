@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-
 class LocationHelper: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationHelper ()
@@ -26,6 +25,9 @@ class LocationHelper: NSObject, CLLocationManagerDelegate {
     
     let updateTimeInterval: Double = 30
     
+    /**
+     Update location
+     */
     func updateLocation () {
         if !CLLocationManager.locationServicesEnabled () {
             return
@@ -55,20 +57,33 @@ class LocationHelper: NSObject, CLLocationManagerDelegate {
         
         manager!.startUpdatingLocation()
     }
-
+    
+    /**
+     Get most updated current location, if there is no location detected will return nil
+     */
     func getCurrentLocation () -> CLLocation? {
         return currentLocation
+    }
+    
+    func getCurrentLatAndLon () -> CLLocationCoordinate2D? {
+        guard currentLocation != nil else {
+            return nil
+        }
+        
+        return currentLocation!.coordinate
+    }
+    
+    func getCurrentPlacemark () -> CLPlacemark? {
+        return placemark
     }
     
     //MARK: - CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         if locations.count > 0 {
             currentLocation = locations.first!
             

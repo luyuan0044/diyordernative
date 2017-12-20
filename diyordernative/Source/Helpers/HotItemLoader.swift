@@ -17,6 +17,9 @@ class HotItemLoader {
         urlParams["lan"] = language
         urlParams["page"] = "1"
         urlParams["limit"] = "20"
+        if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
+            urlParams["latlon"] = latlonStr
+        }
         let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: urlParams)
         let path = SysConstants.REST_PATH_HOT_ITEM + formattedUrlParams
         
@@ -41,7 +44,7 @@ class HotItemLoader {
     
     static func startRequestHotItemCategory (completion: @escaping (apiStatus, [HotItemCategory]?) -> Void) {
         let language = LanguageControl.shared.getAppLanguage().serverKey
-        let urlParams = ["lan" : language]
+        var urlParams = ["lan" : language]
         
         let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: urlParams)
         let path = SysConstants.REST_PATH_HOT_ITEM_CATEGORY + formattedUrlParams
@@ -63,5 +66,18 @@ class HotItemLoader {
             
             completion (status, items)
         })
+    }
+    
+    static func startLoadHotItemSort (completion: @escaping ([HotItemSort]?) -> Void) {
+        if let path = Bundle.main.path(forResource: SysConstants.HOT_ITEM_SORT_ITEMS_JSON_FILE, ofType: "json") {
+            do {
+                let data = try Data (contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                let object = Mapper<ListApiResponse<HotItemSort>>().map(JSON: jsonObject as! [String : Any])
+                completion(object!.records)
+            } catch {
+                completion(nil)
+            }
+        }
     }
 }

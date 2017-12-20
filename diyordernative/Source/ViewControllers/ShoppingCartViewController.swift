@@ -1,18 +1,20 @@
 //
-//  AccountViewController.swift
+//  ShoppingCartViewController.swift
 //  diyordernative
 //
-//  Created by Richard Lu on 2017-12-13.
+//  Created by Richard Lu on 2017-12-19.
 //  Copyright © 2017 goopter. All rights reserved.
 //
 
 import UIKit
 
-class AccountViewController: BaseViewController {
+class ShoppingCartViewController: BaseViewController {
 
-    static let tabTitle = "Account"
+    // MARK: - Properties
     
-    static let icon = #imageLiteral(resourceName: "icon_account")
+    static let tabTitle = "Cart"
+    
+    static let icon = #imageLiteral(resourceName: "icon_cart")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +22,15 @@ class AccountViewController: BaseViewController {
         // Do any additional setup after loading the view.
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
-        tabBarItem = UITabBarItem (title: AccountViewController.tabTitle, image: AccountViewController.icon, tag: 4)
-        self.title = AccountViewController.tabTitle
+        tabBarItem = UITabBarItem (title: ShoppingCartViewController.tabTitle, image: ShoppingCartViewController.icon, tag: 3)
+        self.title = ShoppingCartViewController.tabTitle
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation
