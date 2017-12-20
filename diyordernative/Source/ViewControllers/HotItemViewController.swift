@@ -220,11 +220,12 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         if rightSlideFilterViewController == nil {
             rightSlideFilterViewController = RightSlideFilterViewController()
             rightSlideFilterViewController!.delegate = self
-            let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
-            rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
             rightSlideFilterViewController!.modalPresentationStyle = .overFullScreen
             rightSlideFilterViewController!.modalTransitionStyle = .crossDissolve
         }
+        
+        let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
+        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
         
         present(rightSlideFilterViewController!, animated: true, completion: {
             self.isRightSlideFilterViewControllerPresented = true;
