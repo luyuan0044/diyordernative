@@ -19,6 +19,7 @@
 		792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127201FE1EC11006C5F42 /* BannerItem.swift */; };
 		792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127221FE1F0E2006C5F42 /* HotItem.swift */; };
 		792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792127241FE1F742006C5F42 /* HotItemManager.swift */; };
+		792E9D4F1FEAE979004D5045 /* HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E9D4E1FEAE979004D5045 /* HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift */; };
 		792EC6021FE45E2600B4C563 /* HotItemCategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EC6001FE45E2600B4C563 /* HotItemCategoryHeaderView.swift */; };
 		792EC6031FE45E2600B4C563 /* HotItemCategoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EC6011FE45E2600B4C563 /* HotItemCategoryHeaderView.xib */; };
 		792EC6051FE45F3C00B4C563 /* HotItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EC6041FE45F3C00B4C563 /* HotItemCategory.swift */; };
@@ -115,6 +116,7 @@
 		792127201FE1EC11006C5F42 /* BannerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItem.swift; sourceTree = "<group>"; };
 		792127221FE1F0E2006C5F42 /* HotItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItem.swift; sourceTree = "<group>"; };
 		792127241FE1F742006C5F42 /* HotItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemManager.swift; sourceTree = "<group>"; };
+		792E9D4E1FEAE979004D5045 /* HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift; sourceTree = "<group>"; };
 		792EC6001FE45E2600B4C563 /* HotItemCategoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemCategoryHeaderView.swift; sourceTree = "<group>"; };
 		792EC6011FE45E2600B4C563 /* HotItemCategoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotItemCategoryHeaderView.xib; sourceTree = "<group>"; };
 		792EC6041FE45F3C00B4C563 /* HotItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemCategory.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				79BC08D41FE090C100D53620 /* HomeViewController.swift */,
 				79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */,
 				790DC2C51FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift */,
+				792E9D4E1FEAE979004D5045 /* HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift */,
 				790DC2C71FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift */,
 				79756EC31FEA549A00D78C01 /* HotItemRightSlideTableViewDataSourceAndDelegateDelegate.swift */,
 				79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */,
@@ -681,6 +684,7 @@
 				792EC60A1FE486CD00B4C563 /* UtilityButtonsHeaderView.swift in Sources */,
 				79E4497F1FE3BB3B005F4FCC /* StoreCategoryLoader.swift in Sources */,
 				79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */,
+				792E9D4F1FEAE979004D5045 /* HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate.swift in Sources */,
 				79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */,
 				792F96591FE3019E00A67ADC /* Enums.swift in Sources */,
 				79756EC41FEA549A00D78C01 /* HotItemRightSlideTableViewDataSourceAndDelegateDelegate.swift in Sources */,

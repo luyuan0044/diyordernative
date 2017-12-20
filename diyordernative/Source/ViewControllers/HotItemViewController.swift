@@ -8,8 +8,17 @@
 
 import UIKit
 
-class HotItemViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UtilityButtonsHeaderViewDelegate, HotItemCategoryHeaderViewDelegate, RightSlideFilterViewControllerDelegate, HotItemRightSlideTableViewDataSourceAndDelegateDelegate {
-   
+class HotItemViewController:    BaseViewController,
+                                UICollectionViewDataSource,
+                                UICollectionViewDelegateFlowLayout,
+                                UITableViewDelegate,
+                                UITableViewDataSource,
+                                UtilityButtonsHeaderViewDelegate,
+                                HotItemCategoryHeaderViewDelegate,
+                                RightSlideFilterViewControllerDelegate,
+                                HotItemRightSlideTableViewDataSourceAndDelegateDelegate,
+                                HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate {
+    
     // MARK: - Properties
     
     static let tabTitle = "hot"
@@ -67,6 +76,8 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
     var rightSlideFilterViewController: RightSlideFilterViewController? = nil
     
     var isRightSlideFilterViewControllerPresented = false
+    
+    var rightSlideMainDataSourceAndDelegate: HotItemRightSlideTableViewMainDataSourceAndDelegate? = nil
     
     var rightSlideDataSourceAndDelegateDict: [String: HotItemRightSlideTableViewDataSourceAndDelegate]? = nil
     
@@ -224,8 +235,19 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
             rightSlideFilterViewController!.modalTransitionStyle = .crossDissolve
         }
         
-        let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
-        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
+        if (rightSlideMainDataSourceAndDelegate == nil) {
+            rightSlideMainDataSourceAndDelegate = HotItemRightSlideTableViewMainDataSourceAndDelegate()
+            rightSlideMainDataSourceAndDelegate!.delegate = self
+        }
+        
+        if currentHotItemCategoryId == nil {
+            rightSlideMainDataSourceAndDelegate!.hasChildren = false
+        } else {
+            let selectedCategory = self.hotItemCategories!.filter{$0.id == currentHotItemCategoryId!}.first!
+            rightSlideMainDataSourceAndDelegate!.hasChildren = selectedCategory.hasChildren()
+        }
+        
+        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: rightSlideMainDataSourceAndDelegate!, delegate: rightSlideMainDataSourceAndDelegate!)
         
         present(rightSlideFilterViewController!, animated: true, completion: {
             self.isRightSlideFilterViewControllerPresented = true;
@@ -312,20 +334,31 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         return result
     }
     
-    func getDataSourceAndDelegateByParentCategory (_ hotItemCategory: HotItemCategory?) -> HotItemRightSlideTableViewDataSourceAndDelegate? {
+    func getDataSourceAndDelegateByParentCategory (_ _hotItemCategory: HotItemCategory?) -> HotItemRightSlideTableViewDataSourceAndDelegate? {
+        if currentHotItemCategoryId == nil {
+            return nil
+        }
         
+        var hotItemCategory = _hotItemCategory
         if hotItemCategory == nil {
-            if (rightSlideDataSourceAndDelegateDict == nil || !rightSlideDataSourceAndDelegateDict!.contains(where: {$0.key == keyOfRightSlideDataSourceAndDelegate})) {
-                rightSlideDataSourceAndDelegateDict = [:]
-                
-                let dataSourceAndDelegate = HotItemRightSlideTableViewDataSourceAndDelegate()
-                dataSourceAndDelegate.items = self.hotItemCategories
-                dataSourceAndDelegate.delegate = self
-                rightSlideDataSourceAndDelegateDict![keyOfRightSlideDataSourceAndDelegate] = dataSourceAndDelegate
-                
-                return dataSourceAndDelegate
+            hotItemCategory = self.hotItemCategories!.filter({$0.id == currentHotItemCategoryId}).first!
+            
+            if (hotItemCategory!.hasChildren()) {
+                if (rightSlideDataSourceAndDelegateDict == nil || !rightSlideDataSourceAndDelegateDict!.contains(where: {$0.key == hotItemCategory!.id!})) {
+                    
+                    rightSlideDataSourceAndDelegateDict = [:]
+                    
+                    let dataSourceAndDelegate = HotItemRightSlideTableViewDataSourceAndDelegate()
+                    dataSourceAndDelegate.items = hotItemCategory!.children
+                    dataSourceAndDelegate.delegate = self
+                    rightSlideDataSourceAndDelegateDict![hotItemCategory!.id!] = dataSourceAndDelegate
+                    
+                    return dataSourceAndDelegate
+                } else {
+                    return rightSlideDataSourceAndDelegateDict![hotItemCategory!.id!]
+                }
             } else {
-                return rightSlideDataSourceAndDelegateDict![keyOfRightSlideDataSourceAndDelegate]
+                return nil
             }
         }
         
@@ -567,6 +600,13 @@ class HotItemViewController: BaseViewController, UICollectionViewDataSource, UIC
         } else {
             setHotItemCategoryId(hotItemCategory.id)
         }
+    }
+    
+    // MARK: - HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate
+    
+    func onCategoryCellTapped() {
+        let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)
+        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate!, delegate: dataSourceAndDelegate!)
     }
     
     /*
