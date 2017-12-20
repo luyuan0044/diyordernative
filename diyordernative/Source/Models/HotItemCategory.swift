@@ -24,3 +24,9 @@ class HotItemCategory: Mappable {
         self.children <- map["children"]
     }
 }
+
+extension HotItemCategory {
+    func hasChildren () -> Bool {
+        return children != nil && children!.count > 0
+    }
+}

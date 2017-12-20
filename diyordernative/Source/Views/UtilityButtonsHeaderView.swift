@@ -92,7 +92,7 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
             firstButton.setTitleColor(normalTitleColor, for: .normal)
             secondButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
         } else {
-            firstButton.titleLabel?.text = sortItem.name
+            firstButton.titleLabel?.text = LanguageControl.shared.getLocalizeString(by: sortItem.name)
             firstButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
             secondButton.setTitleColor(normalTitleColor, for: .normal)
         }

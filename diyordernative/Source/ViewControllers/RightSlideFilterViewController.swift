@@ -20,7 +20,11 @@ class RightSlideFilterViewController: UIViewController {
     
     @IBOutlet weak var hideButton: UIButton!
     
-    var delegate: RightSlideFilterViewControllerDelegate? 
+    var delegate: RightSlideFilterViewControllerDelegate?
+    
+    var tableViewDataSource: UITableViewDataSource?
+    
+    var tableViewDelegate: UITableViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +47,17 @@ class RightSlideFilterViewController: UIViewController {
         
         hideButton.backgroundColor = UIConstants.transparentBlackColor
         hideButton.addTarget(self, action: #selector(onHideButtonTapped(_:)), for: .touchUpInside)
+        
+        filterTableView.dataSource = tableViewDataSource
+        filterTableView.delegate = tableViewDelegate
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: Implementation
     
     @objc private func onConfirmButtonTapped (_ sender: AnyObject?) {
         delegate?.onConfirmButtonTapped()
@@ -62,7 +71,23 @@ class RightSlideFilterViewController: UIViewController {
         delegate?.onHideButtonTapped()
     }
     
-
+    func setTableViewDataSourceAndDelegate (dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
+        tableViewDataSource = dataSource
+        tableViewDelegate = delegate
+        
+        if filterTableView != nil {
+            filterTableView.dataSource = tableViewDataSource
+            filterTableView.delegate = tableViewDelegate
+            
+            refreshData()
+        }
+    }
+    
+    func refreshData () {
+        filterTableView.reloadData()
+        filterTableView.layoutIfNeeded()
+    }
+    
     /*
     // MARK: - Navigation
 
