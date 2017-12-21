@@ -20,7 +20,7 @@ class OrderViewController: BaseViewController {
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
         tabBarItem = UITabBarItem (title: OrderViewController.tabTitle, image: OrderViewController.icon, tag: 2)
-        self.title = OrderViewController.tabTitle
+        self.title = LanguageControl.shared.getLocalizeString(by: OrderViewController.tabTitle) 
     }
 
     override func didReceiveMemoryWarning() {

@@ -8,16 +8,17 @@
 
 import UIKit
 
-class HotItemViewController:    BaseViewController,
-                                UICollectionViewDataSource,
-                                UICollectionViewDelegateFlowLayout,
-                                UITableViewDelegate,
-                                UITableViewDataSource,
-                                UtilityButtonsHeaderViewDelegate,
-                                HotItemCategoryHeaderViewDelegate,
-                                RightSlideFilterViewControllerDelegate,
-                                HotItemRightSlideTableViewDataSourceAndDelegateDelegate,
-                                HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate {
+class HotItemViewController:BaseViewController,
+                            UICollectionViewDataSource,
+                            UICollectionViewDelegateFlowLayout,
+                            UITableViewDelegate,
+                            UITableViewDataSource,
+                            UISearchBarDelegate,
+                            UtilityButtonsHeaderViewDelegate,
+                            HotItemCategoryHeaderViewDelegate,
+                            RightSlideFilterViewControllerDelegate,
+                            HotItemRightSlideTableViewDataSourceAndDelegateDelegate,
+                            HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate {
     
     // MARK: - Properties
     
@@ -36,6 +37,12 @@ class HotItemViewController:    BaseViewController,
     @IBOutlet weak var sortPopupPanelViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var hideSortPopupPanelViewButton: UIButton!
+    
+    @IBOutlet weak var toTopButton: UIButton!
+    
+    @IBOutlet weak var topTopButtonBottomConstraint: NSLayoutConstraint!
+    
+    var searhController: UISearchController!
     
     var currentHotItemCategoryIdOnTab: String? = nil
     
@@ -91,6 +98,10 @@ class HotItemViewController:    BaseViewController,
     
     let keyOfRightSlideDataSourceAndDelegate = "base"
     
+    let toTopButtonDisplacement: CGFloat = 61
+    
+    var isToTopButtonOnView = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,6 +134,27 @@ class HotItemViewController:    BaseViewController,
         
         hideSortPopupPanelViewButton.backgroundColor = UIColor.clear
         hideSortPopupPanelViewButton.addTarget(self, action: #selector(handleOnHideSortPopupPanelViewButtonTapped(_:)), for: .touchUpInside)
+        
+        searhController = UISearchController (searchResultsController: nil)
+        searhController!.hidesNavigationBarDuringPresentation = false
+        searhController!.dimsBackgroundDuringPresentation = false
+        searhController!.searchBar.tintColor = UIColor.white
+        
+        searhController!.searchBar.placeholder = LanguageControl.shared.getLocalizeString(by: "search hot items")
+        searhController!.searchBar.delegate = self
+        searhController!.searchBar.sizeToFit()
+        
+        navigationItem.titleView = self.searhController.searchBar
+        definesPresentationContext = true
+        
+        toTopButton.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        toTopButton.setImage(#imageLiteral(resourceName: "icon_top").withRenderingMode(.alwaysTemplate), for: .normal)
+        toTopButton.tintColor = UIColor.darkGray
+        toTopButton.layer.cornerRadius = toTopButton.frame.height / 2
+        toTopButton.layer.borderColor = UIColor.lightGray.cgColor
+        toTopButton.layer.borderWidth = 0.5
+        toTopButton.contentEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
+        toTopButton.addTarget(self, action: #selector(handleOnToTopButtonTapped(_:)), for: .touchUpInside)
         
         fetch()
     }
@@ -504,6 +536,36 @@ class HotItemViewController:    BaseViewController,
         }
     }
     
+    func showToTopButton () {
+        if isToTopButtonOnView {
+            return
+        }
+        
+        self.isToTopButtonOnView = true
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.topTopButtonBottomConstraint.constant += self.toTopButtonDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideToTopButton () {
+        if !isToTopButtonOnView {
+            return
+        }
+        
+        self.isToTopButtonOnView = false
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.topTopButtonBottomConstraint.constant -= self.toTopButtonDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc private func handleOnToTopButtonTapped (_ sender: AnyObject?) {
+        hotItemCollectionView.setContentOffset(CGPoint.zero, animated: true)
+    }
+    
     // MARKL - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -616,6 +678,20 @@ class HotItemViewController:    BaseViewController,
         } else {
             return CGSize (width: collectionView.frame.width, height: heightOfHeader)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        
+        if offsetY > 50 {
+            showToTopButton()
+        } else {
+            hideToTopButton()
+        }
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        hideToTopButton()
     }
     
     // MARK: - UtilityButtonsHeaderViewDelegate
@@ -776,6 +852,22 @@ class HotItemViewController:    BaseViewController,
         let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
         rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
         rightSlideDataSourceAdnDelegateStack.append(dataSourceAndDelegate)
+    }
+    
+    // MARK: - UISearchBarDelegate
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        keyword = searchBar.text
+        
+        if keyword != nil && !keyword!.isEmpty {
+            loadHotItemTask()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        keyword = nil
+        
+        loadHotItemTask()
     }
     
     /*

@@ -21,7 +21,7 @@ class AccountViewController: BaseViewController {
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
         tabBarItem = UITabBarItem (title: AccountViewController.tabTitle, image: AccountViewController.icon, tag: 4)
-        self.title = AccountViewController.tabTitle
+        self.title = LanguageControl.shared.getLocalizeString(by: AccountViewController.tabTitle)
     }
 
     override func didReceiveMemoryWarning() {

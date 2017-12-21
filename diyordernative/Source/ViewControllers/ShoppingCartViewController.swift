@@ -23,7 +23,7 @@ class ShoppingCartViewController: BaseViewController {
         
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
         tabBarItem = UITabBarItem (title: ShoppingCartViewController.tabTitle, image: ShoppingCartViewController.icon, tag: 3)
-        self.title = ShoppingCartViewController.tabTitle
+        self.title = LanguageControl.shared.getLocalizeString(by: ShoppingCartViewController.tabTitle)
     }
 
     override func didReceiveMemoryWarning() {
