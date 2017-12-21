@@ -11,6 +11,8 @@ import UIKit
 
 class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    var parentItem: HotItemCategory? = nil
+    
     var items: [HotItemCategory]? = nil
     
     var delegate: HotItemRightSlideTableViewDataSourceAndDelegateDelegate?
@@ -35,6 +37,9 @@ class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewData
         cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
         cell!.accessoryType = item.hasChildren() ? .disclosureIndicator : .none
         
+        let currentSelectedId = delegate?.getCurrentSelectedCategoryId ()
+        cell!.accessoryType = currentSelectedId == item.id ? .checkmark : .none
+        
         return cell!
     }
     
@@ -44,5 +49,30 @@ class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewData
         let item = items![indexPath.row]
         
         delegate?.onHotItemCategoryCellTapped(hotItemCategory: item)
+        
+        let cell = tableView.cellForRow(at: indexPath)!
+        let temporySelectedId = delegate?.getTemporySelectedCategoryId()
+        cell.accessoryType = item.id == temporySelectedId ? .checkmark : .none
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HotItemRightSlideTableViewHeaderView.key)
+        
+        if view == nil {
+            view = HotItemRightSlideTableViewHeaderView.create()
+        }
+        
+        (view as! HotItemRightSlideTableViewHeaderView).titleLabel.text = parentItem?.name ?? LanguageControl.shared.getLocalizeString(by: "category")
+        (view as! HotItemRightSlideTableViewHeaderView).backButton.addTarget(self, action: #selector(onBackButtonTapped(_:)), for: .touchUpInside)
+        
+        return view!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    @objc private func onBackButtonTapped (_ sender: UIButton) {
+        delegate?.onBackCategoryHeaderTapped()
     }
 }

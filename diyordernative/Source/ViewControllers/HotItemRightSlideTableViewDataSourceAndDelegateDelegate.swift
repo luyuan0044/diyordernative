@@ -10,4 +10,7 @@ import Foundation
 
 protocol HotItemRightSlideTableViewDataSourceAndDelegateDelegate {
     func onHotItemCategoryCellTapped (hotItemCategory: HotItemCategory)
+    func onBackCategoryHeaderTapped ()
+    func getCurrentSelectedCategoryId () -> String?
+    func getTemporySelectedCategoryId () -> String?
 }

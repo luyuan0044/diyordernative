@@ -37,7 +37,13 @@ class HotItemViewController:    BaseViewController,
     
     @IBOutlet weak var hideSortPopupPanelViewButton: UIButton!
     
+    var currentHotItemCategoryIdOnTab: String? = nil
+    
     var currentHotItemCategoryId: String? = nil
+    
+    // used for store hot item category id selected in right slide filter view controller
+    // before confirm button tapped
+    var temporyHotItemCategoryId: String? = nil
     
     var currentHotItemSortId: String? = nil
     
@@ -80,6 +86,8 @@ class HotItemViewController:    BaseViewController,
     var rightSlideMainDataSourceAndDelegate: HotItemRightSlideTableViewMainDataSourceAndDelegate? = nil
     
     var rightSlideDataSourceAndDelegateDict: [String: HotItemRightSlideTableViewDataSourceAndDelegate]? = nil
+    
+    var rightSlideDataSourceAdnDelegateStack: [HotItemRightSlideTableViewDataSourceAndDelegate] = []
     
     let keyOfRightSlideDataSourceAndDelegate = "base"
     
@@ -126,6 +134,12 @@ class HotItemViewController:    BaseViewController,
     
     // MARK: - Implementation
     
+    /**
+     Fetch data for view controller
+     1. Hot items array
+     2. Hot item categories array
+     3. Hot itme sort array
+     */
     func fetch () {
         //TODO: show loading box here
         
@@ -150,11 +164,19 @@ class HotItemViewController:    BaseViewController,
         })
     }
     
+    /**
+     Load next page hot items from server
+     */
     func loadMore () {
-        loadHotItemTask (completion: nil)
+        loadHotItemTask ()
     }
     
-    private func loadHotItemCategoryTask (completion: (() -> Void)?) {
+    /**
+     Task of load hot item categories array
+     
+     - parameter completion: callback of the task completion, the default value will be nil
+     */
+    private func loadHotItemCategoryTask (completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInitiated).async {
             HotItemLoader.startRequestHotItemCategory(completion: {
                 _status, items in
@@ -172,7 +194,12 @@ class HotItemViewController:    BaseViewController,
         }
     }
     
-    private func loadHotItemSortItemsTask (completion: (() -> Void)?) {
+    /**
+     Task of load hot item sort array
+     
+     - parameter completion: callback of the task completion, the default value will be nil
+     */
+    private func loadHotItemSortItemsTask (completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInitiated).async {
             HotItemLoader.startLoadHotItemSort(completion: {
                 items in
@@ -188,7 +215,12 @@ class HotItemViewController:    BaseViewController,
         }
     }
     
-    private func loadHotItemTask (completion: (() -> Void)?) {
+    /**
+     Task of load hot item array
+     
+     - parameter completion: callback of the task completion, the default value will be nil
+     */
+    private func loadHotItemTask (completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInitiated).async {
             let urlparams = self.getUrlParams()
             HotItemLoader.startRequestHotItems(_urlparams: urlparams, completion: {
@@ -207,27 +239,51 @@ class HotItemViewController:    BaseViewController,
         }
     }
     
+    /**
+     Reload data on hot item collection view and layout afterword
+     */
     func refreshHotItemCollectionView () {
         hotItemCollectionView.reloadData()
         hotItemCollectionView.layoutIfNeeded()
     }
     
+    /**
+     Reload data on section #1 on hot item collection view and layout afterword
+     */
     func refreshHotItemSection () {
         hotItemCollectionView.reloadSections(IndexSet (integer: 1))
         hotItemCollectionView.layoutIfNeeded()
     }
     
+    /**
+     Reload data on sort popup tableview and layout afterword
+     */
     func refreshSortPopupTableView () {
         sortPopupTableView.reloadData()
         sortPopupPanelView.layoutIfNeeded()
     }
     
+    /**
+     Switch the display style of the hot item collection view
+     If current style is ".list", then the stlye will change to ".grid"
+     If current style is ".grid", then the stlye will change to ".list"
+     Collection view will reload data after style setting changed
+     */
     func switchCollectionViewDisplayStyle () {
         colletionViewDisplayStyle = colletionViewDisplayStyle == .grid ? .list : .grid
         refreshHotItemCollectionView()
     }
     
+    /**
+     Show RightSlideFilterViewController
+     - RightSlideFilterViewController will be initialized if it is never initialized, otherwise will use the previous instance
+     - HotItemRightSlideTableViewMainDataSourceAndDelegate will be initialized if it is never initilized
+     - Setup instance of HotItemRightSlideTableViewMainDataSourceAndDelegate
+     - Setup instance of HotItemRightSlideTableViewMainDataSourceAndDelegate as TableView's datasource and delegate
+     - Present view controller
+     */
     func showRightSlideFilterViewController () {
+        // Initialize rightSlideFilterViewController if it is nil
         if rightSlideFilterViewController == nil {
             rightSlideFilterViewController = RightSlideFilterViewController()
             rightSlideFilterViewController!.delegate = self
@@ -235,25 +291,32 @@ class HotItemViewController:    BaseViewController,
             rightSlideFilterViewController!.modalTransitionStyle = .crossDissolve
         }
         
+        // Initialize rightSlideMainDataSourceAndDelegate if it is nil
         if (rightSlideMainDataSourceAndDelegate == nil) {
             rightSlideMainDataSourceAndDelegate = HotItemRightSlideTableViewMainDataSourceAndDelegate()
             rightSlideMainDataSourceAndDelegate!.delegate = self
         }
         
+        // Setup rightSlideMainDataSourceAndDelegate
         if currentHotItemCategoryId == nil {
             rightSlideMainDataSourceAndDelegate!.hasChildren = false
         } else {
-            let selectedCategory = self.hotItemCategories!.filter{$0.id == currentHotItemCategoryId!}.first!
+            let selectedCategory = self.hotItemCategories!.filter{$0.id == currentHotItemCategoryIdOnTab!}.first!
             rightSlideMainDataSourceAndDelegate!.hasChildren = selectedCategory.hasChildren()
         }
         
+        // Setup rightSlideMainDataSourceAndDelegate as TableView's datasource and delegate
         rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: rightSlideMainDataSourceAndDelegate!, delegate: rightSlideMainDataSourceAndDelegate!)
         
+        // Preset the view controller
         present(rightSlideFilterViewController!, animated: true, completion: {
             self.isRightSlideFilterViewControllerPresented = true;
         })
     }
     
+    /**
+     Hide RightSlideFilterViewController
+     */
     func hideRightSlideFilterViewContrller () {
         guard isRightSlideFilterViewControllerPresented || rightSlideFilterViewController != nil else {
             return
@@ -264,12 +327,20 @@ class HotItemViewController:    BaseViewController,
         })
     }
     
+    /**
+     Show SortPopupView
+     - Setup the top constraint of sort popup view to be the bottom of second header view
+     */
     func showSortPopupView () {
         sortPopupPanelView.isHidden = false
+        
+        //setup the top constraint of popup panel view
         let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath (row: 0, section: 1))!
         let yPosition = header.frame.maxY
         sortPopupPanelViewTopConstraint.constant = yPosition
         view.layoutSubviews()
+        
+        //show the popup table
         sortPopupTableView.isHidden = false
         UIView.animate(withDuration: 0.2, animations: {
             self.sortPopupTableViewHeightConstraint.constant = self.sortPopupTableView.contentSize.height
@@ -277,6 +348,9 @@ class HotItemViewController:    BaseViewController,
         })
     }
     
+    /**
+     Hide SortPopupView
+     */
     func hideSortPopupView () {
         UIView.animate(withDuration: 0.2, animations: {
             self.sortPopupTableViewHeightConstraint.constant = 0
@@ -291,26 +365,60 @@ class HotItemViewController:    BaseViewController,
         })
     }
     
+    /**
+     Handle on hide button of sort popup panel view tapped
+     */
     @objc private func handleOnHideSortPopupPanelViewButtonTapped (_ sender: AnyObject?) {
         hideSortPopupView()
     }
     
+    /**
+     Set the selected hot item category id displayed on first header view
+     - parameter id: id of selected hot item category on first header view
+     */
+    func setHotItemCategoryIdOnTab (_ id: String?) {
+        currentHotItemCategoryIdOnTab = id
+    }
+    
+    /**
+     Set the selected hot item category id which is a children of categories displayed on the first header view
+     - parameter id: id of selected hot item category
+     */
     func setHotItemCategoryId (_ id: String?) {
         currentHotItemCategoryId = id
     }
     
+    /**
+     Set the selected hot item sort id
+     - parameter id: id of hot item sort
+     */
     func setHotItemSortId (_ id: String?) {
         currentHotItemSortId = id
     }
     
+    /**
+     Set the search keyword
+     */
     func setKeyword (_ keyword: String?) {
         self.keyword = keyword
     }
     
+    /**
+     Get url params of search settings in Dictionary
+     
+     - returns: search settings with coresponding key
+     */
     func getUrlParams () -> [String: String]? {
         var result: [String: String]? = nil
         
+        var categoryid: String? = nil
         if let filterid = currentHotItemCategoryId {
+            categoryid = filterid
+        } else if let filteridOnTab = currentHotItemCategoryIdOnTab {
+            categoryid = filteridOnTab
+        }
+        
+        if let filterid = categoryid {
             if result == nil {
                 result = [:]
             }
@@ -334,16 +442,30 @@ class HotItemViewController:    BaseViewController,
         return result
     }
     
+    /**
+     Get tableview datasource and delegate by parent hot item category
+     - If parent hot item category is nil, will create (if cannot find in cached dictionary) and return datasource and delegate of first level children, if it has children, otherwise will return nil
+     - If parent hot item is not nil, will create (if cannot find in cached dictionary) and return datasource and delegate of its chidlren, if it has children, otherwise will return nil
+     
+     - parameter _hotItemCategory: parent hot item category
+     
+     - returns: search settings with coresponding key
+     */
     func getDataSourceAndDelegateByParentCategory (_ _hotItemCategory: HotItemCategory?) -> HotItemRightSlideTableViewDataSourceAndDelegate? {
         if currentHotItemCategoryId == nil {
             return nil
         }
         
         var hotItemCategory = _hotItemCategory
+        
         if hotItemCategory == nil {
-            hotItemCategory = self.hotItemCategories!.filter({$0.id == currentHotItemCategoryId}).first!
+            // Hot item category is nil, get the current selected hot item category on first header view
+            hotItemCategory = self.hotItemCategories!.filter({$0.id == currentHotItemCategoryIdOnTab}).first!
             
             if (hotItemCategory!.hasChildren()) {
+                // If hot item category has children check the cached dicationary
+                // If cannot find datasource and delegate,  create and setup, then do the cache
+                // Otherwise, return cached datasource and delegate
                 if (rightSlideDataSourceAndDelegateDict == nil || !rightSlideDataSourceAndDelegateDict!.contains(where: {$0.key == hotItemCategory!.id!})) {
                     
                     rightSlideDataSourceAndDelegateDict = [:]
@@ -358,6 +480,7 @@ class HotItemViewController:    BaseViewController,
                     return rightSlideDataSourceAndDelegateDict![hotItemCategory!.id!]
                 }
             } else {
+                // Return nil if doesnt has children
                 return nil
             }
         }
@@ -367,10 +490,13 @@ class HotItemViewController:    BaseViewController,
         }
         
         if rightSlideDataSourceAndDelegateDict!.contains(where: {$0.key == hotItemCategory!.id}) {
+            // Return existing datasource and delegate in cached dictionary
             return rightSlideDataSourceAndDelegateDict![hotItemCategory!.id!]
         } else {
+            // Create a new one and do the setup, then cached it
             let dataSourceAndDelegate = HotItemRightSlideTableViewDataSourceAndDelegate()
             dataSourceAndDelegate.items = hotItemCategory!.children
+            dataSourceAndDelegate.parentItem = hotItemCategory!
             dataSourceAndDelegate.delegate = self
             rightSlideDataSourceAndDelegateDict![hotItemCategory!.id!] = dataSourceAndDelegate
             
@@ -495,6 +621,7 @@ class HotItemViewController:    BaseViewController,
     // MARK: - UtilityButtonsHeaderViewDelegate
     
     func onFirstButtonTapped() {
+        // Show or hide sort popup view
         if sortPopupTableView.isHidden {
             showSortPopupView()
         } else {
@@ -503,21 +630,35 @@ class HotItemViewController:    BaseViewController,
     }
     
     func onSecondButtonTapped() {
+        // Apply sort by volume
         setHotItemSortId(hotItemTabSort?.id)
         refreshSortPopupTableView()
-        loadHotItemTask(completion: nil)
+        loadHotItemTask()
+        
+        // Hide sort popup view if needed
+        if !sortPopupPanelView.isHidden {
+            hideSortPopupView()
+        }
     }
     
     func onSquareButtonTapped() {
+        // Switch the display style of hot item collection view
         switchCollectionViewDisplayStyle()
         if let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: 1)) {
             (header as! UtilityButtonsHeaderView).updateSquareButtonIcon(iconImage: colletionViewDisplayStyleIcon)
         }
+        
+        // Hide sort popup view if needed
+        if !sortPopupPanelView.isHidden {
+            hideSortPopupView()
+        }
     }
     
     func onRightButtonTapped() {
+        // Show the right slide popup view
         showRightSlideFilterViewController()
         
+        // Hide sort popup view if needed
         if !sortPopupPanelView.isHidden {
             hideSortPopupView()
         }
@@ -526,9 +667,11 @@ class HotItemViewController:    BaseViewController,
     // MARK: - HotItemCategoryHeaderViewDelegate
     
     func onHotItemCategoryTapped(selectedHotItemCategory: HotItemCategory?) {
+        setHotItemCategoryIdOnTab (selectedHotItemCategory?.id)
         setHotItemCategoryId (selectedHotItemCategory?.id)
-        loadHotItemTask (completion: nil)
+        loadHotItemTask ()
         
+        // Hide sort popup view if needed
         if !sortPopupPanelView.isHidden {
             hideSortPopupView()
         }
@@ -541,10 +684,15 @@ class HotItemViewController:    BaseViewController,
     }
     
     func onResetButtonTapped() {
+        temporyHotItemCategoryId = nil
+        setHotItemCategoryId(nil)
+        loadHotItemTask()
         hideRightSlideFilterViewContrller()
     }
     
     func onConfirmButtonTapped() {
+        setHotItemCategoryId(temporyHotItemCategoryId)
+        loadHotItemTask()
         hideRightSlideFilterViewContrller()
     }
     
@@ -582,7 +730,7 @@ class HotItemViewController:    BaseViewController,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sortItem = hotItemListingSorts![indexPath.row]
         setHotItemSortId(sortItem.id)
-        loadHotItemTask(completion: nil)
+        loadHotItemTask()
         
         let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: 1)) as! UtilityButtonsHeaderView
         header.updateSelectedSort(sortItem: sortItem)
@@ -597,16 +745,37 @@ class HotItemViewController:    BaseViewController,
         if hotItemCategory.hasChildren() {
             let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(hotItemCategory)!
             rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
+            rightSlideDataSourceAdnDelegateStack.append(dataSourceAndDelegate)
         } else {
-            setHotItemCategoryId(hotItemCategory.id)
+            // Set hot item category id as tempory
+            temporyHotItemCategoryId = hotItemCategory.id
         }
+    }
+    
+    func onBackCategoryHeaderTapped () {
+        rightSlideDataSourceAdnDelegateStack.remove(at: rightSlideDataSourceAdnDelegateStack.count - 1)
+        if rightSlideDataSourceAdnDelegateStack.count > 0 {
+            let last = rightSlideDataSourceAdnDelegateStack.last!
+            rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: last, delegate: last)
+        } else {
+            rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: rightSlideMainDataSourceAndDelegate!, delegate: rightSlideMainDataSourceAndDelegate!)
+        }
+    }
+    
+    func getCurrentSelectedCategoryId () -> String? {
+        return currentHotItemCategoryId
+    }
+    
+    func getTemporySelectedCategoryId () -> String? {
+        return temporyHotItemCategoryId
     }
     
     // MARK: - HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate
     
     func onCategoryCellTapped() {
-        let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)
-        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate!, delegate: dataSourceAndDelegate!)
+        let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
+        rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
+        rightSlideDataSourceAdnDelegateStack.append(dataSourceAndDelegate)
     }
     
     /*
