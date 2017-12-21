@@ -435,6 +435,41 @@ class HotItemViewController:BaseViewController,
         self.keyword = keyword
     }
     
+    func setPriceRangeUpperBound (_ upper: String?) {
+        if priceRange == nil {
+            priceRange = (nil, upper)
+        } else {
+            priceRange = (priceRange!.0, upper)
+        }
+    }
+    
+    func setPriceRangeLowerBound (_ lower: String?) {
+        if priceRange == nil {
+            priceRange = (lower, nil)
+        } else {
+            priceRange = (lower, priceRange!.1)
+        }
+    }
+    
+    func validatePriceRange () -> Bool {
+        if priceRange == nil {
+            return true
+        }
+        
+        let lower = priceRange!.0
+        let upper = priceRange!.1
+        
+        if lower != nil && Int(lower!) == nil {
+            return false
+        }
+        
+        if upper != nil && Int(upper!) == nil {
+            return false
+        }
+        
+        return true
+    }
+    
     /**
      Get url params of search settings in Dictionary
      
@@ -469,6 +504,25 @@ class HotItemViewController:BaseViewController,
                 result = [:]
             }
             result!["keywords"] = keyword
+        }
+        
+        if let priceRange = self.priceRange {
+            let lowerBound = priceRange.0
+            let upperBound = priceRange.1
+            
+            if lowerBound != nil && upperBound != nil {
+                if result == nil {
+                    result = [:]
+                }
+                
+                if lowerBound == nil {
+                    result!["price"] = "-\(upperBound!)"
+                } else if upperBound == nil {
+                    result!["price"] = "\(lowerBound!)-"
+                } else {
+                    result!["price"] = "\(lowerBound!)-\(upperBound!)"
+                }
+            }
         }
         
         return result
@@ -627,8 +681,6 @@ class HotItemViewController:BaseViewController,
                 
                 view.setup(firstButtonTitle: firstTitle!, secondButtonTitle: hotItemTabSort!.name!, squareIcon: colletionViewDisplayStyleIcon, rightButtonTitle: "filter")
                 
-               
-                
                 return view
             }
         } else {
@@ -761,15 +813,20 @@ class HotItemViewController:BaseViewController,
     
     func onResetButtonTapped() {
         temporyHotItemCategoryId = nil
+        priceRange = (nil, nil)
         setHotItemCategoryId(nil)
         loadHotItemTask()
         hideRightSlideFilterViewContrller()
     }
     
     func onConfirmButtonTapped() {
-        setHotItemCategoryId(temporyHotItemCategoryId)
-        loadHotItemTask()
-        hideRightSlideFilterViewContrller()
+        if (validatePriceRange()) {
+            setHotItemCategoryId(temporyHotItemCategoryId)
+            loadHotItemTask()
+            hideRightSlideFilterViewContrller()
+        } else {
+            // Popup for invalid price range input
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -852,6 +909,18 @@ class HotItemViewController:BaseViewController,
         let dataSourceAndDelegate = getDataSourceAndDelegateByParentCategory(nil)!
         rightSlideFilterViewController!.setTableViewDataSourceAndDelegate(dataSource: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
         rightSlideDataSourceAdnDelegateStack.append(dataSourceAndDelegate)
+    }
+    
+    func onPriceRangeLowerBoundChanged (lower: String?) {
+        setPriceRangeLowerBound (lower)
+    }
+    
+    func onPriceRangeUpperBoundChanged (upper: String?) {
+        setPriceRangeUpperBound (upper)
+    }
+    
+    func getPriceRangeSetting () -> (String?, String?)? {
+        return priceRange
     }
     
     // MARK: - UISearchBarDelegate
