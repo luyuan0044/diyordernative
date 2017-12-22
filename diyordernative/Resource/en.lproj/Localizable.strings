@@ -22,6 +22,8 @@
 
 "category" = "Category";
 
+"checkout" = "Checkout";
+
 "account" = "Account";
 
 "filter" = "Filter";
@@ -33,6 +35,8 @@
 "volume" = "Volume";
 
 "rating" = "Rating";
+
+"sub total" = "Sub-total";
 
 "price low to high" = "Price low to high";
 
@@ -51,6 +55,8 @@
 "min price" = "Min price";
 
 "max price" = "Max price";
+
+"manage" = "Manage";
 
 "notifications" = "Notifications";
 

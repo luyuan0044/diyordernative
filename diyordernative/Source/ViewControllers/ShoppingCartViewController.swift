@@ -8,13 +8,27 @@
 
 import UIKit
 
-class ShoppingCartViewController: BaseViewController {
-
+class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+    
     // MARK: - Properties
     
     static let tabTitle = "cart"
     
     static let icon = #imageLiteral(resourceName: "icon_cart")
+    
+    @IBOutlet weak var manageButtonItem: UIBarButtonItem!
+    
+    @IBOutlet weak var managePanelView: UIView!
+    
+    @IBOutlet weak var cartTableView: UITableView!
+    
+    var isManagePanelViewShowed = false
+    
+    let managePanelViewDisplacement: CGFloat = 45
+    
+    let contentColor = UIColor.gray
+    
+    @IBOutlet weak var managePanelViewTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +38,13 @@ class ShoppingCartViewController: BaseViewController {
         navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
         tabBarItem = UITabBarItem (title: ShoppingCartViewController.tabTitle, image: ShoppingCartViewController.icon, tag: 3)
         self.title = LanguageControl.shared.getLocalizeString(by: ShoppingCartViewController.tabTitle)
+        
+        manageButtonItem.title = LanguageControl.shared.getLocalizeString(by: "manage")
+        manageButtonItem.tintColor = UIColor.white
+        manageButtonItem.action = #selector(onManageButtonItemTapped(_:))
+        
+        cartTableView.delegate = self
+        cartTableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +52,80 @@ class ShoppingCartViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Implementation
+    
+    @objc private func onManageButtonItemTapped (_ sender: UIBarButtonItem) {
+        if isManagePanelViewShowed {
+            hideManagePanelView()
+        } else {
+            showManagePanelView()
+        }
+    }
+    
+    func showManagePanelView () {
+        if isManagePanelViewShowed {
+            return
+        }
+        
+        isManagePanelViewShowed = !isManagePanelViewShowed
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.managePanelViewTopConstraint.constant += self.managePanelViewDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideManagePanelView () {
+        if !isManagePanelViewShowed {
+            return
+        }
+        
+        isManagePanelViewShowed = !isManagePanelViewShowed
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.managePanelViewTopConstraint.constant -= self.managePanelViewDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "StoreHeaderCell")
+            
+            if cell == nil {
+                cell = UITableViewCell (style: .default, reuseIdentifier: "StoreHeaderCell")
+            }
+            
+            cell!.imageView?.image = #imageLiteral(resourceName: "icon_store").withRenderingMode(.alwaysTemplate)
+            cell!.imageView?.tintColor = contentColor
+            cell!.textLabel?.text = "Store name"
+            cell!.textLabel?.textColor = contentColor
+            cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
+            cell!.accessoryType = .disclosureIndicator
+            
+            return cell!
+        } else if indexPath.row == 1 {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "StoreHeaderCell")
+            
+            if cell == nil {
+                cell = UITableViewCell (style: .default, reuseIdentifier: "StoreHeaderCell")
+            }
+            
+            return cell!
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingCartCheckoutCell.key) as! ShoppingCartCheckoutCell
+            
+            
+            
+            return cell
+        }
+    }
 
     /*
     // MARK: - Navigation

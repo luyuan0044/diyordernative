@@ -22,6 +22,8 @@
 
 "category" = "分類";
 
+"checkout" = "下單";
+
 "account" = "帳戶";
 
 "filter" = "篩選";
@@ -33,6 +35,8 @@
 "volume" = "銷量";
 
 "rating" = "評價排序";
+
+"sub total" = "小計";
 
 "price low to high" = "售價由低到高";
 
@@ -51,6 +55,8 @@
 "min price" = "最小價格";
 
 "max price" = "最大價格";
+
+"manage" = "管理";
 
 "notifications" = "訊息推送";
 

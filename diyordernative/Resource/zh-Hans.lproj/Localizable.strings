@@ -22,6 +22,8 @@
 
 "category" = "分类";
 
+"checkout" = "下单";
+
 "account" = "账户";
 
 "filter" = "筛选";
@@ -33,6 +35,8 @@
 "volume" = "销量";
 
 "rating" = "评价";
+
+"sub total" = "小计";
 
 "price low to high" = "价格由低到高";
 
@@ -51,6 +55,8 @@
 "min price" = "最小价格";
 
 "max price" = "最大价格";
+
+"manage" = "管理";
 
 "notifications" = "消息推送";
 
