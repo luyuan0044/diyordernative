@@ -40,7 +40,9 @@ class ShoppingCartCheckoutCell: UITableViewCell {
         checkoutButton.setTitle(LanguageControl.shared.getLocalizeString(by: "checkout"), for: .normal)
         checkoutButton.setTitleColor(UIColor.white, for: .normal)
         checkoutButton.titleLabel?.textColor = UIColor.white
+        checkoutButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         checkoutButton.addTarget(self, action: #selector(onCheckoutButtonTapped(_:)), for: .touchUpInside)
+        checkoutButton.contentEdgeInsets = UIEdgeInsets (top: 8, left: 15, bottom: 8, right: 15)
     }
     
     func update (subtotal: Float, contentColor: UIColor) {

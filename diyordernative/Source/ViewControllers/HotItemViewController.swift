@@ -14,6 +14,7 @@ class HotItemViewController:BaseViewController,
                             UITableViewDelegate,
                             UITableViewDataSource,
                             UISearchBarDelegate,
+                            UIViewControllerPreviewingDelegate,
                             UtilityButtonsHeaderViewDelegate,
                             HotItemCategoryHeaderViewDelegate,
                             RightSlideFilterViewControllerDelegate,
@@ -155,6 +156,10 @@ class HotItemViewController:BaseViewController,
         toTopButton.layer.borderWidth = 0.5
         toTopButton.contentEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
         toTopButton.addTarget(self, action: #selector(handleOnToTopButtonTapped(_:)), for: .touchUpInside)
+        
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: hotItemCollectionView)
+        }
         
         fetch()
     }
@@ -943,6 +948,23 @@ class HotItemViewController:BaseViewController,
         keyword = nil
         
         loadHotItemTask()
+    }
+    
+    // MARK: - UIViewControllerPreviewingDelegate
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = hotItemCollectionView.indexPathForItem(at: location) else { return nil }
+        guard let cell = hotItemCollectionView.cellForItem(at: indexPath) else { return nil }
+        let item = hotItems![indexPath.row]
+        let imageVC = ImageViewPeekViewController ()
+        imageVC.update(imageURLStr: item.imageUrl)
+        imageVC.preferredContentSize = CGSize (width: 50, height: 50)
+        previewingContext.sourceRect = cell.frame
+        return imageVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
     }
     
     /*
