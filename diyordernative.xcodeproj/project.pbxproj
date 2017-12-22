@@ -53,7 +53,6 @@
 		7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130C1FE1F97000B940F8 /* ApiResponse.swift */; };
 		7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7961D2181FE79E9000C739C1 /* ListProductCell.swift */; };
 		7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7961D2191FE79E9000C739C1 /* ListProductCell.xib */; };
-		79734B8F1FEC87B000994883 /* CountryList.json in Resources */ = {isa = PBXBuildFile; fileRef = 79734B8E1FEC87AF00994883 /* CountryList.json */; };
 		798A35CD1FEB89C000A34616 /* FilterPriceRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */; };
 		798A35CE1FEB89C000A34616 /* FilterPriceRangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798A35CC1FEB89C000A34616 /* FilterPriceRangeCell.xib */; };
 		79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */; };
@@ -155,7 +154,6 @@
 		7953130C1FE1F97000B940F8 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		7961D2181FE79E9000C739C1 /* ListProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductCell.swift; sourceTree = "<group>"; };
 		7961D2191FE79E9000C739C1 /* ListProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProductCell.xib; sourceTree = "<group>"; };
-		79734B8E1FEC87AF00994883 /* CountryList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = CountryList.json; path = ../../../Downloads/CountryList.json; sourceTree = "<group>"; };
 		798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPriceRangeCell.swift; sourceTree = "<group>"; };
 		798A35CC1FEB89C000A34616 /* FilterPriceRangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPriceRangeCell.xib; sourceTree = "<group>"; };
 		79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 			isa = PBXGroup;
 			children = (
 				79FF87071FE9DC81004AF317 /* HotItemSortItems.json */,
-				79734B8E1FEC87AF00994883 /* CountryList.json */,
 				79C3C6FD1FE8EB8600693C72 /* Burnaby.gpx */,
 				79C3C6FE1FE8EBF800693C72 /* Vancouver.gpx */,
 				79BC08DC1FE090C100D53620 /* Assets.xcassets */,
@@ -559,7 +556,6 @@
 				792EC6161FE4ACA000B4C563 /* CollectionLoadingFooterView.xib in Resources */,
 				792EC6121FE4912C00B4C563 /* GridProductCell.xib in Resources */,
 				7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */,
-				79734B8F1FEC87B000994883 /* CountryList.json in Resources */,
 				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
 				792E9D531FEB24B1004D5045 /* HotItemRightSlideTableViewHeaderView.xib in Resources */,

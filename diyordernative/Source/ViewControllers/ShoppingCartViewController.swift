@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, ShoppingCartCheckoutCellDelegate {
     
     // MARK: - Properties
     
@@ -41,6 +41,7 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
         
         manageButtonItem.title = LanguageControl.shared.getLocalizeString(by: "manage")
         manageButtonItem.tintColor = UIColor.white
+        manageButtonItem.target = self
         manageButtonItem.action = #selector(onManageButtonItemTapped(_:))
         
         cartTableView.delegate = self
@@ -54,7 +55,7 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
     
     // MARK: - Implementation
     
-    @objc private func onManageButtonItemTapped (_ sender: UIBarButtonItem) {
+    @objc private func onManageButtonItemTapped (_ sender: AnyObject?) {
         if isManagePanelViewShowed {
             hideManagePanelView()
         } else {
@@ -108,6 +109,7 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
             cell!.textLabel?.textColor = contentColor
             cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
             cell!.accessoryType = .disclosureIndicator
+            cell!.selectionStyle = .none
             
             return cell!
         } else if indexPath.row == 1 {
@@ -121,10 +123,18 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: ShoppingCartCheckoutCell.key) as! ShoppingCartCheckoutCell
             
-            
+            cell.delegate = self
+            cell.update(subtotal: 12.6, contentColor: contentColor)
+            cell.selectionStyle = .none
             
             return cell
         }
+    }
+    
+    // MARK: - ShoppingCartCheckoutCellDelegate
+    
+    func onCheckoutButtonTapped() {
+        
     }
 
     /*

@@ -40,9 +40,14 @@ class ShoppingCartCheckoutCell: UITableViewCell {
         checkoutButton.setTitle(LanguageControl.shared.getLocalizeString(by: "checkout"), for: .normal)
         checkoutButton.setTitleColor(UIColor.white, for: .normal)
         checkoutButton.titleLabel?.textColor = UIColor.white
+        checkoutButton.addTarget(self, action: #selector(onCheckoutButtonTapped(_:)), for: .touchUpInside)
     }
     
-    func update (subtotal: ) {
+    func update (subtotal: Float, contentColor: UIColor) {
+        orderTotalTitle.textColor = contentColor
+    }
     
+    @objc private func onCheckoutButtonTapped (_ sender: AnyObject?) {
+        delegate?.onCheckoutButtonTapped()
     }
 }
