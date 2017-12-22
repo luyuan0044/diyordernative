@@ -12,7 +12,7 @@ import ObjectMapper
 class BannerItemLoader {
     
     /**
-     Start request banner item from server
+     Request banner items from server
      
      - parameter completion: completion handler with 'apiStatus' and array of 'BannerItem' which could be nil
      */

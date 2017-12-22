@@ -31,6 +31,13 @@ class UrlHelper {
         return result
     }
     
+    /**
+     Get string of formatted latitude and longtitude in string for api use
+     
+     - parameter coordinate: CLLocationCoordinate2D
+     
+     - returns: latitude and longtitude in string format
+     */
     static func getFormattedUrlLatAndLon (coordinate: CLLocationCoordinate2D?) -> String? {
         guard coordinate != nil else {
             return nil

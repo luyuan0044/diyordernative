@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol RightSlideFilterViewControllerDelegate {
+    func onHideButtonTapped ()
+    func onResetButtonTapped ()
+    func onConfirmButtonTapped ()
+}
+
 class RightSlideFilterViewController: UIViewController {
 
     @IBOutlet weak var rightBackgroundView: UIView!

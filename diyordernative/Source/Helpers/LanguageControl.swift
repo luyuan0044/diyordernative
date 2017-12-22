@@ -119,6 +119,13 @@ class LanguageControl {
         return nil
     }
     
+    /**
+     Get localized string by coresponding key. if key not find will return empty string
+     
+     - parameter key: key for localized string
+     
+     - returns: string of localized string
+     */
     func getLocalizeString(by key: String?) -> String {
         guard key != nil else {
             return ""
@@ -127,6 +134,14 @@ class LanguageControl {
         return appBundle!.localizedString(forKey: key!, value: "", table: nil)
     }
     
+    /**
+     Get localized string by coresponding key amd target language object. if key not find will return empty string
+     
+     - parameter key: key for localized string
+     - parameter language: target localize language for given key
+     
+     - returns: string of localized string
+     */
     func getLocalizeString(by key: String?, with language: Language) -> String {
         guard key != nil else {
             return ""

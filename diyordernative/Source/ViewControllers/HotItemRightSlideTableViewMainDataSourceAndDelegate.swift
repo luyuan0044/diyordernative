@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+protocol HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate {
+    func onCategoryCellTapped ()
+    func onPriceRangeLowerBoundChanged (lower: String?)
+    func onPriceRangeUpperBoundChanged (upper: String?)
+    func getPriceRangeSetting () -> (String?, String?)?
+}
+
 class HotItemRightSlideTableViewMainDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate, FilterPriceRangeCellDelegate {
     
     var selectedCategoryTitle: String?
@@ -79,12 +86,5 @@ class HotItemRightSlideTableViewMainDataSourceAndDelegate: NSObject, UITableView
     func onPriceRangeUpperBoundChanged(upper: String?) {
         delegate?.onPriceRangeUpperBoundChanged(upper: upper)
     }
-}
-
-protocol HotItemRightSlideTableViewMainDataSourceAndDelegateDelegate {
-    func onCategoryCellTapped ()
-    func onPriceRangeLowerBoundChanged (lower: String?)
-    func onPriceRangeUpperBoundChanged (upper: String?)
-    func getPriceRangeSetting () -> (String?, String?)?
 }
 

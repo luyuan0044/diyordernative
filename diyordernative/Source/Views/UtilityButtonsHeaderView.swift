@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol UtilityButtonsHeaderViewDelegate {
+    func onFirstButtonTapped ()
+    func onSecondButtonTapped ()
+    func onSquareButtonTapped ()
+    func onRightButtonTapped ()
+}
+
 class UtilityButtonsHeaderView: UICollectionReusableView {
 
     static let key = "UtilityButtonsHeaderView"

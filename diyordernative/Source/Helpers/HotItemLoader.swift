@@ -10,7 +10,12 @@ import Foundation
 import ObjectMapper
 
 class HotItemLoader {
-    
+    /**
+     Request hot items from server
+     
+     - parameter _urlparams: Dictionary of urlparams
+     - parameter completion: api request task completion callback (api status and array of hot items as input)
+     */
     static func startRequestHotItems (_urlparams: [String: String]?, completion: @escaping (apiStatus, [HotItem]?) -> Void) {
         var urlParams = _urlparams
         if urlParams == nil {
@@ -44,9 +49,13 @@ class HotItemLoader {
         })
     }
     
+    /**
+     Request hot item categories from server
+     
+     - parameter completion: api request task completion callback (api status and array of hot item categories as input)
+     */
     static func startRequestHotItemCategory (completion: @escaping (apiStatus, [HotItemCategory]?) -> Void) {
-        let language = LanguageControl.shared.getAppLanguage().serverKey
-        var urlParams = ["lan" : language]
+        let urlParams = ["lan" : LanguageControl.shared.getAppLanguage().serverKey]
         
         let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: urlParams)
         let path = SysConstants.REST_PATH_HOT_ITEM_CATEGORY + formattedUrlParams
@@ -70,6 +79,11 @@ class HotItemLoader {
         })
     }
     
+    /**
+     Request hot item sort from local .json file
+     
+     - parameter completion: api request task completion callback (array of hot item sort as input)
+     */
     static func startLoadHotItemSort (completion: @escaping ([HotItemSort]?) -> Void) {
         if let path = Bundle.main.path(forResource: SysConstants.HOT_ITEM_SORT_ITEMS_JSON_FILE, ofType: "json") {
             do {

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HotItemCategoryHeaderViewDelegate {
+    func onHotItemCategoryTapped (selectedHotItemCategory: HotItemCategory?)
+}
+
 class HotItemCategoryHeaderView: UICollectionReusableView {
     
     // MARK: - Properties

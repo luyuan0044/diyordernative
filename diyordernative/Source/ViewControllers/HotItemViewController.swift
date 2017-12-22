@@ -590,6 +590,9 @@ class HotItemViewController:BaseViewController,
         }
     }
     
+    /**
+     Show to top button
+     */
     func showToTopButton () {
         if isToTopButtonOnView {
             return
@@ -603,6 +606,9 @@ class HotItemViewController:BaseViewController,
         })
     }
     
+    /**
+     Hide to top button
+     */
     func hideToTopButton () {
         if !isToTopButtonOnView {
             return

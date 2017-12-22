@@ -6,7 +6,13 @@
   Copyright © 2017 goopter. All rights reserved.
 */
 
+"address book" = "Address book";
+
 "home" = "Home";
+
+"bookmark" = "Bookmark";
+
+"gift cards" = "Gift cards";
 
 "hot" = "Hot";
 
@@ -36,6 +42,22 @@
 
 "price" = "Price";
 
+"privacy policy" = "Privacy policy";
+
+"recently viewed" = "Recently viewed";
+
+"points" = "Points";
+
 "min price" = "Min price";
 
 "max price" = "Max price";
+
+"notifications" = "Notifications";
+
+"rate goopter" = "Rate Goopter";
+
+"log in" = "Log in";
+
+"sign up" = "Sign up";
+
+"register as a memeber to receive reward points" = "Register as a memeber to receive reward points";

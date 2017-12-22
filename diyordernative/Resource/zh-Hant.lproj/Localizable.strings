@@ -6,7 +6,13 @@
   Copyright © 2017 goopter. All rights reserved.
 */
 
+"address book" = "地址本";
+
 "home" = "主頁";
+
+"bookmark" = "收藏";
+
+"gift cards" = "禮物卡";
 
 "hot" = "熱門";
 
@@ -36,6 +42,22 @@
 
 "price" = "售價";
 
+"privacy policy" = "隱私保護";
+
+"recently viewed" = "最近瀏覽";
+
+"points" = "積分";
+
 "min price" = "最小價格";
 
 "max price" = "最大價格";
+
+"notifications" = "訊息推送";
+
+"rate goopter" = "Rate Goopter";
+
+"log in" = "登錄";
+
+"sign up" = "註冊";
+
+"register as a memeber to receive reward points" = "下單前請登錄以獲得獎勵積分";

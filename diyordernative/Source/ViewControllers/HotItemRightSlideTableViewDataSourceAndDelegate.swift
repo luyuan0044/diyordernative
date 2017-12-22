@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+protocol HotItemRightSlideTableViewDataSourceAndDelegateDelegate {
+    func onHotItemCategoryCellTapped (hotItemCategory: HotItemCategory)
+    func onBackCategoryHeaderTapped ()
+    func getCurrentSelectedCategoryId () -> String?
+    func getTemporySelectedCategoryId () -> String?
+}
+
 class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     var parentItem: HotItemCategory? = nil
@@ -75,11 +82,4 @@ class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewData
     @objc private func onBackButtonTapped (_ sender: UIButton) {
         delegate?.onBackCategoryHeaderTapped()
     }
-}
-
-protocol HotItemRightSlideTableViewDataSourceAndDelegateDelegate {
-    func onHotItemCategoryCellTapped (hotItemCategory: HotItemCategory)
-    func onBackCategoryHeaderTapped ()
-    func getCurrentSelectedCategoryId () -> String?
-    func getTemporySelectedCategoryId () -> String?
 }

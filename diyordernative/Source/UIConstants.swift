@@ -12,6 +12,8 @@ import UIKit
 
 struct UIConstants
 {
+    // MARK: - Colors
+    
     private static let rgbRatio: CGFloat = 255.0
     
     static let appThemeColor: UIColor = UIColor(red: 204 / rgbRatio, green: 43 / rgbRatio, blue: 0 / rgbRatio, alpha: 1)
@@ -19,4 +21,8 @@ struct UIConstants
     static let restaurantThemeColor: UIColor = UIColor(red: 246 / rgbRatio, green: 140 / rgbRatio, blue: 25 / rgbRatio, alpha: 1)
     
     static let transparentBlackColor: UIColor = UIColor.black.withAlphaComponent(0.6)
+    
+    // MARK: - Layout
+    
+    static let tableViewDefaultCellHeight: CGFloat = 46
 }
