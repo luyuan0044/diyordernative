@@ -144,6 +144,7 @@ class HotItemViewController:BaseViewController,
         searhController!.searchBar.placeholder = LanguageControl.shared.getLocalizeString(by: "search hot items")
         searhController!.searchBar.delegate = self
         searhController!.searchBar.sizeToFit()
+        searhController!.searchBar.searchTextPositionAdjustment = UIOffset (horizontal: 0.0, vertical: 0.0)
         
         navigationItem.titleView = self.searhController.searchBar
         definesPresentationContext = true
@@ -942,6 +943,8 @@ class HotItemViewController:BaseViewController,
         if keyword != nil && !keyword!.isEmpty {
             loadHotItemTask()
         }
+        
+        searhController.dismiss(animated: true, completion: nil)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
