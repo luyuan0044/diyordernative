@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol AccountSegmentCellDelegate {
+    func handleOnOrderButtonTapped ()
+    func handleOnPointsButtonTapped ()
+    func handleOnBookmarkButtonTapped ()
+}
+
 class AccountSegmentCell: UITableViewCell {
     
     static let key = "AccountSegmentCell"
@@ -25,6 +31,8 @@ class AccountSegmentCell: UITableViewCell {
     let buttonTitleFont = UIFont.systemFont(ofSize: 12)
     
     let buttonTitlePadding: CGFloat = 5
+    
+    var delegate: AccountSegmentCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,5 +69,17 @@ class AccountSegmentCell: UITableViewCell {
         
         pointsButton.tintColor = contentColor
         pointsButton.setTitleColor(contentColor, for: .normal)
+    }
+    
+    @objc private func onOrderButtonTapped (_ sender: AnyObject?) {
+        delegate?.handleOnOrderButtonTapped()
+    }
+    
+    @objc private func onPointsButtonTapped (_ sender: AnyObject?) {
+        delegate?.handleOnPointsButtonTapped()
+    }
+    
+    @objc private func onBookmarkButtonTapped (_ sender: AnyObject?) {
+        delegate?.handleOnBookmarkButtonTapped()
     }
 }

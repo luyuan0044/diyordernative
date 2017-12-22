@@ -20,6 +20,8 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
     
     @IBOutlet weak var managePanelView: UIView!
     
+    @IBOutlet weak var deleteButton: UIButton!
+    
     @IBOutlet weak var cartTableView: UITableView!
     
     var isManagePanelViewShowed = false
@@ -46,6 +48,16 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
         
         cartTableView.delegate = self
         cartTableView.dataSource = self
+        
+        deleteButton.backgroundColor = UIColor.white
+        deleteButton.setTitle(LanguageControl.shared.getLocalizeString(by: "delete"), for: .normal)
+        deleteButton.setTitleColor(UIConstants.appThemeColor, for: .normal)
+        deleteButton.layer.cornerRadius = deleteButton.frame.width / 2
+        deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        deleteButton.layer.borderColor = UIConstants.appThemeColor.cgColor
+        deleteButton.contentEdgeInsets = UIEdgeInsets (top: 10, left: 15, bottom: 10, right: 15)
+        deleteButton.layer.borderWidth = 0.5
+        deleteButton.addTarget(self, action: #selector(onDeleteButtonTapped(_:)), for: .touchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,6 +99,10 @@ class ShoppingCartViewController: BaseViewController, UITableViewDataSource, UIT
             self.managePanelViewTopConstraint.constant -= self.managePanelViewDisplacement
             self.view.layoutIfNeeded()
         })
+    }
+    
+    @objc private func onDeleteButtonTapped (_ sender: AnyObject?) {
+        
     }
     
     // MARK: - UITableViewDataSource

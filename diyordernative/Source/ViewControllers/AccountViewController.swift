@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class AccountViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, AccountSegmentCellDelegate {
 
     static let tabTitle = "account"
     
@@ -79,6 +79,34 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
         return cell!
     }
     
+    func handleOnAccountHeaderCellTapped () {
+        
+    }
+    
+    func handleOnAddressBookCellTapped () {
+        
+    }
+    
+    func handleOnRecentViewCellTapped () {
+        
+    }
+    
+    func handleOnGiftcardCellTapped () {
+        
+    }
+    
+    func handleOnNotificationCellTapped () {
+        
+    }
+    
+    func handleOnRateGoopterCellTapped () {
+        
+    }
+    
+    func handleOnPrivacyPolicyCellTapped () {
+        
+    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,13 +122,14 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AccountHeaderCell.key) as! AccountHeaderCell
                 
-                cell.update(isLogin: true)
+                cell.update(isLogin: false)
                 cell.selectionStyle = .none
                 
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AccountSegmentCell.key) as! AccountSegmentCell
                 
+                cell.delegate = self
                 cell.selectionStyle = .none
                 cell.update(contentColor: contentColor)
                 
@@ -181,6 +210,40 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
     
     // MARK: - UITableViewDelegate
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            handleOnAccountHeaderCellTapped()
+        } else if indexPath.section == 1 && indexPath.row == 0 {
+            handleOnAddressBookCellTapped()
+        } else if indexPath.section == 1 && indexPath.row == 1 {
+            handleOnRecentViewCellTapped()
+        } else if indexPath.section == 2 && indexPath.row == 0 {
+            handleOnGiftcardCellTapped()
+        } else if indexPath.section == 2 && indexPath.row == 1 {
+            handleOnNotificationCellTapped()
+        } else if indexPath.section == 3 && indexPath.row == 0 {
+            handleOnRateGoopterCellTapped()
+        } else if indexPath.section == 3 && indexPath.row == 1 {
+            handleOnPrivacyPolicyCellTapped()
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - AccountSegmentCellDelegate
+    
+    func handleOnOrderButtonTapped() {
+        
+    }
+    
+    func handleOnPointsButtonTapped() {
+        
+    }
+    
+    func handleOnBookmarkButtonTapped() {
+        
+    }
+    
     /*
     // MARK: - Navigation
 

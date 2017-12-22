@@ -301,8 +301,18 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZ5-P7-liv">
                                 <rect key="frame" x="0.0" y="19" width="375" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmC-Ff-j7u">
+                                        <rect key="frame" x="330" y="8" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="kbE-ps-hYv"/>
+                                        </constraints>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MmC-Ff-j7u" secondAttribute="trailing" constant="15" id="Hby-xX-Ujv"/>
+                                    <constraint firstItem="MmC-Ff-j7u" firstAttribute="centerY" secondItem="aZ5-P7-liv" secondAttribute="centerY" id="mmE-m5-SgR"/>
                                     <constraint firstAttribute="height" constant="45" id="yXA-ol-7Vq"/>
                                 </constraints>
                             </view>
@@ -324,6 +334,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cartTableView" destination="X57-4P-Lez" id="s8e-2S-RI3"/>
+                        <outlet property="deleteButton" destination="MmC-Ff-j7u" id="NIm-Wr-0L7"/>
                         <outlet property="manageButtonItem" destination="4VY-H2-74S" id="U1s-RT-S5Q"/>
                         <outlet property="managePanelView" destination="aZ5-P7-liv" id="fB5-TO-BXV"/>
                         <outlet property="managePanelViewTopConstraint" destination="xF9-pk-doS" id="KKP-Q4-GYI"/>
