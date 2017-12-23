@@ -120,7 +120,7 @@ class HotItemViewController:BaseViewController,
         hotItemCollectionView.dataSource = self
         hotItemCollectionView.delegate = self
         
-        hotItemCollectionView.backgroundColor = UIColor.groupTableViewBackground
+        hotItemCollectionView.backgroundColor = UIColor.white
         // sticky header setup
         let layout = hotItemCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
@@ -362,6 +362,9 @@ class HotItemViewController:BaseViewController,
         
         rightSlideFilterViewController?.dismiss(animated: true, completion: {
             self.isRightSlideFilterViewControllerPresented = false
+            
+            // Clear right slide cache stack
+            self.rightSlideDataSourceAdnDelegateStack = []
         })
     }
     

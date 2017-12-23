@@ -60,12 +60,20 @@
 
 "manage" = "管理";
 
+"username" = "用户名";
+
+"password" = "密码";
+
+"forget password" = "忘记密码";
+
+"signup" = "新用户";
+
 "notifications" = "消息推送";
 
 "rate goopter" = "Rate Goopter";
 
-"log in" = "登录";
-
-"sign up" = "注册";
+"login" = "登录";
 
 "register as a memeber to receive reward points" = "下单前请登录以获得奖励积分";
+
+"Change Langauge" = "Change Langauge";

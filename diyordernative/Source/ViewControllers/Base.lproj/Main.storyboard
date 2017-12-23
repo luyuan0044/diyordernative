@@ -485,11 +485,31 @@
                     <connections>
                         <outlet property="accountTableView" destination="E0n-RS-Ubw" id="siu-iX-Nyh"/>
                         <outlet property="settingButtonItem" destination="60v-wz-Wvp" id="klF-bB-MZ6"/>
+                        <segue destination="GKt-Z4-OwJ" kind="presentation" identifier="account_view_controller_present_login_view_controller" id="iif-wt-0MS"/>
+                        <segue destination="0fI-Nw-CXD" kind="show" identifier="account_view_controller_show_setting_view_controller" id="fI3-wp-T1X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFV-pv-6ix" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1096.8" y="1906.5967016491757"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="6W7-8y-gjf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Setting" id="0fI-Nw-CXD" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ePy-25-puj"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UEN-kM-1eB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="1804"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="rtW-7Z-25f">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="GKt-Z4-OwJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tqU-At-X5B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1838" y="1991"/>
         </scene>
         <!--Item-->
         <scene sceneID="DBn-rR-ewd">

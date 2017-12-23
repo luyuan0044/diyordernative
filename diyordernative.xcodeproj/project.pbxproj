@@ -53,8 +53,8 @@
 		7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130C1FE1F97000B940F8 /* ApiResponse.swift */; };
 		7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7961D2181FE79E9000C739C1 /* ListProductCell.swift */; };
 		7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7961D2191FE79E9000C739C1 /* ListProductCell.xib */; };
-		7978A6801FECD78900306B6E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978A67E1FECD78900306B6E /* LoginViewController.swift */; };
-		7978A6811FECD78900306B6E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7978A67F1FECD78900306B6E /* LoginViewController.xib */; };
+		79679B951FED75EA00E69E85 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79679B941FED75EA00E69E85 /* Login.storyboard */; };
+		79679B971FED760B00E69E85 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79679B961FED760B00E69E85 /* LoginViewController.swift */; };
 		7978A6881FECE4E300306B6E /* ImageViewPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */; };
 		7978A6891FECE4E300306B6E /* ImageViewPeekViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */; };
 		798A35CD1FEB89C000A34616 /* FilterPriceRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */; };
@@ -72,9 +72,11 @@
 		79D696941FEC34DD00097B4F /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696931FEC34DD00097B4F /* Phone.swift */; };
 		79D696961FEC420700097B4F /* AccountHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696951FEC420700097B4F /* AccountHeaderCell.swift */; };
 		79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */; };
+		79DFC54C1FEDC3FB0050DFDE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */; };
 		79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */; };
 		79E4497F1FE3BB3B005F4FCC /* StoreCategoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */; };
 		79E449811FE3BB7B005F4FCC /* StoreCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E449801FE3BB7B005F4FCC /* StoreCategory.swift */; };
+		79F57B921FEDCC290066B131 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F57B911FEDCC290066B131 /* Setting.storyboard */; };
 		79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA611FE093D300E72807 /* SysConstants.swift */; };
 		79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA631FE093F600E72807 /* UIConstants.swift */; };
 		79FDBA661FE0959700E72807 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FDBA651FE0959700E72807 /* LaunchScreen.storyboard */; };
@@ -158,8 +160,8 @@
 		7953130C1FE1F97000B940F8 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		7961D2181FE79E9000C739C1 /* ListProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductCell.swift; sourceTree = "<group>"; };
 		7961D2191FE79E9000C739C1 /* ListProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProductCell.xib; sourceTree = "<group>"; };
-		7978A67E1FECD78900306B6E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		7978A67F1FECD78900306B6E /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		79679B941FED75EA00E69E85 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		79679B961FED760B00E69E85 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewPeekViewController.swift; sourceTree = "<group>"; };
 		7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewPeekViewController.xib; sourceTree = "<group>"; };
 		798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPriceRangeCell.swift; sourceTree = "<group>"; };
@@ -185,9 +187,11 @@
 		79D696931FEC34DD00097B4F /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		79D696951FEC420700097B4F /* AccountHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderCell.swift; sourceTree = "<group>"; };
 		79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemViewController.swift; sourceTree = "<group>"; };
+		79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryCell.swift; sourceTree = "<group>"; };
 		79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryLoader.swift; sourceTree = "<group>"; };
 		79E449801FE3BB7B005F4FCC /* StoreCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategory.swift; sourceTree = "<group>"; };
+		79F57B911FEDCC290066B131 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		79FDBA611FE093D300E72807 /* SysConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SysConstants.swift; sourceTree = "<group>"; };
 		79FDBA631FE093F600E72807 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		79FDBA651FE0959700E72807 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -331,21 +335,23 @@
 			children = (
 				79BC08D61FE090C100D53620 /* Main.storyboard */,
 				79FDBA651FE0959700E72807 /* LaunchScreen.storyboard */,
-				7978A67E1FECD78900306B6E /* LoginViewController.swift */,
-				7978A67F1FECD78900306B6E /* LoginViewController.xib */,
+				79679B941FED75EA00E69E85 /* Login.storyboard */,
+				79F57B911FEDCC290066B131 /* Setting.storyboard */,
 				79ADC8401FE1B2A10022B513 /* AccountViewController.swift */,
 				79BC08D41FE090C100D53620 /* HomeViewController.swift */,
-				79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */,
-				790DC2C51FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift */,
 				790DC2C71FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift */,
+				790DC2C51FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift */,
+				79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */,
+				7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */,
+				79679B961FED760B00E69E85 /* LoginViewController.swift */,
 				79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */,
-				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
+				7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */,
 				7943802A1FE0B15200F6594D /* RootNavigationController.swift */,
 				7943802C1FE0B36100F6594D /* RootTabBarController.swift */,
-				7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */,
-				7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */,
-				7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */,
+				79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */,
+				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
 				7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */,
+				7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */,
 				79FDBA6A1FE0984900E72807 /* BaseViewControllers */,
 			);
 			path = ViewControllers;
@@ -560,13 +566,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79F57B921FEDCC290066B131 /* Setting.storyboard in Resources */,
+				79679B951FED75EA00E69E85 /* Login.storyboard in Resources */,
 				794380271FE0A2ED00F6594D /* IconLabelButtonView.xib in Resources */,
 				790DC2C01FEA3A2100A04AFA /* Localizable.strings in Resources */,
 				7978A6891FECE4E300306B6E /* ImageViewPeekViewController.xib in Resources */,
 				79FDBA661FE0959700E72807 /* LaunchScreen.storyboard in Resources */,
 				792EC60B1FE486CD00B4C563 /* UtilityButtonsHeaderView.xib in Resources */,
 				79BC08DD1FE090C100D53620 /* Assets.xcassets in Resources */,
-				7978A6811FECD78900306B6E /* LoginViewController.xib in Resources */,
 				792EC6161FE4ACA000B4C563 /* CollectionLoadingFooterView.xib in Resources */,
 				792EC6121FE4912C00B4C563 /* GridProductCell.xib in Resources */,
 				7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */,
@@ -689,6 +696,7 @@
 				7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */,
 				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				792E9D511FEB2494004D5045 /* HotItemRightSlideTableViewHeaderView.swift in Sources */,
+				79679B971FED760B00E69E85 /* LoginViewController.swift in Sources */,
 				792EC6151FE4ACA000B4C563 /* CollectionLoadingFooterView.swift in Sources */,
 				790DC2C61FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift in Sources */,
 				7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */,
@@ -700,7 +708,7 @@
 				79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */,
 				79E449811FE3BB7B005F4FCC /* StoreCategory.swift in Sources */,
 				79FDBA6C1FE098B700E72807 /* BaseTableViewController.swift in Sources */,
-				7978A6801FECD78900306B6E /* LoginViewController.swift in Sources */,
+				79DFC54C1FEDC3FB0050DFDE /* SettingViewController.swift in Sources */,
 				795313071FE1F7E400B940F8 /* HotItemFilterManager.swift in Sources */,
 				798A35CD1FEB89C000A34616 /* FilterPriceRangeCell.swift in Sources */,
 				79BC08D31FE090C100D53620 /* AppDelegate.swift in Sources */,

@@ -14,6 +14,10 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
     
     static let icon = #imageLiteral(resourceName: "icon_account")
     
+    let presentLoginViewControllerSegueId = "account_view_controller_present_login_view_controller"
+    
+    let showSettingViewControllerSegueId = "account_view_controller_show_setting_view_controller"
+    
     @IBOutlet weak var accountTableView: UITableView!
     
     @IBOutlet weak var settingButtonItem: UIBarButtonItem!
@@ -43,6 +47,8 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
         
         settingButtonItem.image = #imageLiteral(resourceName: "icon_setting").withRenderingMode(.alwaysTemplate)
         settingButtonItem.tintColor = UIColor.white
+        settingButtonItem.target = self
+        settingButtonItem.action = #selector(handleOnSettingButtonTapped(_:))
         
         backgroundView = UIView ()
         backgroundView.backgroundColor = UIColor.groupTableViewBackground
@@ -80,7 +86,14 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     func handleOnAccountHeaderCellTapped () {
-        
+        // Force invoke the main queue to resolve the present modally delay issue
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: self.presentLoginViewControllerSegueId, sender: nil)
+        }
+    }
+    
+    @objc private func handleOnSettingButtonTapped (_ sender: AnyObject?) {
+        performSegue(withIdentifier: showSettingViewControllerSegueId, sender: nil)
     }
     
     func handleOnAddressBookCellTapped () {
@@ -244,14 +257,13 @@ class AccountViewController: BaseViewController, UITableViewDataSource, UITableV
         
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == showSettingViewControllerSegueId {
+            segue.destination.hidesBottomBarWhenPushed = true
+        }
     }
-    */
-
 }

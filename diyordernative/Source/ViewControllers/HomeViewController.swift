@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Alamofire
 
-class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIViewControllerPreviewingDelegate {
+class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Properties
     
@@ -53,9 +53,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         rightBarButtonItem.target = self
         rightBarButtonItem.action = #selector(onRightButtonItemTapped(_:))
         
-        if (traitCollection.forceTouchCapability == .available) {
-            registerForPreviewing(with: self, sourceView: bottomCollectionView)
-        }
+//        if (traitCollection.forceTouchCapability == .available) {
+//            registerForPreviewing(with: self, sourceView: bottomCollectionView)
+//        }
         
         fetch()
     }
@@ -133,7 +133,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
      */
     @objc private func onRightButtonItemTapped (_ sender: AnyObject?) {
         let languages = LanguageControl.shared.getAvaliableAppLanguages();
-        LanguageControl.shared.setAppLanguage(languages[0])
+        LanguageControl.shared.setAppLanguage(languages[1])
         fetch()
     }
     
@@ -239,18 +239,18 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     // MARK: - UIViewControllerPreviewingDelegate
     
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = bottomCollectionView.indexPathForItem(at: location) else { return nil }
-        guard let cell = bottomCollectionView.cellForItem(at: indexPath) else { return nil }
-        let detailVC = LoginViewController()
-        previewingContext.sourceRect = cell.frame
-        return detailVC
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        let vc = UIStoryboard (name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountViewController")
-        
-        show(vc, sender: self)
-    }
+//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+//        guard let indexPath = bottomCollectionView.indexPathForItem(at: location) else { return nil }
+//        guard let cell = bottomCollectionView.cellForItem(at: indexPath) else { return nil }
+//        let detailVC = LoginViewController()
+//        previewingContext.sourceRect = cell.frame
+//        return detailVC
+//    }
+//
+//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+//        let vc = UIStoryboard (name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountViewController")
+//
+//        show(vc, sender: self)
+//    }
 }
 

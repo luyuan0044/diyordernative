@@ -60,12 +60,20 @@
 
 "manage" = "管理";
 
+"username" = "帳戶";
+
+"password" = "密碼";
+
+"forget password" = "忘記密碼";
+
+"signup" = "新用戶";
+
 "notifications" = "訊息推送";
 
 "rate goopter" = "Rate Goopter";
 
-"log in" = "登錄";
-
-"sign up" = "註冊";
+"login" = "登錄";
 
 "register as a memeber to receive reward points" = "下單前請登錄以獲得獎勵積分";
+
+"Change Langauge" = "更改語言";

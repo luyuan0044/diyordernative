@@ -24,6 +24,8 @@ struct UIConstants
     
     static let transparentBlackColor = UIColor.black.withAlphaComponent(0.6)
     
+    static let generalLightBackgroundColor = UIColor(red: 240 / rgbRatio, green: 240 / rgbRatio, blue: 240 / rgbRatio, alpha: 1)
+    
     // MARK: - Layout
     
     static let tableViewDefaultCellHeight: CGFloat = 46

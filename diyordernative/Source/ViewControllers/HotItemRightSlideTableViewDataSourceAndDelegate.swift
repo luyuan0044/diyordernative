@@ -42,10 +42,13 @@ class HotItemRightSlideTableViewDataSourceAndDelegate: NSObject, UITableViewData
         cell!.textLabel?.text = item.name
         cell!.textLabel?.textColor = UIColor.gray
         cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell!.accessoryType = item.hasChildren() ? .disclosureIndicator : .none
-        
-        let currentSelectedId = delegate?.getCurrentSelectedCategoryId ()
-        cell!.accessoryType = currentSelectedId == item.id ? .checkmark : .none
+        if item.hasChildren() {
+            cell!.accessoryType = .disclosureIndicator
+        } else if let currentSelectedId = delegate?.getCurrentSelectedCategoryId (), currentSelectedId == item.id {
+            cell!.accessoryType = .checkmark
+        } else {
+            cell!.accessoryType = .none
+        }
         
         return cell!
     }
