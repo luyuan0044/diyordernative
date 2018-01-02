@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingViewController: BaseTableViewController {
+class SettingViewController: UITableViewController {
     
     var tableViewSource: [[String]] = [
         ["change language",
@@ -20,17 +20,32 @@ class SettingViewController: BaseTableViewController {
         ["about goopter",
          "feedback",
          "term of use"],
+        ["logout"]
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         hidesBottomBarWhenPushed = true;
+        
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem (title: "", style: .plain, target: nil, action: nil)
+        
+        title = LanguageControl.shared.getLocalizeString(by: "settings")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Implementation
+    
+    @objc private func onBackButtonTapped (_ sender: AnyObject?) {
+        
     }
 
     // MARK: - Table view data source
@@ -42,18 +57,17 @@ class SettingViewController: BaseTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
+        return super.tableView(tableView, numberOfRowsInSection: section)
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
-        // Configure the cell...
+        let title = tableViewSource[indexPath.section][indexPath.row]
+        cell.textLabel?.text = LanguageControl.shared.getLocalizeString(by: title)
 
         return cell
     }
-    */
 
     /*
     // MARK: - Navigation
@@ -64,5 +78,4 @@ class SettingViewController: BaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
