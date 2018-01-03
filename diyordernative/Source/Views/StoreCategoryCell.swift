@@ -24,6 +24,6 @@ class StoreCategoryCell: UICollectionViewCell {
     }
     
     func update (storeCategory: StoreCategory) {
-        iconLabelButtonView.update(storeCategory: storeCategory)
+        iconLabelButtonView.update(item: storeCategory)
     }
 }

@@ -80,6 +80,7 @@
 		79D696921FEC333100097B4F /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696911FEC333100097B4F /* Profile.swift */; };
 		79D696941FEC34DD00097B4F /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696931FEC34DD00097B4F /* Phone.swift */; };
 		79D696961FEC420700097B4F /* AccountHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696951FEC420700097B4F /* AccountHeaderCell.swift */; };
+		79DD61E01FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD61DF1FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift */; };
 		79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */; };
 		79DFC54C1FEDC3FB0050DFDE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */; };
 		79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */; };
@@ -204,6 +205,7 @@
 		79D696911FEC333100097B4F /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		79D696931FEC34DD00097B4F /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		79D696951FEC420700097B4F /* AccountHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderCell.swift; sourceTree = "<group>"; };
+		79DD61DF1FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterSorterControl.swift; sourceTree = "<group>"; };
 		79DDFD4E1FE1AC5000DA8460 /* HotItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotItemViewController.swift; sourceTree = "<group>"; };
 		79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryCell.swift; sourceTree = "<group>"; };
@@ -401,9 +403,9 @@
 				79D696931FEC34DD00097B4F /* Phone.swift */,
 				79A760871FFC16F60012F096 /* Store.swift */,
 				79A760891FFC19100012F096 /* StoreDetail.swift */,
+				79E449801FE3BB7B005F4FCC /* StoreCategory.swift */,
 				7997583A1FFC366E00778716 /* StoreSubCategory.swift */,
 				799758401FFC656300778716 /* StoreFilter.swift */,
-				79E449801FE3BB7B005F4FCC /* StoreCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -445,6 +447,7 @@
 				792F96541FE2EB6D00A67ADC /* ApiManager.swift */,
 				792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */,
 				7997583C1FFC384A00778716 /* StoreFilterSorterManager.swift */,
+				79DD61DF1FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift */,
 				79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */,
 				792EC6061FE4810400B4C563 /* HotItemLoader.swift */,
 				792F965C1FE302F200A67ADC /* LanguageControl.swift */,
@@ -754,6 +757,7 @@
 				792F965F1FE303E700A67ADC /* Language.swift in Sources */,
 				792EC6051FE45F3C00B4C563 /* HotItemCategory.swift in Sources */,
 				795313091FE1F8AC00B940F8 /* BaseApiResponse.swift in Sources */,
+				79DD61E01FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift in Sources */,
 				7907CEE31FE6628A00A617E1 /* RightSlideFilterViewController.swift in Sources */,
 				7978A6881FECE4E300306B6E /* ImageViewPeekViewController.swift in Sources */,
 				7943802D1FE0B36100F6594D /* RootTabBarController.swift in Sources */,

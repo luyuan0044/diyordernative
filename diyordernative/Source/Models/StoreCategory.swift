@@ -26,3 +26,13 @@ class StoreCategory: Mappable {
         self.imageUrl <- map["img"]
     }
 }
+
+extension StoreCategory: IconLabelButtonViewItem {
+    func getImageUrl() -> String? {
+        return imageUrl
+    }
+    
+    func getTitleText() -> String? {
+        return name
+    }
+}

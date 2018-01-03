@@ -98,6 +98,11 @@ class StoreFilterSorterManager {
         completion (status, self.filterSubcategories)
     }
     
+    /**
+     Load store sort items
+     
+     - parameter completion: api request task completion callback (api status and array of store sorts as input)
+     */
     func loadSortItems (completion: @escaping (apiStatus, [Sort]?) -> Void) {
         var status = apiStatus.unknownError
         
@@ -121,6 +126,12 @@ class StoreFilterSorterManager {
         completion (status, self.sorts)
     }
     
+    /**
+     Request store sorts from server
+     
+     - parameter storeCategoryType: type of current stores
+     - parameter completion: api request task completion callback (api status and array of store sorts as input)
+     */
     static private func startRequestStoreSorts (storeCategoryType: storeCategoryType, completion: @escaping (apiStatus, [Sort]?) -> Void) {
         let language = LanguageControl.shared.getAppLanguage().serverKey
         let urlparams = ["lan": language, "c_id": "\(storeCategoryType.rawValue)", "city": "1"]
@@ -145,6 +156,11 @@ class StoreFilterSorterManager {
         })
     }
     
+    /**
+     Load store filter items
+     
+     - parameter completion: api request task completion callback (api status and array of store filters as input)
+     */
     func loadFilterItems (completion: @escaping (apiStatus, [StoreFilter]?) -> Void) {
         var status = apiStatus.unknownError
         
@@ -168,6 +184,12 @@ class StoreFilterSorterManager {
         completion (status, self.filters)
     }
     
+    /**
+     Request store filters from server
+     
+     - parameter storeCategoryType: type of current stores
+     - parameter completion: api request task completion callback (api status and array of store filters as input)
+     */
     static private func startRequestFilterItems (storeCategoryType: storeCategoryType, completion: @escaping (apiStatus, [StoreFilter]?) -> Void) {
         let language = LanguageControl.shared.getAppLanguage().serverKey
         let urlparams = ["lan": language, "c_id": "\(storeCategoryType.rawValue)", "city": "1"]

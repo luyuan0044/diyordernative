@@ -16,6 +16,10 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     var titleText: String?
     
+    var storeFilterSorterControl: StoreFilterSorterControl!
+    
+    let heightOfStoreSubCategoryItems: CGFloat = 75
+    
     @IBOutlet weak var contentTableView: UITableView!
     
     override func viewDidLoad() {
@@ -29,6 +33,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         
         contentTableView.dataSource = self
         contentTableView.delegate = self
+        
+        storeFilterSorterControl = StoreFilterSorterControl()
         
         loadData()
     }
@@ -52,6 +58,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSubCategories(completion: {
                 status, subcategories in
                 
+                self.storeFilterSorterControl.setSubcategories(subcategories)
+                
                 taskGroup.leave()
             })
         }
@@ -60,6 +68,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             taskGroup.enter()
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterSubCategoies(completion: {
                 status, filterSubcategories in
+                
+                self.storeFilterSorterControl.setFilterSubcategories(filterSubcategories)
                 
                 taskGroup.leave()
             })
@@ -70,6 +80,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSortItems(completion: {
                 status, sorts in
                 
+                self.storeFilterSorterControl.setSorts(sorts)
+                
                 taskGroup.leave()
             })
         }
@@ -79,9 +91,20 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterItems(completion: {
                 status, filters in
                 
+                self.storeFilterSorterControl.setFilters(filters)
+                
                 taskGroup.leave()
             })
         }
+        
+        taskGroup.notify(queue: DispatchQueue.main, execute: {
+            self.refreshData()
+        })
+    }
+    
+    func refreshData () {
+        contentTableView.reloadData()
+        contentTableView.layoutIfNeeded()
     }
     
     // MARK: - UITableViewDataSource
@@ -104,7 +127,9 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            var header = tableView.dequeueReusableCell(withIdentifier: StoreSubCategoryHeaderView.key) as! StoreSubCategoryHeaderView
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: StoreSubCategoryHeaderView.key) as! StoreSubCategoryHeaderView
+            
+            header.setSource(subcategories: storeFilterSorterControl.subcategories)
             
             return header
         } else {
@@ -115,6 +140,10 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return storeFilterSorterControl.subcategories == nil || storeFilterSorterControl.subcategories?.count == 0 ? 0 : heightOfStoreSubCategoryItems
+        }
+        
         return 60
     }
 

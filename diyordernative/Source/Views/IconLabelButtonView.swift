@@ -9,6 +9,11 @@
 import UIKit
 import SDWebImage
 
+protocol IconLabelButtonViewItem {
+    func getImageUrl () -> String?
+    func getTitleText () -> String?
+}
+
 class IconLabelButtonView: UIView {
     
     static let key = "IconLabelButtonView"
@@ -25,6 +30,8 @@ class IconLabelButtonView: UIView {
         super.init(frame: frame)
         
         commonInit()
+        
+        viewSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +49,16 @@ class IconLabelButtonView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        viewSetup()
+    }
+    
+    func update (item: IconLabelButtonViewItem) {
+        iconImageView.sd_setImage(with: URL(string: item.getImageUrl()!)!)
+        
+        titleLabel.text = item.getTitleText()
+    }
+    
+    private func viewSetup () {
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.clipsToBounds = true
         
@@ -57,11 +74,5 @@ class IconLabelButtonView: UIView {
                                                       options: [],
                                                       metrics: nil,
                                                       views: ["childView": contentView]))
-    }
-    
-    func update (storeCategory: StoreCategory) {
-        iconImageView.sd_setImage(with: URL(string: storeCategory.imageUrl!)!)
-        
-        titleLabel.text = storeCategory.name
     }
 }

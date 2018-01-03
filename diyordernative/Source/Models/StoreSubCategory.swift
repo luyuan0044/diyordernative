@@ -12,7 +12,7 @@ import ObjectMapper
 class StoreSubCategory: Mappable {
     var id: Int?
     var name: String?
-    var image: String?
+    var imageUrl: String?
     var level: Int?
     var children: [StoreSubCategory]?
     
@@ -23,8 +23,20 @@ class StoreSubCategory: Mappable {
     func mapping(map: Map) {
         self.id <- map["id"]
         self.name <- map["name"]
-        self.image <- map["img"]
+        self.imageUrl <- map["img"]
         self.level <- map["level"]
         self.children <- map["children"]
     }
+}
+
+extension StoreSubCategory: IconLabelButtonViewItem {
+    func getImageUrl() -> String? {
+        return imageUrl
+    }
+    
+    func getTitleText() -> String? {
+        return name
+    }
+    
+    
 }
