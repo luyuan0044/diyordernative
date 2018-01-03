@@ -47,3 +47,11 @@ enum hotItemSortType: String {
     case list = "List"
     case tab = "Tab"
 }
+
+enum storeCategoryType: Int {
+    case restaurant = 1
+    case groupsale
+    case travel
+    case shopping
+    case service
+}

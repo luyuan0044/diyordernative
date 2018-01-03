@@ -163,11 +163,20 @@
                         <outlet property="rightBarButtonItem" destination="kAw-fu-h6o" id="fUE-fh-43t"/>
                         <outlet property="topCollectionView" destination="lCb-Xm-eGc" id="eC0-ca-AKd"/>
                         <outlet property="topCollectionViewHeightConstraint" destination="Rja-io-A7O" id="YMr-aa-7Uv"/>
+                        <segue destination="829-4x-F7x" kind="show" identifier="home_view_controller_show_stores_view_controller" id="ALR-5u-yP3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1096.8" y="-1066.4167916041979"/>
+        </scene>
+        <!--Stores-->
+        <scene sceneID="3nW-kC-Z41">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Stores" id="829-4x-F7x" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0VM-6o-A89" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="-1327"/>
         </scene>
         <!--Item-->
         <scene sceneID="wYS-Fq-zhn">

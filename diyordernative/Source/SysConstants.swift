@@ -12,15 +12,23 @@ struct SysConstants
 {
     // MARK: - API URL
     
-    private static let BASE_URL                 = "https://api.goopter.com"
+    private static let BASE_URL                     = "https://api.goopter.com"
     
-    static let REST_PATH_BANNER_ITEM            = BASE_URL + "/api/v6/hlst"
+    static let REST_PATH_BANNER_ITEM                = BASE_URL + "/api/v6/hlst"
     
-    static let REST_PATH_STORE_CATEGORY         = BASE_URL + "/api/v6/hs"
+    static let REST_PATH_STORE_CATEGORY             = BASE_URL + "/api/v6/hs"
     
-    static let REST_PATH_HOT_ITEM               = BASE_URL + "/api/v6/hsearch"
+    static let REST_PATH_HOT_ITEM                   = BASE_URL + "/api/v6/hsearch"
     
-    static let REST_PATH_HOT_ITEM_CATEGORY      = BASE_URL + "/api/v6/hcat"
+    static let REST_PATH_HOT_ITEM_CATEGORY          = BASE_URL + "/api/v6/hcat"
+    
+    static let REST_PATH_STORE_SUBCATEGORY          = BASE_URL + "/api/v6/ssc"
+    
+    static let REST_PATH_STORE_FILTER_SUBCATEGORY   = BASE_URL + "/api/v5/sfc"
+    
+    static let REST_PATH_STORE_SORT                 = BASE_URL + "/api/v5/sfs"
+    
+    static let REST_PATH_STORE_FILTER               = BASE_URL + "/api/v5/sff"
     
     // MARK: - Language
     

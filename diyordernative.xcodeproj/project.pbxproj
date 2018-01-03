@@ -53,12 +53,21 @@
 		7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953130C1FE1F97000B940F8 /* ApiResponse.swift */; };
 		7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7961D2181FE79E9000C739C1 /* ListProductCell.swift */; };
 		7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7961D2191FE79E9000C739C1 /* ListProductCell.xib */; };
+		79654EAD1FFC0AFF00BBC620 /* Stores.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */; };
+		79654EAF1FFC0C5E00BBC620 /* StoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79654EAE1FFC0C5E00BBC620 /* StoresViewController.swift */; };
 		79679B951FED75EA00E69E85 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79679B941FED75EA00E69E85 /* Login.storyboard */; };
 		79679B971FED760B00E69E85 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79679B961FED760B00E69E85 /* LoginViewController.swift */; };
+		7967D96A1FFC6CE10052F8DD /* StoreSubCategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967D9691FFC6CE10052F8DD /* StoreSubCategoryHeaderView.swift */; };
+		7967D96C1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7967D96B1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib */; };
 		7978A6881FECE4E300306B6E /* ImageViewPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */; };
 		7978A6891FECE4E300306B6E /* ImageViewPeekViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */; };
 		798A35CD1FEB89C000A34616 /* FilterPriceRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */; };
 		798A35CE1FEB89C000A34616 /* FilterPriceRangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798A35CC1FEB89C000A34616 /* FilterPriceRangeCell.xib */; };
+		7997583B1FFC366E00778716 /* StoreSubCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7997583A1FFC366E00778716 /* StoreSubCategory.swift */; };
+		7997583D1FFC384A00778716 /* StoreFilterSorterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7997583C1FFC384A00778716 /* StoreFilterSorterManager.swift */; };
+		799758411FFC656300778716 /* StoreFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799758401FFC656300778716 /* StoreFilter.swift */; };
+		79A760881FFC16F60012F096 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760871FFC16F60012F096 /* Store.swift */; };
+		79A7608A1FFC19100012F096 /* StoreDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760891FFC19100012F096 /* StoreDetail.swift */; };
 		79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */; };
 		79ADC8411FE1B2A10022B513 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC8401FE1B2A10022B513 /* AccountViewController.swift */; };
 		79BC08D31FE090C100D53620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BC08D21FE090C100D53620 /* AppDelegate.swift */; };
@@ -160,12 +169,21 @@
 		7953130C1FE1F97000B940F8 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		7961D2181FE79E9000C739C1 /* ListProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductCell.swift; sourceTree = "<group>"; };
 		7961D2191FE79E9000C739C1 /* ListProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProductCell.xib; sourceTree = "<group>"; };
+		79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Stores.storyboard; sourceTree = "<group>"; };
+		79654EAE1FFC0C5E00BBC620 /* StoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresViewController.swift; sourceTree = "<group>"; };
 		79679B941FED75EA00E69E85 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		79679B961FED760B00E69E85 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7967D9691FFC6CE10052F8DD /* StoreSubCategoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSubCategoryHeaderView.swift; sourceTree = "<group>"; };
+		7967D96B1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreSubCategoryHeaderView.xib; sourceTree = "<group>"; };
 		7978A6861FECE4E300306B6E /* ImageViewPeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewPeekViewController.swift; sourceTree = "<group>"; };
 		7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewPeekViewController.xib; sourceTree = "<group>"; };
 		798A35CB1FEB89C000A34616 /* FilterPriceRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPriceRangeCell.swift; sourceTree = "<group>"; };
 		798A35CC1FEB89C000A34616 /* FilterPriceRangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPriceRangeCell.xib; sourceTree = "<group>"; };
+		7997583A1FFC366E00778716 /* StoreSubCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSubCategory.swift; sourceTree = "<group>"; };
+		7997583C1FFC384A00778716 /* StoreFilterSorterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterSorterManager.swift; sourceTree = "<group>"; };
+		799758401FFC656300778716 /* StoreFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilter.swift; sourceTree = "<group>"; };
+		79A760871FFC16F60012F096 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		79A760891FFC19100012F096 /* StoreDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetail.swift; sourceTree = "<group>"; };
 		79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		79ADC8401FE1B2A10022B513 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		79BC08CF1FE090C100D53620 /* diyordernative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = diyordernative.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +355,7 @@
 				79FDBA651FE0959700E72807 /* LaunchScreen.storyboard */,
 				79679B941FED75EA00E69E85 /* Login.storyboard */,
 				79F57B911FEDCC290066B131 /* Setting.storyboard */,
+				79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */,
 				79ADC8401FE1B2A10022B513 /* AccountViewController.swift */,
 				79BC08D41FE090C100D53620 /* HomeViewController.swift */,
 				790DC2C71FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift */,
@@ -348,6 +367,7 @@
 				7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */,
 				7943802A1FE0B15200F6594D /* RootNavigationController.swift */,
 				7943802C1FE0B36100F6594D /* RootTabBarController.swift */,
+				79654EAE1FFC0C5E00BBC620 /* StoresViewController.swift */,
 				79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */,
 				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
 				7978A6871FECE4E300306B6E /* ImageViewPeekViewController.xib */,
@@ -377,9 +397,13 @@
 				79FF87091FE9DD60004AF317 /* HotItemSort.swift */,
 				79FF870B1FE9DE74004AF317 /* Sort.swift */,
 				792F965E1FE303E700A67ADC /* Language.swift */,
-				79E449801FE3BB7B005F4FCC /* StoreCategory.swift */,
 				79D696911FEC333100097B4F /* Profile.swift */,
 				79D696931FEC34DD00097B4F /* Phone.swift */,
+				79A760871FFC16F60012F096 /* Store.swift */,
+				79A760891FFC19100012F096 /* StoreDetail.swift */,
+				7997583A1FFC366E00778716 /* StoreSubCategory.swift */,
+				799758401FFC656300778716 /* StoreFilter.swift */,
+				79E449801FE3BB7B005F4FCC /* StoreCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -391,6 +415,8 @@
 				794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */,
 				792F96621FE3310100A67ADC /* BannerItemCell.swift */,
 				79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */,
+				7967D9691FFC6CE10052F8DD /* StoreSubCategoryHeaderView.swift */,
+				7967D96B1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib */,
 				792EC6001FE45E2600B4C563 /* HotItemCategoryHeaderView.swift */,
 				792EC6011FE45E2600B4C563 /* HotItemCategoryHeaderView.xib */,
 				792EC6081FE486CD00B4C563 /* UtilityButtonsHeaderView.swift */,
@@ -418,6 +444,7 @@
 				792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */,
 				792F96541FE2EB6D00A67ADC /* ApiManager.swift */,
 				792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */,
+				7997583C1FFC384A00778716 /* StoreFilterSorterManager.swift */,
 				79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */,
 				792EC6061FE4810400B4C563 /* HotItemLoader.swift */,
 				792F965C1FE302F200A67ADC /* LanguageControl.swift */,
@@ -580,7 +607,9 @@
 				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
 				792E9D531FEB24B1004D5045 /* HotItemRightSlideTableViewHeaderView.xib in Resources */,
+				79654EAD1FFC0AFF00BBC620 /* Stores.storyboard in Resources */,
 				79FF87081FE9DC81004AF317 /* HotItemSortItems.json in Resources */,
+				7967D96C1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib in Resources */,
 				792EC6031FE45E2600B4C563 /* HotItemCategoryHeaderView.xib in Resources */,
 				798A35CE1FEB89C000A34616 /* FilterPriceRangeCell.xib in Resources */,
 			);
@@ -680,6 +709,7 @@
 				792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */,
 				79D696961FEC420700097B4F /* AccountHeaderCell.swift in Sources */,
 				7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */,
+				799758411FFC656300778716 /* StoreFilter.swift in Sources */,
 				79ADC8411FE1B2A10022B513 /* AccountViewController.swift in Sources */,
 				792F965D1FE302F200A67ADC /* LanguageControl.swift in Sources */,
 				792EC6071FE4810400B4C563 /* HotItemLoader.swift in Sources */,
@@ -700,6 +730,8 @@
 				792EC6151FE4ACA000B4C563 /* CollectionLoadingFooterView.swift in Sources */,
 				790DC2C61FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift in Sources */,
 				7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */,
+				7967D96A1FFC6CE10052F8DD /* StoreSubCategoryHeaderView.swift in Sources */,
+				79A760881FFC16F60012F096 /* Store.swift in Sources */,
 				794C55381FEC781200A2C0BD /* UIButtonExtension.swift in Sources */,
 				79FF870C1FE9DE74004AF317 /* Sort.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
@@ -710,8 +742,11 @@
 				79FDBA6C1FE098B700E72807 /* BaseTableViewController.swift in Sources */,
 				79DFC54C1FEDC3FB0050DFDE /* SettingViewController.swift in Sources */,
 				795313071FE1F7E400B940F8 /* HotItemFilterManager.swift in Sources */,
+				7997583B1FFC366E00778716 /* StoreSubCategory.swift in Sources */,
+				7997583D1FFC384A00778716 /* StoreFilterSorterManager.swift in Sources */,
 				798A35CD1FEB89C000A34616 /* FilterPriceRangeCell.swift in Sources */,
 				79BC08D31FE090C100D53620 /* AppDelegate.swift in Sources */,
+				79654EAF1FFC0C5E00BBC620 /* StoresViewController.swift in Sources */,
 				79BC08DB1FE090C100D53620 /* diyordernative.xcdatamodeld in Sources */,
 				790DC2B91FE8F66B00A04AFA /* LocationHelper.swift in Sources */,
 				79FDBA681FE0981E00E72807 /* BaseViewController.swift in Sources */,
@@ -732,6 +767,7 @@
 				79FF870A1FE9DD60004AF317 /* HotItemSort.swift in Sources */,
 				794C55361FEC687100A2C0BD /* AccountSegmentCell.swift in Sources */,
 				79D696941FEC34DD00097B4F /* Phone.swift in Sources */,
+				79A7608A1FFC19100012F096 /* StoreDetail.swift in Sources */,
 				792EC6111FE4912C00B4C563 /* GridProductCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

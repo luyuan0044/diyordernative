@@ -18,6 +18,8 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     static let icon = #imageLiteral(resourceName: "icon_home")
     
+    let showStoresViewControllerSegueId = "home_view_controller_show_stores_view_controller"
+    
     var bannerItems: [BannerItem] = []
     
     var storeCategoryItems: [StoreCategory] = []
@@ -190,6 +192,15 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == bottomCollectionView {
+            
+        } else {
+            let storeCategoryItem = storeCategoryItems[indexPath.row]
+            performSegue(withIdentifier: showStoresViewControllerSegueId, sender: storeCategoryItem)
+        }
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -252,5 +263,15 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 //
 //        show(vc, sender: self)
 //    }
+    
+    // MARK: - Navigate
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showStoresViewControllerSegueId {
+            segue.destination.hidesBottomBarWhenPushed = true
+            let storeCategory = sender as! StoreCategory
+            (segue.destination as! StoresViewController).setStoreCategory(storeCategory)
+        }
+    }
 }
 

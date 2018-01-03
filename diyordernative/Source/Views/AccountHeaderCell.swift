@@ -24,8 +24,6 @@ class AccountHeaderCell: UITableViewCell {
     
     @IBOutlet weak var titleLabelCenterYConstraint: NSLayoutConstraint!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,7 +36,7 @@ class AccountHeaderCell: UITableViewCell {
         avatarImageView.clipsToBounds = true
         
         titleLabel.textColor = UIColor.white
-        titleLabel.text = "\(LanguageControl.shared.getLocalizeString(by: "log in")) / \(LanguageControl.shared.getLocalizeString(by: "sign up"))"
+        titleLabel.text = "\(LanguageControl.shared.getLocalizeString(by: "login")) / \(LanguageControl.shared.getLocalizeString(by: "sign up"))"
         
         descriptionLabel.textColor = UIColor.white
         descriptionLabel.text = LanguageControl.shared.getLocalizeString(by: "register as a memeber to receive reward points")
