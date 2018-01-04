@@ -20,9 +20,17 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     let heightOfStoreSubCategoryItems: CGFloat = 75
     
+    let heightOfLoadingFooter: CGFloat = 40
+    
     @IBOutlet weak var contentTableView: UITableView!
     
     var stores: [Store]? = nil
+    
+    var storeListManager: StoreListManager!
+    
+    var storeFilterSorterManager: StoreFilterSorterManager!
+    
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +40,14 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         self.title = titleText
         navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
         
+        storeFilterSorterControl = StoreFilterSorterControl()
+        
         contentTableView.register(StoreSubCategoryHeaderView.nib, forHeaderFooterViewReuseIdentifier: StoreSubCategoryHeaderView.key)
         contentTableView.register(TripleButtonHeaderView.nib, forHeaderFooterViewReuseIdentifier: TripleButtonHeaderView.key)
         
         contentTableView.dataSource = self
         contentTableView.delegate = self
-        
-        storeFilterSorterControl = StoreFilterSorterControl()
+        contentTableView.tableFooterView = HeaderFooterLoadingView (frame: CGRect(x: 0, y: 0, width: contentTableView.frame.width, height: heightOfLoadingFooter))
         
         loadData()
     }
@@ -55,6 +64,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         storyCategoryId = storeCategory.id
         
         StoreCategoryControl.shared.enterStoreCategory(self.storeCategory)
+        storeListManager = StoreListManager.sharedOf(type: self.storeCategory)
+        storeFilterSorterManager = StoreFilterSorterManager.sharedOf(type: self.storeCategory)
     }
     
     private func loadData () {
@@ -91,7 +102,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func loadSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSubCategories(completion: {
+            self.storeFilterSorterManager.loadSubCategories(completion: {
                 status, subcategories in
                 
                 self.storeFilterSorterControl.setSubcategories(subcategories)
@@ -103,7 +114,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func loadFilterSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterSubCategoies(completion: {
+            self.storeFilterSorterManager.loadFilterSubCategoies(completion: {
                 status, filterSubcategories in
                 
                 self.storeFilterSorterControl.setFilterSubcategories(filterSubcategories)
@@ -115,7 +126,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func loadSorters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSortItems(completion: {
+            self.storeFilterSorterManager.loadSortItems(completion: {
                 status, sorts in
                 
                 self.storeFilterSorterControl.setSorts(sorts)
@@ -127,7 +138,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func loadFilters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterItems(completion: {
+            self.storeFilterSorterManager.loadFilterItems(completion: {
                 status, filters in
                 
                 self.storeFilterSorterControl.setFilters(filters)
@@ -138,12 +149,18 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     }
     
     func loadStores (force: Bool, completion: (() -> Void)?) {
+        isLoading = true
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreListManager.sharedOf(type: self.storeCategory).loadStores(force: force, completion: {
+            self.storeListManager.loadStores(force: force, completion: {
                 status, stores in
                 
                 if status == .success {
                     self.stores = stores
+                    
+                    DispatchQueue.main.async {
+                        (self.contentTableView.tableFooterView as! HeaderFooterLoadingView).update(hasMoreData: self.storeListManager.pagingControl.hasMore)
+                        self.isLoading = false
+                    }
                 }
                 
                 completion?()
@@ -152,7 +169,6 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     }
     
     func loadMore () {
-        let storeListManager = StoreListManager.sharedOf(type: self.storeCategory)
         if storeListManager.pagingControl.hasMore {
             loadStores (force: true, completion: {
                 DispatchQueue.main.async {
@@ -223,6 +239,12 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         loadMore()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 && stores!.count - 1 == indexPath.row && !isLoading {
+            loadMore()
+        }
     }
     
     // MARK: - TripleButtonHeaderViewDelegate

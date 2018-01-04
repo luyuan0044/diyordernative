@@ -652,7 +652,7 @@ class HotItemViewController:BaseViewController,
         hotItemCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
     
-    // MARKL - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if hotItems != nil {
@@ -718,6 +718,7 @@ class HotItemViewController:BaseViewController,
         } else {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionLoadingFooterView.key, for: indexPath) as! CollectionLoadingFooterView
             
+            view.update(hasMoreData: pagingControl.hasMore)
             view.backgroundColor = UIColor.groupTableViewBackground
             
             return view

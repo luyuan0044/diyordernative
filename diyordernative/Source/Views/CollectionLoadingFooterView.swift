@@ -14,25 +14,26 @@ class CollectionLoadingFooterView: UICollectionReusableView {
     
     static let nib = UINib (nibName: key, bundle: nil)
     
-    @IBOutlet weak var titleLabel: UILabel!
+    var titleLabel: UILabel {
+        get {
+            return headerFooterLoadingView.titleLabel
+        }
+    }
     
-    @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
+    var loadingActivityIndicator: UIActivityIndicatorView {
+        get {
+            return headerFooterLoadingView.loadingActivityIndicator
+        }
+    }
+    
+    @IBOutlet weak var headerFooterLoadingView: HeaderFooterLoadingView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        loadingActivityIndicator.startAnimating()
     }
     
     func update (hasMoreData: Bool) {
-        if hasMoreData {
-            loadingActivityIndicator.startAnimating()
-            loadingActivityIndicator.isHidden = false
-            titleLabel.text = "loading more data"
-        } else {
-            loadingActivityIndicator.isHidden = true
-            titleLabel.text = "no more data"
-        }
+        headerFooterLoadingView.update (hasMoreData: hasMoreData)
     }
 }
