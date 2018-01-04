@@ -47,6 +47,8 @@ class StoreTableViewCell: UITableViewCell {
         metaLabel.textColor = UIColor.gray
         distanceLabel.textColor = UIColor.gray
         distanceLabel.isHidden = !LocationHelper.shared.isLocationAvaliable
+        
+        ratingImageView.tintColor = StoreCategoryControl.shared.themeColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -82,5 +84,8 @@ class StoreTableViewCell: UITableViewCell {
                 iconImageView.sd_setImage(with: url, placeholderImage: defaultImage)
             }
         }
+        
+        let ratingImage = ImageHelper.getRatingStartImage (by: store.rating)
+        ratingImageView.image = ratingImage.withRenderingMode(.alwaysTemplate)
     }
 }
