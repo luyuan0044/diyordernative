@@ -30,6 +30,8 @@ struct SysConstants
     
     static let REST_PATH_STORE_FILTER               = BASE_URL + "/api/v5/sff"
     
+    static let REST_PATH_STORES                     = BASE_URL + "/api/v6/slst"
+    
     // MARK: - Language
     
     // [system language key, server language key, display title]

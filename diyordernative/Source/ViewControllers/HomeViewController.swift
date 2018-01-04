@@ -42,7 +42,6 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
         tabBarItem = UITabBarItem (title: HomeViewController.tabTitle, image: HomeViewController.icon, tag: 0)
         
         bottomCollectionView.delegate = self
@@ -60,6 +59,12 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 //        }
         
         fetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
     }
 
     override func didReceiveMemoryWarning() {

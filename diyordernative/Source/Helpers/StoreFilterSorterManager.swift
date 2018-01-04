@@ -63,11 +63,10 @@ class StoreFilterSorterManager {
                 
                 completion (status, self.subcategories)
             })
-            return
+        } else {
+            status = .success
+            completion (status, self.subcategories)
         }
-        
-        status = .success
-        completion (status, self.subcategories)
     }
     
     /**
@@ -91,11 +90,10 @@ class StoreFilterSorterManager {
                 
                 completion (status, self.filterSubcategories)
             })
-            return
+        } else {
+            status = .success
+            completion (status, self.filterSubcategories)
         }
-        
-        status = .success
-        completion (status, self.filterSubcategories)
     }
     
     /**
@@ -119,11 +117,10 @@ class StoreFilterSorterManager {
                 
                 completion (status, self.sorts)
             })
-            return
+        } else {
+            status = .success
+            completion (status, self.sorts)
         }
-        
-        status = .success
-        completion (status, self.sorts)
     }
     
     /**
@@ -177,11 +174,10 @@ class StoreFilterSorterManager {
                 
                 completion (status, self.filters)
             })
-            return
+        } else {
+            status = .success
+            completion (status, self.filters)
         }
-        
-        status = .success
-        completion (status, self.filters)
     }
     
     /**

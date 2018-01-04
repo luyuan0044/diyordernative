@@ -25,7 +25,6 @@ class StoreSubCategoryHeaderView: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        subCategoryScrollView.backgroundColor = UIColor.lightGray
         subCategoryScrollView.bounces = false
         subCategoryScrollView.showsVerticalScrollIndicator = false
         subCategoryScrollView.showsHorizontalScrollIndicator = false

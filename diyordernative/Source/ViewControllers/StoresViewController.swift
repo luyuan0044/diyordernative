@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StoresViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class StoresViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, TripleButtonHeaderViewDelegate {
     
     var storyCategoryId: Int!
     
@@ -22,14 +22,18 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var contentTableView: UITableView!
     
+    var stores: [Store]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         self.title = titleText
+        navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
         
         contentTableView.register(StoreSubCategoryHeaderView.nib, forHeaderFooterViewReuseIdentifier: StoreSubCategoryHeaderView.key)
+        contentTableView.register(TripleButtonHeaderView.nib, forHeaderFooterViewReuseIdentifier: TripleButtonHeaderView.key)
         
         contentTableView.dataSource = self
         contentTableView.delegate = self
@@ -49,57 +53,102 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     func setStoreCategory (_ storeCategory: StoreCategory) {
         titleText = storeCategory.name
         storyCategoryId = storeCategory.id
+        
+        StoreCategoryControl.shared.enterStoreCategory(self.storeCategory)
     }
     
     private func loadData () {
         let taskGroup = DispatchGroup ()
+        taskGroup.enter()
+        loadSubCategories(completion: {
+            taskGroup.leave()
+        })
+        
+        taskGroup.enter()
+        loadFilterSubCategories (completion: {
+            taskGroup.leave()
+        })
+
+        taskGroup.enter()
+        loadSorters (completion: {
+            taskGroup.leave()
+        })
+
+        taskGroup.enter()
+        loadFilters (completion: {
+            taskGroup.leave()
+        })
+
+        taskGroup.enter()
+        loadStores (completion: {
+            taskGroup.leave()
+        })
+        
+        taskGroup.notify(queue: DispatchQueue.main, execute: {
+            self.refreshData()
+        })
+    }
+    
+    func loadSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            taskGroup.enter()
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSubCategories(completion: {
                 status, subcategories in
                 
                 self.storeFilterSorterControl.setSubcategories(subcategories)
                 
-                taskGroup.leave()
+                completion?()
             })
         }
-        
+    }
+    
+    func loadFilterSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            taskGroup.enter()
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterSubCategoies(completion: {
                 status, filterSubcategories in
                 
                 self.storeFilterSorterControl.setFilterSubcategories(filterSubcategories)
                 
-                taskGroup.leave()
+                completion?()
             })
         }
-        
+    }
+    
+    func loadSorters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            taskGroup.enter()
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadSortItems(completion: {
                 status, sorts in
                 
                 self.storeFilterSorterControl.setSorts(sorts)
                 
-                taskGroup.leave()
+                completion?()
             })
         }
-        
+    }
+    
+    func loadFilters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            taskGroup.enter()
             StoreFilterSorterManager.sharedOf(type: self.storeCategory).loadFilterItems(completion: {
                 status, filters in
                 
                 self.storeFilterSorterControl.setFilters(filters)
                 
-                taskGroup.leave()
+                completion?()
             })
         }
-        
-        taskGroup.notify(queue: DispatchQueue.main, execute: {
-            self.refreshData()
-        })
+    }
+    
+    func loadStores (completion: (() -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            StoreListManager.sharedOf(type: self.storeCategory).loadStores(force: false, completion: {
+                status, stores in
+                
+                if status == .success {
+                    self.stores = stores
+                }
+                
+                completion?()
+            })
+        }
     }
     
     func refreshData () {
@@ -117,12 +166,17 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         if section == 0 {
             return 0
         } else {
-            return 5
+            return self.stores != nil ? self.stores!.count : 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: StoreTableViewCell.key) as! StoreTableViewCell
+        
+        let store = self.stores![indexPath.row]
+        cell.update(store: store)
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -133,7 +187,14 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             
             return header
         } else {
-            let header = UIView()
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TripleButtonHeaderView.key) as! TripleButtonHeaderView
+            
+            header.leftButton.setTitle(LanguageControl.shared.getLocalizeString(by: "category"), for: .normal)
+            header.middleButton.setTitle(LanguageControl.shared.getLocalizeString(by: "sort"), for: .normal)
+            header.rightButton.setTitle(LanguageControl.shared.getLocalizeString(by: "filter"), for: .normal)
+            
+            header.delegate = self
+            header.update()
             
             return header
         }
@@ -144,7 +205,21 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
             return storeFilterSorterControl.subcategories == nil || storeFilterSorterControl.subcategories?.count == 0 ? 0 : heightOfStoreSubCategoryItems
         }
         
-        return 60
+        return 44
+    }
+    
+    // MARK: - TripleButtonHeaderViewDelegate
+    
+    func handleOnLeftButtonTapped() {
+        
+    }
+    
+    func handleOnMiddleButtonTapped() {
+        
+    }
+    
+    func handleOnRightButtonTapped() {
+        
     }
 
     /*

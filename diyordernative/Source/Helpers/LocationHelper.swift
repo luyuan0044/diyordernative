@@ -13,17 +13,32 @@ class LocationHelper: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationHelper ()
     
-    var manager: CLLocationManager?
+    private(set) var manager: CLLocationManager?
     
-    var geocoder: CLGeocoder?
+    private(set) var geocoder: CLGeocoder?
     
-    var currentLocation: CLLocation?
+    private(set) var currentLocation: CLLocation?
     
-    var placemark: CLPlacemark?
+    private(set) var placemark: CLPlacemark?
     
-    var timer: Timer?
+    private(set) var timer: Timer?
     
     let updateTimeInterval: Double = 30
+    
+    var isLocationAvaliable: Bool {
+        get {
+            return CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse)
+        }
+    }
+    
+    func getDistanceToCurrentLocation (lat: Double, lon: Double) -> CLLocationDistance? {
+        if currentLocation == nil {
+            return nil
+        }
+        
+        let target = CLLocation (latitude: lat, longitude: lon)
+        return target.distance(from: currentLocation!)
+    }
     
     /**
      Update location
