@@ -24,6 +24,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var contentTableView: UITableView!
     
+    var rightButtonItem: UIBarButtonItem!
+    
     var stores: [Store]? = nil
     
     var storeListManager: StoreListManager!
@@ -43,6 +45,9 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
+        
+        rightButtonItem = UIBarButtonItem (image: #imageLiteral(resourceName: "icon_dots"), style: .plain, target: self, action: #selector(onRightNavBarButtonItemTapped(_:)))
+        navigationItem.rightBarButtonItem = rightButtonItem
         
         storeFilterSorterControl = StoreFilterSorterControl()
         
@@ -186,6 +191,10 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     func refreshData () {
         contentTableView.reloadData()
         contentTableView.layoutIfNeeded()
+    }
+    
+    @objc private func onRightNavBarButtonItemTapped (_ sender: AnyObject?) {
+        
     }
     
     // MARK: - UITableViewDataSource
