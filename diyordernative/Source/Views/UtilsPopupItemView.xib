@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UtilsPopupItemView" customModule="diyordernative" customModuleProvider="target">
             <connections>
+                <outlet property="actionButton" destination="27d-1U-Ort" id="66v-uK-Q7D"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="2Wl-tx-6H3"/>
                 <outlet property="iconImageView" destination="8aB-d8-ZT8" id="zxN-yY-azr"/>
                 <outlet property="seperatorView" destination="3u2-5W-zSi" id="fda-Wu-dH8"/>
@@ -43,18 +44,25 @@
                         <constraint firstAttribute="height" constant="0.5" id="b07-yQ-c41"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27d-1U-Ort">
+                    <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="3u2-5W-zSi" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="4gq-5a-EsS"/>
                 <constraint firstItem="6G5-nx-4SI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5OR-4r-jSy"/>
                 <constraint firstAttribute="trailing" secondItem="3u2-5W-zSi" secondAttribute="trailing" constant="8" id="9zH-yA-dtB"/>
+                <constraint firstItem="27d-1U-Ort" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ICb-YX-UBZ"/>
                 <constraint firstItem="8aB-d8-ZT8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="JWh-jV-0DC"/>
                 <constraint firstItem="8aB-d8-ZT8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="bed-7I-RqA"/>
+                <constraint firstItem="27d-1U-Ort" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="cih-Vo-26T"/>
                 <constraint firstItem="6G5-nx-4SI" firstAttribute="leading" secondItem="8aB-d8-ZT8" secondAttribute="trailing" constant="8" id="isW-rS-mbv"/>
                 <constraint firstItem="3u2-5W-zSi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="jJw-rf-KYA"/>
                 <constraint firstItem="8aB-d8-ZT8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="pJC-Sc-TGG"/>
+                <constraint firstItem="27d-1U-Ort" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="sW1-VI-9Ax"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6G5-nx-4SI" secondAttribute="trailing" constant="8" id="w1y-PR-XmQ"/>
+                <constraint firstItem="27d-1U-Ort" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="zjD-G6-Trl"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

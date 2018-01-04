@@ -11,10 +11,12 @@ import UIKit
 class UtilsPopupItem {
     var titleText: String
     var iconImage: UIImage
+    var action: () -> Void
     
-    init(titleText: String, iconImage: UIImage) {
+    init(titleText: String, iconImage: UIImage, action: @escaping () -> Void) {
         self.titleText = titleText
         self.iconImage = iconImage
+        self.action = action
     }
 }
 
@@ -29,6 +31,8 @@ class UtilsPopupItemView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var seperatorView: UIView!
+    
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBOutlet weak var contentView: UIView!
     
@@ -53,6 +57,7 @@ class UtilsPopupItemView: UIView {
         
         titleLabel.text = item.titleText
         iconImageView.image = item.iconImage.withRenderingMode(.alwaysTemplate)
+        
     }
     
     private func viewSetup () {
@@ -65,6 +70,13 @@ class UtilsPopupItemView: UIView {
         iconImageView.tintColor = UIColor.white
         
         titleLabel.textColor = UIColor.white
+        
+        actionButton.backgroundColor = UIColor.clear
+        actionButton.addTarget(self, action: #selector(handleOnActionButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func handleOnActionButtonTapped (_ sender: AnyObject?) {
+        item.action ()
     }
 }
 

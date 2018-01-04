@@ -45,6 +45,14 @@ class BaseTableViewController: UITableViewController {
         utilsPopupViewController!.setViewItems(items: items)
         present(utilsPopupViewController!, animated: true, completion: nil)
     }
+    
+    func dismissUtilsPopupViewController () {
+        guard let viewController = utilsPopupViewController else {
+            return
+        }
+        
+        viewController.dismiss(animated: true, completion: nil)
+    }
 
     // MARK: - Table view data source
 

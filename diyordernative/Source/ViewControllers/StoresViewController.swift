@@ -36,9 +36,9 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     override var utilsPopupViewItems: [UtilsPopupItem]? {
         get {
-            return [UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "map"), iconImage: #imageLiteral(resourceName: "icon_map")),
-                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "near by"), iconImage: #imageLiteral(resourceName: "icon_location")),
-                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "search"), iconImage: #imageLiteral(resourceName: "icon_search"))]
+            return [UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "map"), iconImage: #imageLiteral(resourceName: "icon_map"), action: handleOnMapButtonTapped),
+                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "near by"), iconImage: #imageLiteral(resourceName: "icon_location"), action: handleOnNearByButtonTapped),
+                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "search"), iconImage: #imageLiteral(resourceName: "icon_search"), action: handleOnSearchButtonTapped)]
         }
     }
     
@@ -203,6 +203,18 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     @objc private func onRightNavBarButtonItemTapped (_ sender: AnyObject?) {
         presentUtilsPopupViewController()
+    }
+    
+    func handleOnMapButtonTapped () {
+        dismissUtilsPopupViewController()
+    }
+    
+    func handleOnNearByButtonTapped () {
+        dismissUtilsPopupViewController()
+    }
+    
+    func handleOnSearchButtonTapped () {
+        dismissUtilsPopupViewController()
     }
     
     // MARK: - UITableViewDataSource
