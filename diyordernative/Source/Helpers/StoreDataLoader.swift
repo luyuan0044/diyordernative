@@ -11,7 +11,7 @@ import ObjectMapper
 
 class StoreDataLoader {
     
-    static func startRequestStores (urlparams: [String: String]? = nil, completion: @escaping (apiStatus, [Store]?) -> Void) {
+    static func startRequestStores (urlparams: [String: String]? = nil, completion: @escaping (apiStatus, [Store]?, Paging?) -> Void) {
         var _urlparams: [String: String]? = urlparams
         if urlparams == nil {
             _urlparams = [:]
@@ -27,6 +27,7 @@ class StoreDataLoader {
         
         var status = apiStatus.unknownError
         var stores: [Store]? = nil
+        var paging: Paging? = nil
         ApiManager.shared.startHttpApiRequest(path: path, method: .get, completion: {
             _status, jsonObject in
             
@@ -37,10 +38,11 @@ class StoreDataLoader {
                 
                 if status == .success {
                     stores = object.records
+                    paging = object.paging
                 }
             }
             
-            completion (status, stores)
+            completion (status, stores, paging)
         })
     }
 }

@@ -11,6 +11,7 @@ import ObjectMapper
 
 class ListApiResponse<T : Mappable> : BaseApiResponse {
     var records: [T]?
+    var paging: Paging?
     
     required init?(map: Map) {
         super.init(map: map)
@@ -20,5 +21,6 @@ class ListApiResponse<T : Mappable> : BaseApiResponse {
         super.mapping(map: map)
         
         self.records <- map["records"]
+        self.paging <- map["paging"]
     }
 }

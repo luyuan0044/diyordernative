@@ -80,7 +80,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         })
 
         taskGroup.enter()
-        loadStores (completion: {
+        loadStores (force: false, completion: {
             taskGroup.leave()
         })
         
@@ -137,9 +137,9 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func loadStores (completion: (() -> Void)?) {
+    func loadStores (force: Bool, completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
-            StoreListManager.sharedOf(type: self.storeCategory).loadStores(force: false, completion: {
+            StoreListManager.sharedOf(type: self.storeCategory).loadStores(force: force, completion: {
                 status, stores in
                 
                 if status == .success {
@@ -147,6 +147,17 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
                 }
                 
                 completion?()
+            })
+        }
+    }
+    
+    func loadMore () {
+        let storeListManager = StoreListManager.sharedOf(type: self.storeCategory)
+        if storeListManager.pagingControl.hasMore {
+            loadStores (force: true, completion: {
+                DispatchQueue.main.async {
+                    self.refreshData()
+                }
             })
         }
     }
@@ -206,6 +217,12 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         }
         
         return 44
+    }
+    
+    // UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        loadMore()
     }
     
     // MARK: - TripleButtonHeaderViewDelegate

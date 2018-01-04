@@ -29,11 +29,16 @@ class StoreListManager {
     
     private init(storeCategoryType: storeCategoryType) {
         self.storeCategoryType = storeCategoryType
+        self.pagingControl = PagingControl (limit: limit)
     }
     
     private var storeCategoryType: storeCategoryType
     
     private var stores: [Store]? = nil
+    
+    var pagingControl: PagingControl
+    
+    let limit = 20
     
     // MARK: - Implementation
     
@@ -47,7 +52,7 @@ class StoreListManager {
             }
             _urlparams!["c_id"] = "\(storeCategoryType.rawValue)"
             
-            StoreDataLoader.startRequestStores(urlparams: _urlparams, completion: {
+            pagingControl.loadPagingData (urlparams: _urlparams, completion: {
                 _status, _stores in
                 
                 status = _status
@@ -60,7 +65,7 @@ class StoreListManager {
                 }
                 
                 completion (status, self.stores)
-            })
+            }, task: StoreDataLoader.startRequestStores)
         } else {
             completion (.success, self.stores)
         }

@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class HotItem: Mappable {
+class HotItem: Mappable, Pagingable {
     var storeCategory: Int?
     var groupId: String?
     var productId: Int?
