@@ -87,6 +87,8 @@ class HotItemViewController:BaseViewController,
     
     let heightOfHeader: CGFloat = 40
     
+    let limit = 20
+    
     var rightSlideFilterViewController: RightSlideFilterViewController? = nil
     
     var isRightSlideFilterViewControllerPresented = false
@@ -102,6 +104,10 @@ class HotItemViewController:BaseViewController,
     let toTopButtonDisplacement: CGFloat = 61
     
     var isToTopButtonOnView = false
+    
+    var pagingControl: PagingControl!
+    
+    var isLoading: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,6 +168,8 @@ class HotItemViewController:BaseViewController,
             registerForPreviewing(with: self, sourceView: hotItemCollectionView)
         }
         
+        pagingControl = PagingControl (limit: limit)
+        
         fetch()
     }
 
@@ -206,7 +214,9 @@ class HotItemViewController:BaseViewController,
      Load next page hot items from server
      */
     func loadMore () {
-        loadHotItemTask ()
+        if pagingControl.hasMore {
+            loadHotItemTask ()
+        }
     }
     
     /**
@@ -259,21 +269,28 @@ class HotItemViewController:BaseViewController,
      - parameter completion: callback of the task completion, the default value will be nil
      */
     private func loadHotItemTask (completion: (() -> Void)? = nil) {
+        isLoading = true
         DispatchQueue.global(qos: .userInitiated).async {
             let urlparams = self.getUrlParams()
-            HotItemLoader.startRequestHotItems(_urlparams: urlparams, completion: {
-                _status, items in
+            
+            self.pagingControl.loadPagingData(urlparams: urlparams, completion: {
+                _status, _items in
                 
                 if _status == .success {
-                    self.hotItems = items
+                    if self.hotItems == nil {
+                        self.hotItems = []
+                    }
+                    
+                    self.hotItems!.append(contentsOf: _items!)
                 }
                 
                 DispatchQueue.main.async {
+                    self.isLoading = false
                     self.refreshHotItemSection()
                 }
                 
                 completion?()
-            })
+            }, task: HotItemLoader.startRequestHotItems)
         }
     }
     
@@ -707,6 +724,12 @@ class HotItemViewController:BaseViewController,
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        if elementKind == UICollectionElementKindSectionFooter && indexPath.section == 1 && !isLoading {
+            loadMore()
+        }
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -776,6 +799,7 @@ class HotItemViewController:BaseViewController,
         // Apply sort by volume
         setHotItemSortId(hotItemTabSort?.id)
         refreshSortPopupTableView()
+        pagingControl.reset()
         loadHotItemTask()
         
         // Hide sort popup view if needed
@@ -812,6 +836,7 @@ class HotItemViewController:BaseViewController,
     func onHotItemCategoryTapped(selectedHotItemCategory: HotItemCategory?) {
         setHotItemCategoryIdOnTab (selectedHotItemCategory?.id)
         setHotItemCategoryId (selectedHotItemCategory?.id)
+        pagingControl.reset()
         loadHotItemTask ()
         
         // Hide sort popup view if needed
@@ -830,6 +855,7 @@ class HotItemViewController:BaseViewController,
         temporyHotItemCategoryId = nil
         priceRange = (nil, nil)
         setHotItemCategoryId(nil)
+        pagingControl.reset()
         loadHotItemTask()
         hideRightSlideFilterViewContrller()
     }
@@ -837,6 +863,7 @@ class HotItemViewController:BaseViewController,
     func onConfirmButtonTapped() {
         if (validatePriceRange()) {
             setHotItemCategoryId(temporyHotItemCategoryId)
+            pagingControl.reset()
             loadHotItemTask()
             hideRightSlideFilterViewContrller()
         } else {
@@ -878,6 +905,7 @@ class HotItemViewController:BaseViewController,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sortItem = hotItemListingSorts![indexPath.row]
         setHotItemSortId(sortItem.id)
+        pagingControl.reset()
         loadHotItemTask()
         
         let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section: 1)) as! UtilityButtonsHeaderView
@@ -944,6 +972,7 @@ class HotItemViewController:BaseViewController,
         keyword = searchBar.text
         
         if keyword != nil && !keyword!.isEmpty {
+            pagingControl.reset()
             loadHotItemTask()
         }
         
@@ -953,6 +982,7 @@ class HotItemViewController:BaseViewController,
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         keyword = nil
         
+        pagingControl.reset()
         loadHotItemTask()
     }
     

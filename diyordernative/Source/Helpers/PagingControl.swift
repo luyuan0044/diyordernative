@@ -18,13 +18,13 @@ class PagingControl {
     
     // MARK: - Properties
     
-    private(set) var limit: Int
+    private var limit: Int
     
-    private(set) var currentPage: Int = 0
+    private var currentPage: Int = 0
     
     private var status: apiStatus = .success
     
-    private var total: Int!
+    private var total: Int! = 0
     
     private var totalPage: Int {
         get {
@@ -66,5 +66,6 @@ class PagingControl {
     func reset () {
         currentPage = 0
         status = .success
+        total = 0
     }
 }

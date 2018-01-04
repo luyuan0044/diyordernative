@@ -16,14 +16,12 @@ class HotItemLoader {
      - parameter _urlparams: Dictionary of urlparams
      - parameter completion: api request task completion callback (api status and array of hot items as input)
      */
-    static func startRequestHotItems (_urlparams: [String: String]?, completion: @escaping (apiStatus, [HotItem]?) -> Void) {
+    static func startRequestHotItems (_urlparams: [String: String]?, completion: @escaping (apiStatus, [HotItem]?, Paging?) -> Void) {
         var urlParams = _urlparams
         if urlParams == nil {
             urlParams = [:]
         }
         urlParams!["lan"] = LanguageControl.shared.getAppLanguage().serverKey
-        urlParams!["page"] = "1"
-        urlParams!["limit"] = "20"
         if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
             urlParams!["latlon"] = latlonStr
         }
@@ -32,6 +30,7 @@ class HotItemLoader {
         
         var status = apiStatus.unknownError
         var items: [HotItem]? = nil
+        var paging: Paging? = nil
         ApiManager.shared.startHttpApiRequest(path: path, method: .get, completion: {
             _status, jsonObject in
             
@@ -42,10 +41,11 @@ class HotItemLoader {
                 
                 if status == .success {
                     items = object.records
+                    paging = object.paging
                 }
             }
             
-            completion (status, items)
+            completion (status, items, paging)
         })
     }
     
