@@ -38,7 +38,11 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
         
         self.title = titleText
+        
+        navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
         
         storeFilterSorterControl = StoreFilterSorterControl()
         
@@ -48,6 +52,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         contentTableView.dataSource = self
         contentTableView.delegate = self
         contentTableView.tableFooterView = HeaderFooterLoadingView (frame: CGRect(x: 0, y: 0, width: contentTableView.frame.width, height: heightOfLoadingFooter))
+        contentTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         
         loadData()
     }

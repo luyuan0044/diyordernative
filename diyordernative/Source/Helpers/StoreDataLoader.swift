@@ -10,7 +10,12 @@ import Foundation
 import ObjectMapper
 
 class StoreDataLoader {
-    
+    /**
+     Request stores from server
+     
+     - parameter urlparams: url parameters to append with url
+     - parameter completion: completion handler with 'apiStatus' and array of 'Store' items and 'Paging' information which could be nil
+     */
     static func startRequestStores (urlparams: [String: String]? = nil, completion: @escaping (apiStatus, [Store]?, Paging?) -> Void) {
         var _urlparams: [String: String]? = urlparams
         if urlparams == nil {

@@ -40,6 +40,13 @@ class PagingControl {
     
     // MARK: - Implementation
     
+    /**
+     Perform pagination loading task and calculate paging information
+     
+     - parameter urlparams: urlparams to append with url
+     - parameter completion: completion handler with 'apiStatus' and array of 'Paginable' item which could be nil
+     - parameter task: loading task
+     */
     func loadPagingData<T> (urlparams: [String: String]? = nil,
                             completion: @escaping (apiStatus, [T]?) -> Void,
                             task: ([String: String]?, @escaping (apiStatus, [T]?, Paging?) -> Void) -> Void) where T : Pagingable {
@@ -47,6 +54,7 @@ class PagingControl {
         if _urlparams == nil {
             _urlparams = [:]
         }
+        //attach pagiantion url params
         _urlparams!["limit"] = "\(limit)"
         _urlparams!["page"] = "\(currentPage + 1)"
         
@@ -63,6 +71,9 @@ class PagingControl {
         })
     }
     
+    /**
+     Reset pagination information
+     */
     func reset () {
         currentPage = 0
         status = .success

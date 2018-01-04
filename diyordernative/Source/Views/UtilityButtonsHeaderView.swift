@@ -29,6 +29,10 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var rightButton: UIButton!
     
+    @IBOutlet weak var verticalBorder: UIView!
+    
+    @IBOutlet weak var horizontalBorder: UIView!
+    
     let font = UIFont.systemFont(ofSize: 14)
     
     var delegate: UtilityButtonsHeaderViewDelegate? = nil
@@ -55,6 +59,9 @@ class UtilityButtonsHeaderView: UICollectionReusableView {
         rightButton.setTitleColor(normalTitleColor, for: .normal)
         rightButton.titleLabel?.font = font
         rightButton.addTarget(self, action: #selector(onRightButtonTapped(_:)), for: .touchUpInside)
+        
+        verticalBorder.backgroundColor = UIConstants.generalBorderColor
+        horizontalBorder.backgroundColor = UIConstants.generalBorderColor
     }
     
     override func prepareForReuse() {

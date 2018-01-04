@@ -31,8 +31,7 @@ class SettingViewController: UITableViewController {
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem (title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.topItem?.title = ""
         
         title = LanguageControl.shared.getLocalizeString(by: "settings")
     }

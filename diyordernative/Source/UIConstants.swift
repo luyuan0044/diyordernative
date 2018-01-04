@@ -34,6 +34,8 @@ struct UIConstants
     
     static let generalLightBackgroundColor = UIColor(red: 240 / rgbRatio, green: 240 / rgbRatio, blue: 240 / rgbRatio, alpha: 1)
     
+    static let generalBorderColor = UIColor (red: 224 / rgbRatio, green: 224 / rgbRatio, blue: 224 / rgbRatio, alpha: 1)
+    
     // MARK: - Layout
     
     static let tableViewDefaultCellHeight: CGFloat = 46

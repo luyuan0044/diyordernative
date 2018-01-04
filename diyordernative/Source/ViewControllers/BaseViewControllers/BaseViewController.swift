@@ -20,6 +20,7 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.topItem?.title = ""
     }
 
     override func didReceiveMemoryWarning() {

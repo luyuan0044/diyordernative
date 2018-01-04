@@ -31,6 +31,15 @@ class LocationHelper: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    /**
+     Get distance inforamtion from given latitude and longitude to device current location if location service avaliable.
+     Otherwise, distance will return nil
+     
+     - parameter lat: latitude
+     - parameter lon: longitude
+     
+     - returns: CLLocationDistance
+     */
     func getDistanceToCurrentLocation (lat: Double, lon: Double) -> CLLocationDistance? {
         if currentLocation == nil {
             return nil
@@ -75,11 +84,18 @@ class LocationHelper: NSObject, CLLocationManagerDelegate {
     
     /**
      Get most updated current location, if there is no location detected will return nil
+     
+     - returns: CLLocation
      */
     func getCurrentLocation () -> CLLocation? {
         return currentLocation
     }
     
+    /**
+     Get most updated latitude and longitude of current location if avaliable
+     
+     - returns: CLLocationCoordinate2D
+     */
     func getCurrentLatAndLon () -> CLLocationCoordinate2D? {
         guard currentLocation != nil else {
             return nil

@@ -37,28 +37,28 @@
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxc-yk-lZQ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="3Gg-Ag-Auo"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Knh-lJ-BQI">
                             <rect key="frame" x="125" y="12.5" width="0.5" height="25"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="0.5" id="KdL-Ph-DXP"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bI5-ac-gfM">
                             <rect key="frame" x="250" y="12.5" width="0.5" height="25"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="0.5" id="1tT-95-sm9"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Xv-HC-yJT">
                             <rect key="frame" x="0.0" y="49.5" width="375" height="0.5"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="uMz-Ps-Cnw"/>
                             </constraints>
@@ -105,9 +105,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottomBorder" destination="6Xv-HC-yJT" id="aLe-je-XEJ"/>
+                <outlet property="leftBorder" destination="Knh-lJ-BQI" id="Ac3-3P-6q2"/>
                 <outlet property="leftButton" destination="bQD-Ll-6WN" id="cQq-T0-R0e"/>
                 <outlet property="middleButton" destination="gNM-hA-1nz" id="P3e-hZ-9z7"/>
+                <outlet property="rightBorder" destination="bI5-ac-gfM" id="fD1-Q7-0SU"/>
                 <outlet property="rightButton" destination="lZr-Ui-VUJ" id="0D0-h2-dFA"/>
+                <outlet property="topBorder" destination="Qxc-yk-lZQ" id="R8V-ie-2El"/>
             </connections>
             <point key="canvasLocation" x="23.5" y="-386"/>
         </view>

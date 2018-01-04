@@ -159,7 +159,7 @@ class HotItemViewController:BaseViewController,
         toTopButton.setImage(#imageLiteral(resourceName: "icon_top").withRenderingMode(.alwaysTemplate), for: .normal)
         toTopButton.tintColor = UIColor.darkGray
         toTopButton.layer.cornerRadius = toTopButton.frame.height / 2
-        toTopButton.layer.borderColor = UIColor.lightGray.cgColor
+        toTopButton.layer.borderColor = UIConstants.generalBorderColor.cgColor
         toTopButton.layer.borderWidth = 0.5
         toTopButton.contentEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
         toTopButton.addTarget(self, action: #selector(handleOnToTopButtonTapped(_:)), for: .touchUpInside)

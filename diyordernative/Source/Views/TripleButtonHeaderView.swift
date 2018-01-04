@@ -28,6 +28,14 @@ class TripleButtonHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var rightButton: UIButton!
     
+    @IBOutlet weak var topBorder: UIView!
+    
+    @IBOutlet weak var leftBorder: UIView!
+    
+    @IBOutlet weak var rightBorder: UIView!
+    
+    @IBOutlet weak var bottomBorder: UIView!
+    
     var delegate: TripleButtonHeaderViewDelegate?
     
     override func awakeFromNib() {
@@ -44,6 +52,11 @@ class TripleButtonHeaderView: UITableViewHeaderFooterView {
         rightButton.setTitleColor(.darkGray, for: .normal)
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         rightButton.addTarget(self, action: #selector(onRightButtonTapped(_:)), for: .touchUpInside)
+        
+        topBorder.backgroundColor = UIConstants.generalBorderColor
+        leftBorder.backgroundColor = UIConstants.generalBorderColor
+        rightBorder.backgroundColor = UIConstants.generalBorderColor
+        bottomBorder.backgroundColor = UIConstants.generalBorderColor
     }
     
     @objc private func onLeftButtonTapped (_ sender: AnyObject?) {
