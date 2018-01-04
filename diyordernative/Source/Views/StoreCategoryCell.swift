@@ -20,7 +20,6 @@ class StoreCategoryCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
     func update (storeCategory: StoreCategory) {

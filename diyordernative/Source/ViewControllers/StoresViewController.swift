@@ -8,13 +8,21 @@
 
 import UIKit
 
-class StoresViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, TripleButtonHeaderViewDelegate {
+class StoresViewController: BaseViewController,
+                            UITableViewDataSource,
+                            UITableViewDelegate,
+                            TripleButtonHeaderViewDelegate,
+                            StoreSubCategoryHeaderViewDelegate {
     
     var storyCategoryId: Int!
     
     var storeCategory: storeCategoryType { get { return storeCategoryType (rawValue: storyCategoryId)! }}
     
     var titleText: String?
+    
+    var storeListManager: StoreListManager!
+    
+    var storeFilterSorterManager: StoreFilterSorterManager!
     
     var storeFilterSorterControl: StoreFilterSorterControl!
     
@@ -27,10 +35,6 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     var rightButtonItem: UIBarButtonItem!
     
     var stores: [Store]? = nil
-    
-    var storeListManager: StoreListManager!
-    
-    var storeFilterSorterManager: StoreFilterSorterManager!
     
     var isLoading = false
     
@@ -169,7 +173,8 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     func loadStores (force: Bool, completion: (() -> Void)?) {
         isLoading = true
         DispatchQueue.global(qos: .userInitiated).async {
-            self.storeListManager.loadStores(force: force, completion: {
+            let urlparams = self.storeFilterSorterControl.getUrlParams()
+            self.storeListManager.loadStores(force: force, urlparams: urlparams, completion: {
                 status, stores in
                 
                 if status == .success {
@@ -244,6 +249,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
         if section == 0 {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: StoreSubCategoryHeaderView.key) as! StoreSubCategoryHeaderView
             
+            header.delegate = self
             header.setSource(subcategories: storeFilterSorterControl.subcategories)
             
             return header
@@ -293,6 +299,18 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     func handleOnRightButtonTapped() {
         
+    }
+    
+    // MARK: - StoreSubCategoryHeaderViewDelegate
+    
+    func onSelectedSubcategory(_ subcategory: StoreSubCategory) {
+        storeFilterSorterControl.selectSubcateogry(subcategory)
+        storeListManager.cleanCache()
+        loadStores(force: true, completion: {
+            DispatchQueue.main.async {
+                self.refreshData()
+            }
+        })
     }
 
     /*

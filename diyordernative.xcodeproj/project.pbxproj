@@ -1002,9 +1002,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goopter.diyordernative;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1019,9 +1019,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goopter.diyordernative;
 				PRODUCT_NAME = "$(TARGET_NAME)";

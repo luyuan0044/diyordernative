@@ -20,6 +20,12 @@ class StoreFilterSorterControl {
     
     private(set) var filters: [StoreFilter]?
     
+    private var selectedSubCategory: StoreSubCategory? = nil
+    
+    private var selectedSort: Sort? = nil
+    
+    private var selectedFilter: StoreFilter? = nil
+    
     // MARK: - Implementation
     
     /**
@@ -56,5 +62,37 @@ class StoreFilterSorterControl {
      */
     func setFilters (_ filters: [StoreFilter]?) {
         self.filters = filters
+    }
+    
+    func selectSubcateogry (_ subcategory: StoreSubCategory) {
+        selectedSubCategory = subcategory
+    }
+    
+    func selectSort (_ sort: Sort) {
+        selectedSort = sort
+    }
+    
+    func selectFilter (_ filter: StoreFilter) {
+        selectedFilter = filter
+    }
+    
+    func getUrlParams () -> [String: String]? {
+        var urlparams: [String: String]? = nil
+        
+        if let subcategory = selectedSubCategory, let id = subcategory.id {
+            if urlparams == nil {
+                urlparams = [:]
+            }
+            urlparams!["t_id"] = "\(id)"
+        }
+        
+        if let sort = selectedSort {
+            if urlparams == nil {
+                urlparams = [:]
+            }
+            urlparams!["sort_id"] = sort.id
+        }
+        
+        return urlparams
     }
 }

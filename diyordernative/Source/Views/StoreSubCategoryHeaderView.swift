@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StoreSubCategoryHeaderViewDelegate {
+    func onSelectedSubcategory (_ subcategory: StoreSubCategory)
+}
+
 class StoreSubCategoryHeaderView: UITableViewHeaderFooterView {
     
     //MARK: - Properties
@@ -21,6 +25,8 @@ class StoreSubCategoryHeaderView: UITableViewHeaderFooterView {
     var subcategories: [StoreSubCategory]?
     
     let numberOfItemsPerPage: CGFloat = 5
+    
+    var delegate: StoreSubCategoryHeaderViewDelegate? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,8 +59,15 @@ class StoreSubCategoryHeaderView: UITableViewHeaderFooterView {
             let iconLabelButtonView = IconLabelButtonView (frame: CGRect (x: offsetX, y: 0, width: itemWidth, height: itemHeight))
             iconLabelButtonView.update(item: subcategory)
             iconLabelButtonView.backgroundColor = UIColor.yellow
+            let tapGestureRecognizer = UITapGestureRecognizer (target: self, action: #selector(handleSubcategoryViewTapped(_:)))
+            iconLabelButtonView.addGestureRecognizer(tapGestureRecognizer)
             subCategoryScrollView.addSubview(iconLabelButtonView)
             offsetX += itemWidth
         }
+    }
+    
+    @objc private func handleSubcategoryViewTapped (_ sender: AnyObject?) {
+        let selectedSubcategory = ((sender as! UITapGestureRecognizer).view as! IconLabelButtonView).item
+        delegate?.onSelectedSubcategory (selectedSubcategory as! StoreSubCategory)
     }
 }

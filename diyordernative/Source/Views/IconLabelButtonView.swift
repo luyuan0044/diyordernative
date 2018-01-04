@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 
 protocol IconLabelButtonViewItem {
+    func getId () -> Int?
     func getImageUrl () -> String?
     func getTitleText () -> String?
 }
@@ -25,6 +26,8 @@ class IconLabelButtonView: UIView {
     @IBOutlet weak var iconImageView: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
+    
+    private(set) var item: IconLabelButtonViewItem? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,8 +56,9 @@ class IconLabelButtonView: UIView {
     }
     
     func update (item: IconLabelButtonViewItem) {
-        iconImageView.sd_setImage(with: URL(string: item.getImageUrl()!)!)
+        self.item = item
         
+        iconImageView.sd_setImage(with: URL(string: item.getImageUrl()!)!)
         titleLabel.text = item.getTitleText()
     }
     

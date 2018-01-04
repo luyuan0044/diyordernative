@@ -70,4 +70,9 @@ class StoreListManager {
             completion (.success, self.stores)
         }
     }
+    
+    func cleanCache () {
+        stores = nil
+        pagingControl.reset()
+    }
 }

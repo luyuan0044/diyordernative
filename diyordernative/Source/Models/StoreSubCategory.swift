@@ -30,6 +30,10 @@ class StoreSubCategory: Mappable {
 }
 
 extension StoreSubCategory: IconLabelButtonViewItem {
+    func getId() -> Int? {
+        return id
+    }
+    
     func getImageUrl() -> String? {
         return imageUrl
     }
@@ -37,6 +41,4 @@ extension StoreSubCategory: IconLabelButtonViewItem {
     func getTitleText() -> String? {
         return name
     }
-    
-    
 }
