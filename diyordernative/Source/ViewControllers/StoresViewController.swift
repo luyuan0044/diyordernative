@@ -34,6 +34,14 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     
     var isLoading = false
     
+    override var utilsPopupViewItems: [UtilsPopupItem]? {
+        get {
+            return [UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "map"), iconImage: #imageLiteral(resourceName: "icon_map")),
+                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "near by"), iconImage: #imageLiteral(resourceName: "icon_location")),
+                    UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "search"), iconImage: #imageLiteral(resourceName: "icon_search"))]
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -194,7 +202,7 @@ class StoresViewController: BaseViewController, UITableViewDataSource, UITableVi
     }
     
     @objc private func onRightNavBarButtonItemTapped (_ sender: AnyObject?) {
-        
+        presentUtilsPopupViewController()
     }
     
     // MARK: - UITableViewDataSource

@@ -10,6 +10,14 @@ import UIKit
 
 class BaseViewController: UIViewController {
 
+    private var utilsPopupViewController: UtilsPopupViewController? = nil
+    
+    var utilsPopupViewItems: [UtilsPopupItem]? {
+        get {
+            return nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +34,21 @@ class BaseViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func presentUtilsPopupViewController () {
+        guard let items = utilsPopupViewItems else {
+            return
+        }
+        
+        if utilsPopupViewController == nil {
+            utilsPopupViewController = UtilsPopupViewController()
+            utilsPopupViewController!.modalTransitionStyle = .crossDissolve
+            utilsPopupViewController!.modalPresentationStyle = .overFullScreen
+        }
+        
+        utilsPopupViewController!.setViewItems(items: items)
+        present(utilsPopupViewController!, animated: true, completion: nil)
     }
     
 
