@@ -12,11 +12,7 @@ class BaseViewController: UIViewController {
 
     private var utilsPopupViewController: UtilsPopupViewController? = nil
     
-    var utilsPopupViewItems: [UtilsPopupItem]? {
-        get {
-            return nil
-        }
-    }
+    var utilsPopupViewItems: [UtilsPopupItem]? { get { return nil } }
     
     override func viewDidLoad() {
         super.viewDidLoad()

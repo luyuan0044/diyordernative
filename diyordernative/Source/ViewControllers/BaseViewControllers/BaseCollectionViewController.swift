@@ -12,6 +12,10 @@ private let reuseIdentifier = "Cell"
 
 class BaseCollectionViewController: UICollectionViewController {
 
+    private var utilsPopupViewController: UtilsPopupViewController? = nil
+    
+    var utilsPopupViewItems: [UtilsPopupItem]? { get { return nil } }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,16 +32,23 @@ class BaseCollectionViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Implementation
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    func presentUtilsPopupViewController () {
+        guard let items = utilsPopupViewItems else {
+            return
+        }
+        
+        if utilsPopupViewController == nil {
+            utilsPopupViewController = UtilsPopupViewController()
+            utilsPopupViewController!.modalTransitionStyle = .crossDissolve
+            utilsPopupViewController!.modalPresentationStyle = .overFullScreen
+        }
+        
+        utilsPopupViewController!.setViewItems(items: items)
+        present(utilsPopupViewController!, animated: true, completion: nil)
     }
-    */
 
     // MARK: UICollectionViewDataSource
 

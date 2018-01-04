@@ -68,11 +68,14 @@ class UtilsPopupViewController: UIViewController {
     
     private func setupItemViews () {
         var offsetY: CGFloat = 0
+        var idx = 0
         for item in viewItems! {
             let view = UtilsPopupItemView (frame: CGRect (x: 0, y: offsetY, width: contentPanelView.frame.width, height: heightOfItem))
             view.backgroundColor = backgroundColor
             view.setup(item: item)
             view.layoutSubviews()
+            if idx == viewItems!.count - 1 { view.seperatorView.backgroundColor = backgroundColor }
+            idx += 1
             contentPanelView.addSubview(view)
             offsetY += heightOfItem
         }
