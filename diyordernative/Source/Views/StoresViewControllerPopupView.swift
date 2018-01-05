@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol StoreSubCategoryPopupViewDelegate {
+protocol StoresViewControllerPopupViewDelegate {
     func handleOnDismissButtonTapped ()
 }
 
-class StoreSubCategoryPopupView: UIView {
+class StoresViewControllerPopupView: UIView {
     
     // MARK: - Properties
     
-    static let key = "StoreSubCategoryPopupView"
+    static let key = "StoresViewControllerPopupView"
     
     static let nib = UINib (nibName: key, bundle: nil)
     
@@ -36,7 +36,7 @@ class StoreSubCategoryPopupView: UIView {
     
     private var childCategories: [StoreSubCategory]? = nil
     
-    var delegate: StoreSubCategoryPopupViewDelegate? = nil
+    var delegate: StoresViewControllerPopupViewDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -98,6 +98,9 @@ class StoreSubCategoryPopupView: UIView {
         contentView.backgroundColor = UIColor.clear
         dismissButton.backgroundColor = UIConstants.transparentBlackColor
         
+        leftTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        rightTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        
         dismissButton.addTarget(self, action: #selector(onDismissButtonTapped(_:)), for: .touchUpInside)
     }
     
@@ -106,9 +109,9 @@ class StoreSubCategoryPopupView: UIView {
     }
 }
 
-private extension StoreSubCategoryPopupView {
+private extension StoresViewControllerPopupView {
     private func xibSetup() {
-        Bundle.main.loadNibNamed(StoreSubCategoryPopupView.key, owner: self, options: nil)
+        Bundle.main.loadNibNamed(StoresViewControllerPopupView.key, owner: self, options: nil)
         addSubview(contentView)
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,40 +127,89 @@ private extension StoreSubCategoryPopupView {
 }
 
 class StoreSubCategoryDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    
+    var subcategories: [StoreSubCategory]? = nil
+    
     override init() {
         super.init()
     }
     
+    func setSource (subcategories: [StoreSubCategory]?) {
+        self.subcategories = subcategories
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return subcategories == nil ? 0 : subcategories!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        var cell = tableView.dequeueReusableCell(withIdentifier: "SubCategoryCell")
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "SubCategoryCell")
+        }
+        
+        let subcategory = subcategories![indexPath.row]
+        
+        cell!.textLabel?.text = subcategory.name
+        cell!.textLabel?.textColor = UIColor.darkGray
+        cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        
+        cell!.accessoryType = subcategory.children != nil && subcategory.children!.count > 0 ? .disclosureIndicator : .none
+        
+        return cell!
     }
 }
 
 class StoreSortDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    
+    var sorts: [Sort]? = nil
+    
     override init() {
         super.init()
     }
     
+    func setSource (sorts: [Sort]?) {
+        self.sorts = sorts
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return sorts == nil ? 0 : sorts!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        var cell = tableView.dequeueReusableCell(withIdentifier: "SortCell")
+        
+        if cell == nil {
+            cell = UITableViewCell (style: .default, reuseIdentifier: "SortCell")
+        }
+        
+        let sort = sorts![indexPath.row]
+        
+        cell!.textLabel?.text = sort.name
+        cell!.textLabel?.textColor = UIColor.darkGray
+        cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell!.tintColor = StoreCategoryControl.shared.themeColor
+        cell!.accessoryType = .checkmark
+        
+        return cell!
     }
 }
 
 class StoreFilterDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    
+    var filters: [StoreFilter]? = nil
+    
     override init() {
         super.init()
     }
     
+    func setSource (filters: [StoreFilter]?) {
+        self.filters = filters
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return filters == nil ? 0 : filters!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
