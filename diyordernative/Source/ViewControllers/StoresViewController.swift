@@ -47,6 +47,14 @@ class StoresViewController: BaseViewController,
     
     var isLoading = false
     
+    enum tripleButton {
+        case left
+        case middle
+        case right
+    }
+    
+    var lastTappedButton: tripleButton? = nil
+    
     override var utilsPopupViewItems: [UtilsPopupItem]? {
         get {
             return [UtilsPopupItem(titleText: LanguageControl.shared.getLocalizeString(by: "map"), iconImage: #imageLiteral(resourceName: "icon_map"), action: handleOnMapButtonTapped),
@@ -154,12 +162,6 @@ class StoresViewController: BaseViewController,
                 
                 self.storeFilterSorterControl.setFilterSubcategories(filterSubcategories)
                 
-                DispatchQueue.main.async {
-                    if status == .success {
-                        self.storeSubCategoryPopupView.setSubCategories(filterSubcategories!)
-                    }
-                }
-                
                 completion?()
             })
         }
@@ -248,19 +250,30 @@ class StoresViewController: BaseViewController,
         return max(originalMaxY - tableViewOffsetY, heightOfTripleButtonHeader)
     }
     
-    private func showStoreSubCategoryPopupView () {
-        self.storeSubCategoryPopupView.alpha = 1
-        contentTableView.isScrollEnabled = false
-        storeSubCategoryPopupView.isHidden = false
-        let y = getYPositionOfHeaderInFirstSection()
-        let height = contentTableView.frame.height - y
-        storeSubCategoryPopupViewTopConstraint.constant = y
-        storeSubCategoryPopupViewHeightConstraint.constant = height
-        view.layoutIfNeeded()
+    private func showStoreSubCategoryPopupView (with source: UITableViewDataSource, delegate: UITableViewDelegate) {
+        
+        storeSubCategoryPopupView.setSourceAndDelegate(source: source, delegate: delegate)
+        
+        if storeSubCategoryPopupView.isHidden {
+            
+            storeSubCategoryPopupView.alpha = 1
+            contentTableView.isScrollEnabled = false
+            storeSubCategoryPopupView.isHidden = false
+            
+            let y = getYPositionOfHeaderInFirstSection()
+            let height = contentTableView.frame.height - y
+            
+            storeSubCategoryPopupViewTopConstraint.constant = y
+            storeSubCategoryPopupViewHeightConstraint.constant = height
+            
+            view.layoutIfNeeded()
+        }
+        
         storeSubCategoryPopupView.animateLeftTableView(isShow: true)
     }
     
     private func hideStoreSubCategoryPopupView () {
+        lastTappedButton = nil
         storeSubCategoryPopupView.animateLeftTableView (isShow: false, completion: {
             self.contentTableView.isScrollEnabled = true
             UIView.animate(withDuration: 0.3, animations: {
@@ -340,19 +353,33 @@ class StoresViewController: BaseViewController,
     // MARK: - TripleButtonHeaderViewDelegate
     
     func handleOnLeftButtonTapped() {
-        if storeSubCategoryPopupView.isHidden {
-            showStoreSubCategoryPopupView()
+        if storeSubCategoryPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .left) {
+            let dataSourceAndDelegate = StoreSubCategoryDataSourceAndDelegate()
+            showStoreSubCategoryPopupView(with: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
         } else {
             hideStoreSubCategoryPopupView()
         }
+        lastTappedButton = tripleButton.left
     }
     
     func handleOnMiddleButtonTapped() {
-        
+        if storeSubCategoryPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .middle) {
+            let dataSourceAndDelegate = StoreSortDataSourceAndDelegate()
+            showStoreSubCategoryPopupView(with: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
+        } else {
+            hideStoreSubCategoryPopupView()
+        }
+        lastTappedButton = tripleButton.middle
     }
     
     func handleOnRightButtonTapped() {
-        
+        if storeSubCategoryPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .right) {
+            let dataSourceAndDelegate = StoreFilterDataSourceAndDelegate()
+            showStoreSubCategoryPopupView(with: dataSourceAndDelegate, delegate: dataSourceAndDelegate)
+        } else {
+            hideStoreSubCategoryPopupView()
+        }
+        lastTappedButton = tripleButton.right
     }
     
     // MARK: - StoreSubCategoryHeaderViewDelegate

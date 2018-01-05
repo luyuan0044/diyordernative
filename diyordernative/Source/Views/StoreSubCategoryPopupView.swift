@@ -12,7 +12,7 @@ protocol StoreSubCategoryPopupViewDelegate {
     func handleOnDismissButtonTapped ()
 }
 
-class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDelegate {
+class StoreSubCategoryPopupView: UIView {
     
     // MARK: - Properties
     
@@ -54,14 +54,16 @@ class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - Implementation
     
-    func setSubCategories (_ subcategories: [StoreSubCategory]) {
-        parentCategories = subcategories
+    func setSourceAndDelegate (source: UITableViewDataSource, delegate: UITableViewDelegate) {
+        leftTableView.dataSource = source
+        leftTableView.delegate = delegate
+        
         refreshLeftTableView()
-        self.layoutIfNeeded()
+        layoutIfNeeded()
     }
     
     func animateLeftTableView (isShow: Bool, completion: (() -> Void)? = nil) {
-        let targetHeight: CGFloat = isShow ? 300 : 0 //leftTableView.contentSize.height
+        let targetHeight: CGFloat = isShow ? leftTableView.contentSize.height : 0
         UIView.animate(withDuration: 0.3, animations: {
             self.leftTableViewHeightConstraint.constant = targetHeight
             self.layoutIfNeeded()
@@ -102,35 +104,6 @@ class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDeleg
     @objc private func onDismissButtonTapped (_ sender: AnyObject?) {
         delegate?.handleOnDismissButtonTapped()
     }
-    
-    // MARK: - UITableViewDataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == leftTableView {
-            return parentCategories != nil ? parentCategories!.count : 0
-        } else {
-            return childCategories != nil ? childCategories!.count : 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    // MARK: - UITableViewDelegate
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == leftTableView {
-            let selectedCategory = parentCategories![indexPath.row]
-            if selectedCategory.children != nil && selectedCategory.children!.count > 0 {
-                childCategories = selectedCategory.children
-                refreshRigthtableView()
-                showRightTableView()
-            }
-        } else {
-            
-        }
-    }
 }
 
 private extension StoreSubCategoryPopupView {
@@ -147,6 +120,48 @@ private extension StoreSubCategoryPopupView {
                                                       options: [],
                                                       metrics: nil,
                                                       views: ["childView": contentView]))
+    }
+}
+
+class StoreSubCategoryDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    override init() {
+        super.init()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+class StoreSortDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    override init() {
+        super.init()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+class StoreFilterDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
+    override init() {
+        super.init()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }
 
