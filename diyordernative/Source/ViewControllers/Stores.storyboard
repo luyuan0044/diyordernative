@@ -101,18 +101,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TP-F6-XYo" customClass="StoreSubCategoryPopupView" customModule="diyordernative" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="95" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="guB-hK-0zF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fy4-bQ-VEL" firstAttribute="trailing" secondItem="igR-Pc-WbE" secondAttribute="trailing" id="7Wn-ba-gzu"/>
+                            <constraint firstItem="9TP-F6-XYo" firstAttribute="leading" secondItem="fy4-bQ-VEL" secondAttribute="leading" id="FSi-8d-uiO"/>
+                            <constraint firstItem="9TP-F6-XYo" firstAttribute="top" secondItem="fy4-bQ-VEL" secondAttribute="top" constant="75" id="OOt-lP-zmz"/>
                             <constraint firstItem="igR-Pc-WbE" firstAttribute="leading" secondItem="fy4-bQ-VEL" secondAttribute="leading" id="dF6-nO-geA"/>
                             <constraint firstAttribute="bottom" secondItem="igR-Pc-WbE" secondAttribute="bottom" id="kMQ-V6-1la"/>
                             <constraint firstItem="igR-Pc-WbE" firstAttribute="top" secondItem="fy4-bQ-VEL" secondAttribute="top" id="uPD-w6-Seb"/>
+                            <constraint firstItem="9TP-F6-XYo" firstAttribute="trailing" secondItem="fy4-bQ-VEL" secondAttribute="trailing" id="zAl-2B-Aq4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fy4-bQ-VEL"/>
                     </view>
                     <connections>
                         <outlet property="contentTableView" destination="igR-Pc-WbE" id="ZNi-Dc-ITA"/>
+                        <outlet property="storeSubCategoryPopupView" destination="9TP-F6-XYo" id="QZJ-Sy-UBq"/>
+                        <outlet property="storeSubCategoryPopupViewHeightConstraint" destination="guB-hK-0zF" id="2J4-8G-Yyd"/>
+                        <outlet property="storeSubCategoryPopupViewTopConstraint" destination="OOt-lP-zmz" id="UrE-Fo-z3F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9de-Mi-KWY" userLabel="First Responder" sceneMemberID="firstResponder"/>

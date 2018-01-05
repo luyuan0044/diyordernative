@@ -13,7 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StoreSubCategoryPopupView" customModule="diyordernative" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="Hzq-UF-Vke"/>
+                <outlet property="dismissButton" destination="17z-Qz-GoS" id="nkW-BV-sZS"/>
                 <outlet property="leftTableView" destination="Ep8-0O-wJh" id="KX4-4L-dwC"/>
+                <outlet property="leftTableViewHeightConstraint" destination="O6w-w0-XL2" id="vIN-lp-UVE"/>
                 <outlet property="rightTableView" destination="y1l-hT-R8f" id="XZD-oC-fcx"/>
                 <outlet property="rightTableViewWidthConstraint" destination="sJV-EH-3gj" id="vbz-qe-eEt"/>
             </connections>
@@ -23,12 +25,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="242"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ep8-0O-wJh">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17z-Qz-GoS">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="242"/>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ep8-0O-wJh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="O6w-w0-XL2"/>
+                    </constraints>
                 </tableView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y1l-hT-R8f">
-                    <rect key="frame" x="375" y="0.0" width="0.0" height="242"/>
+                    <rect key="frame" x="375" y="0.0" width="0.0" height="0.0"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" id="sJV-EH-3gj"/>
@@ -37,13 +45,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="17z-Qz-GoS" secondAttribute="trailing" id="0Qu-Ex-o6B"/>
                 <constraint firstItem="y1l-hT-R8f" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="B0y-U6-0Ta"/>
-                <constraint firstItem="Ep8-0O-wJh" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="L4v-oz-RMw"/>
+                <constraint firstItem="17z-Qz-GoS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JIV-Kd-J3K"/>
+                <constraint firstAttribute="bottom" secondItem="17z-Qz-GoS" secondAttribute="bottom" id="NtK-f9-F6h"/>
+                <constraint firstItem="17z-Qz-GoS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WDS-7m-98V"/>
                 <constraint firstItem="y1l-hT-R8f" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="cqB-kS-ev4"/>
                 <constraint firstItem="Ep8-0O-wJh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dL5-Xv-iDv"/>
                 <constraint firstItem="Ep8-0O-wJh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gHh-Bh-acV"/>
                 <constraint firstItem="y1l-hT-R8f" firstAttribute="leading" secondItem="Ep8-0O-wJh" secondAttribute="trailing" id="hst-xj-NGB"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="y1l-hT-R8f" secondAttribute="bottom" id="lJL-ub-mM5"/>
+                <constraint firstItem="y1l-hT-R8f" firstAttribute="height" secondItem="Ep8-0O-wJh" secondAttribute="height" id="iVw-72-chb"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

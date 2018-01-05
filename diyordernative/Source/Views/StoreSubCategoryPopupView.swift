@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StoreSubCategoryPopupViewDelegate {
+    func handleOnDismissButtonTapped ()
+}
+
 class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Properties
@@ -24,31 +28,55 @@ class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDeleg
     
     @IBOutlet weak var rightTableViewWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var leftTableViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var dismissButton: UIButton!
+    
     private var parentCategories: [StoreSubCategory]? = nil
     
     private var childCategories: [StoreSubCategory]? = nil
+    
+    var delegate: StoreSubCategoryPopupViewDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         xibSetup()
+        viewSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         xibSetup()
+        viewSetup()
     }
     
     // MARK: - Implementation
     
     func setSubCategories (_ subcategories: [StoreSubCategory]) {
         parentCategories = subcategories
+        refreshLeftTableView()
+        self.layoutIfNeeded()
+    }
+    
+    func animateLeftTableView (isShow: Bool, completion: (() -> Void)? = nil) {
+        let targetHeight: CGFloat = isShow ? 300 : 0 //leftTableView.contentSize.height
+        UIView.animate(withDuration: 0.3, animations: {
+            self.leftTableViewHeightConstraint.constant = targetHeight
+            self.layoutIfNeeded()
+        }, completion: {
+            isComplete in
+            
+            if isComplete && completion != nil {
+                completion!()
+            }
+        })
     }
     
     func showRightTableView () {
         UIView.animate(withDuration: 0.2, animations: {
-            self.rightTableViewWidthConstraint.constant = frame.width / 2
+            self.rightTableViewWidthConstraint.constant = self.frame.width / 2
             self.layoutIfNeeded()
         })
     }
@@ -61,6 +89,18 @@ class StoreSubCategoryPopupView: UIView, UITableViewDataSource, UITableViewDeleg
     func refreshRigthtableView () {
         rightTableView.reloadData()
         rightTableView.layoutIfNeeded()
+    }
+    
+    func viewSetup () {
+        backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
+        dismissButton.backgroundColor = UIConstants.transparentBlackColor
+        
+        dismissButton.addTarget(self, action: #selector(onDismissButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func onDismissButtonTapped (_ sender: AnyObject?) {
+        delegate?.handleOnDismissButtonTapped()
     }
     
     // MARK: - UITableViewDataSource
