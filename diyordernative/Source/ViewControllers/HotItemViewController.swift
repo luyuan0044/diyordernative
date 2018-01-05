@@ -138,6 +138,7 @@ class HotItemViewController:BaseViewController,
         sortPopupTableView.delegate = self
         sortPopupTableView.dataSource = self
         sortPopupTableView.isScrollEnabled = false
+        sortPopupTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         
         hideSortPopupPanelViewButton.backgroundColor = UIColor.clear
         hideSortPopupPanelViewButton.addTarget(self, action: #selector(handleOnHideSortPopupPanelViewButtonTapped(_:)), for: .touchUpInside)
@@ -385,24 +386,30 @@ class HotItemViewController:BaseViewController,
         })
     }
     
+    func getYPositionOfBottomOfHeaderView () -> CGFloat {
+        let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath (row: 0, section: 1))!
+        let yPosition = header.frame.maxY
+        return yPosition
+    }
+    
     /**
      Show SortPopupView
      - Setup the top constraint of sort popup view to be the bottom of second header view
      */
     func showSortPopupView () {
         sortPopupPanelView.isHidden = false
-        
+        sortPopupPanelView.alpha = 1
         //setup the top constraint of popup panel view
-        let header = hotItemCollectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath (row: 0, section: 1))!
-        let yPosition = header.frame.maxY
-        sortPopupPanelViewTopConstraint.constant = yPosition
+        let offsetY = hotItemCollectionView.contentOffset.y
+        let y = max( getYPositionOfBottomOfHeaderView() - offsetY, offsetY)
+        sortPopupPanelViewTopConstraint.constant = y
         view.layoutSubviews()
-        
         //show the popup table
         sortPopupTableView.isHidden = false
         UIView.animate(withDuration: 0.2, animations: {
-            self.sortPopupTableViewHeightConstraint.constant = self.sortPopupTableView.contentSize.height
-            self.view.layoutSubviews()
+            let contentHeight = self.sortPopupTableView.contentSize.height
+            self.sortPopupTableViewHeightConstraint.constant = contentHeight
+            self.sortPopupPanelView.layoutSubviews()
         })
     }
     
@@ -410,15 +417,24 @@ class HotItemViewController:BaseViewController,
      Hide SortPopupView
      */
     func hideSortPopupView () {
+        sortPopupPanelView.alpha = 1
         UIView.animate(withDuration: 0.2, animations: {
             self.sortPopupTableViewHeightConstraint.constant = 0
-            self.view.layoutSubviews()
+            self.sortPopupPanelView.layoutSubviews()
         }, completion: {
             isFinished in
             
             if isFinished {
-                self.sortPopupTableView.isHidden = true
-                self.sortPopupPanelView.isHidden = true
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.sortPopupPanelView.alpha = 0
+                }, completion: {
+                    isComplete in
+                    
+                    if isComplete {
+                        self.sortPopupTableView.isHidden = true
+                        self.sortPopupPanelView.isHidden = true
+                    }
+                })
             }
         })
     }
@@ -887,10 +903,10 @@ class HotItemViewController:BaseViewController,
             cell = UITableViewCell (style: .default, reuseIdentifier: "SortPopupCell")
         }
         
+        cell!.tintColor = UIConstants.appThemeColor
         cell!.textLabel?.text = LanguageControl.shared.getLocalizeString(by: sortItem.name)
         cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell!.textLabel?.textColor = UIColor.lightGray
-        cell!.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        cell!.textLabel?.textColor = UIColor.darkGray
         
         if sortItem.id == currentHotItemSortId {
             cell!.accessoryType = .checkmark
