@@ -167,7 +167,7 @@ class StoresViewController: BaseViewController,
                 status, filterSubcategories in
                 
                 self.storeFilterSorterControl.setFilterSubcategories(filterSubcategories)
-                self.storeSubcategoryDataSourceAndDelegate.setSource(subcategories: filterSubcategories)
+                self.storeSubcategoryDataSourceAndDelegate.setSource(subcategories: filterSubcategories, selectedSubcategory: self.storeFilterSorterControl.selectedSubCategory)
                 
                 completion?()
             })
@@ -180,7 +180,7 @@ class StoresViewController: BaseViewController,
                 status, sorts in
                 
                 self.storeFilterSorterControl.setSorts(sorts)
-                self.storeSortDataSourceAndDelegate.setSource(sorts: sorts)
+                self.storeSortDataSourceAndDelegate.setSource(sorts: sorts, selectedSort: self.storeFilterSorterControl.selectedSort)
                 
                 completion?()
             })
@@ -259,9 +259,9 @@ class StoresViewController: BaseViewController,
         return max(originalMaxY - tableViewOffsetY, heightOfTripleButtonHeader)
     }
     
-    private func showStoreSubCategoryPopupView (with source: UITableViewDataSource, delegate: UITableViewDelegate) {
+    private func showStoreViewControllerPopupView (with sourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate) {
         
-        storeViewControllerPopupView.setSourceAndDelegate(source: source, delegate: delegate)
+        storeViewControllerPopupView.setSourceAndDelegate(sourceAndDelegate: sourceAndDelegate)
         
         if storeViewControllerPopupView.isHidden {
             
@@ -281,11 +281,11 @@ class StoresViewController: BaseViewController,
         storeViewControllerPopupView.animateLeftTableView(isShow: true)
     }
     
-    private func hideStoreSubCategoryPopupView () {
+    private func hideStoreViewControllerPopupView () {
         lastTappedButton = nil
         storeViewControllerPopupView.animateLeftTableView (isShow: false, completion: {
             self.contentTableView.isScrollEnabled = true
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.storeViewControllerPopupView.alpha = 0
             }, completion: {
                 isComplete in
@@ -333,7 +333,7 @@ class StoresViewController: BaseViewController,
             header.rightButton.setTitle(LanguageControl.shared.getLocalizeString(by: "filter"), for: .normal)
             
             header.delegate = self
-            header.update()
+            header.update(selectedSubcategory: storeFilterSorterControl.selectedSubCategory, selectedSort: storeFilterSorterControl.selectedSort, selectedFilter: storeFilterSorterControl.selectedFilter)
             
             return header
         }
@@ -363,27 +363,27 @@ class StoresViewController: BaseViewController,
     
     func handleOnLeftButtonTapped() {
         if storeViewControllerPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .left) {
-            showStoreSubCategoryPopupView(with: storeSubcategoryDataSourceAndDelegate, delegate: storeSubcategoryDataSourceAndDelegate)
+            showStoreViewControllerPopupView(with: storeSubcategoryDataSourceAndDelegate)
         } else {
-            hideStoreSubCategoryPopupView()
+            hideStoreViewControllerPopupView()
         }
         lastTappedButton = tripleButton.left
     }
     
     func handleOnMiddleButtonTapped() {
         if storeViewControllerPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .middle) {
-            showStoreSubCategoryPopupView(with: storeSortDataSourceAndDelegate, delegate: storeSortDataSourceAndDelegate)
+            showStoreViewControllerPopupView(with: storeSortDataSourceAndDelegate)
         } else {
-            hideStoreSubCategoryPopupView()
+            hideStoreViewControllerPopupView()
         }
         lastTappedButton = tripleButton.middle
     }
     
     func handleOnRightButtonTapped() {
         if storeViewControllerPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .right) {
-            showStoreSubCategoryPopupView(with: storeFilterDataSourceAndDelegate, delegate: storeFilterDataSourceAndDelegate)
+            showStoreViewControllerPopupView(with: storeFilterDataSourceAndDelegate)
         } else {
-            hideStoreSubCategoryPopupView()
+            hideStoreViewControllerPopupView()
         }
         lastTappedButton = tripleButton.right
     }
@@ -391,6 +391,14 @@ class StoresViewController: BaseViewController,
     // MARK: - StoreSubCategoryHeaderViewDelegate
     
     func onSelectedSubcategory(_ subcategory: StoreSubCategory) {
+        if !storeViewControllerPopupView.isHidden {
+            hideStoreViewControllerPopupView()
+        }
+        
+        //update selected category in souce and delegate of popup view
+        storeSubcategoryDataSourceAndDelegate.setSelectedSubCategory(selectedSubcategory: subcategory)
+        storeViewControllerPopupView.updateSelectedCategoryOnRightTableViewSourceAndDelegate (selectedSubcategory: subcategory)
+        
         storeFilterSorterControl.selectSubcateogry(subcategory)
         storeListManager.cleanCache()
         loadStores(force: true, completion: {
@@ -398,12 +406,39 @@ class StoresViewController: BaseViewController,
                 self.refreshData()
             }
         })
+        
+        let header = contentTableView.headerView(forSection: 1) as! TripleButtonHeaderView
+        header.updateLeftButton(title: subcategory.name, with: StoreCategoryControl.shared.themeColor)
+    }
+    
+    func onSelectedSort(_ sort: Sort) {
+        if !storeViewControllerPopupView.isHidden {
+            hideStoreViewControllerPopupView()
+        }
+        
+        //update selected sort in souce and delegate of popup view
+        storeSortDataSourceAndDelegate.setSelectedSort(selectedSort: sort)
+        
+        storeFilterSorterControl.selectSort(sort)
+        storeListManager.cleanCache()
+        loadStores(force: true, completion: {
+            DispatchQueue.main.async {
+                self.refreshData()
+            }
+        })
+        
+        let header = contentTableView.headerView(forSection: 1) as! TripleButtonHeaderView
+        header.updateMiddleButton(title: sort.name, with: StoreCategoryControl.shared.themeColor)
     }
     
     // MARK: - StoresViewControllerPopupViewDelegate
     
     func handleOnDismissButtonTapped() {
-        hideStoreSubCategoryPopupView()
+        hideStoreViewControllerPopupView()
+    }
+    
+    func getSelectedSubcategory() -> StoreSubCategory? {
+        return storeFilterSorterControl.selectedSubCategory
     }
 
     /*

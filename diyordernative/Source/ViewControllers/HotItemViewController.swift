@@ -53,7 +53,7 @@ class HotItemViewController:BaseViewController,
     // before confirm button tapped
     var temporyHotItemCategoryId: String? = nil
     
-    var currentHotItemSortId: String? = nil
+    var currentHotItemSortId: Int? = nil
     
     var keyword: String? = nil
     
@@ -466,7 +466,7 @@ class HotItemViewController:BaseViewController,
      Set the selected hot item sort id
      - parameter id: id of hot item sort
      */
-    func setHotItemSortId (_ id: String?) {
+    func setHotItemSortId (_ id: Int?) {
         currentHotItemSortId = id
     }
     
@@ -538,7 +538,7 @@ class HotItemViewController:BaseViewController,
             if result == nil {
                 result = [:]
             }
-            result!["sort"] = sortid
+            result!["sort"] = "\(sortid)" 
         }
         
         if let keyword = keyword {

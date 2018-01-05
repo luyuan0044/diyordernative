@@ -10,10 +10,13 @@ import UIKit
 
 protocol StoresViewControllerPopupViewDelegate {
     func handleOnDismissButtonTapped ()
+    func onSelectedSubcategory(_ subcategory: StoreSubCategory)
+    func onSelectedSort (_ sort: Sort)
+    func getSelectedSubcategory () -> StoreSubCategory?
 }
 
-class StoresViewControllerPopupView: UIView {
-    
+class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelegateDelegate {
+
     // MARK: - Properties
     
     static let key = "StoresViewControllerPopupView"
@@ -32,11 +35,11 @@ class StoresViewControllerPopupView: UIView {
     
     @IBOutlet weak var dismissButton: UIButton!
     
-    private var parentCategories: [StoreSubCategory]? = nil
-    
-    private var childCategories: [StoreSubCategory]? = nil
-    
     var delegate: StoresViewControllerPopupViewDelegate? = nil
+    
+    var rightTableViewSourceAndDelegate: StoreSubCategoryDataSourceAndDelegate? = nil
+    
+    var isRightTableViewShowed = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,17 +57,20 @@ class StoresViewControllerPopupView: UIView {
     
     // MARK: - Implementation
     
-    func setSourceAndDelegate (source: UITableViewDataSource, delegate: UITableViewDelegate) {
-        leftTableView.dataSource = source
-        leftTableView.delegate = delegate
+    func setSourceAndDelegate (sourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate) {
+        sourceAndDelegate.delegate = self
+        leftTableView.dataSource = sourceAndDelegate
+        leftTableView.delegate = sourceAndDelegate
         
         refreshLeftTableView()
         layoutIfNeeded()
     }
     
     func animateLeftTableView (isShow: Bool, completion: (() -> Void)? = nil) {
+        hideRightTableView()
+        
         let targetHeight: CGFloat = isShow ? leftTableView.contentSize.height : 0
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.leftTableViewHeightConstraint.constant = targetHeight
             self.layoutIfNeeded()
         }, completion: {
@@ -76,9 +82,32 @@ class StoresViewControllerPopupView: UIView {
         })
     }
     
+    /**
+     Show right table view with left slide animation
+     */
     func showRightTableView () {
+        if isRightTableViewShowed {
+            return
+        }
+        
+        isRightTableViewShowed = true
         UIView.animate(withDuration: 0.2, animations: {
             self.rightTableViewWidthConstraint.constant = self.frame.width / 2
+            self.layoutIfNeeded()
+        })
+    }
+    
+    /**
+     Hide right table view with right slide animation
+     */
+    func hideRightTableView () {
+        if !isRightTableViewShowed {
+            return
+        }
+        
+        isRightTableViewShowed = false
+        UIView.animate(withDuration: 0.2, animations: {
+            self.rightTableViewWidthConstraint.constant = 0
             self.layoutIfNeeded()
         })
     }
@@ -98,7 +127,9 @@ class StoresViewControllerPopupView: UIView {
         contentView.backgroundColor = UIColor.clear
         dismissButton.backgroundColor = UIConstants.transparentBlackColor
         
+        leftTableView.isScrollEnabled = false
         leftTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        
         rightTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         
         dismissButton.addTarget(self, action: #selector(onDismissButtonTapped(_:)), for: .touchUpInside)
@@ -106,6 +137,43 @@ class StoresViewControllerPopupView: UIView {
     
     @objc private func onDismissButtonTapped (_ sender: AnyObject?) {
         delegate?.handleOnDismissButtonTapped()
+    }
+    
+    func updateSelectedCategoryOnRightTableViewSourceAndDelegate (selectedSubcategory: StoreSubCategory?) {
+        if rightTableViewSourceAndDelegate == nil {
+            createRightTableViewSourceAndDelegate()
+        }
+        rightTableViewSourceAndDelegate?.setSelectedSubCategory(selectedSubcategory: selectedSubcategory)
+    }
+    
+    // MARK: - StoreSubCategoryDataSourceAndDelegateDelegate
+    
+    func onSubCategoryCellTapped(subcategory: StoreSubCategory) {
+        if subcategory.children != nil && subcategory.children!.count > 0 {
+            if rightTableViewSourceAndDelegate == nil {
+                createRightTableViewSourceAndDelegate()
+            }
+            
+            let selectedSubcategory = delegate?.getSelectedSubcategory()
+            rightTableViewSourceAndDelegate!.setSource(subcategories: subcategory.children!, selectedSubcategory: selectedSubcategory)
+            refreshRigthtableView()
+            
+            showRightTableView()
+        } else {
+            hideRightTableView()
+            delegate?.onSelectedSubcategory (subcategory)
+        }
+    }
+    
+    func onSortCelltapped(sort: Sort) {
+        delegate?.onSelectedSort(sort)
+    }
+    
+    private func createRightTableViewSourceAndDelegate () {
+        rightTableViewSourceAndDelegate = StoreSubCategoryDataSourceAndDelegate()
+        rightTableView.dataSource = rightTableViewSourceAndDelegate
+        rightTableView.delegate = rightTableViewSourceAndDelegate
+        rightTableViewSourceAndDelegate!.delegate = self
     }
 }
 
@@ -123,97 +191,6 @@ private extension StoresViewControllerPopupView {
                                                       options: [],
                                                       metrics: nil,
                                                       views: ["childView": contentView]))
-    }
-}
-
-class StoreSubCategoryDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
-    var subcategories: [StoreSubCategory]? = nil
-    
-    override init() {
-        super.init()
-    }
-    
-    func setSource (subcategories: [StoreSubCategory]?) {
-        self.subcategories = subcategories
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subcategories == nil ? 0 : subcategories!.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "SubCategoryCell")
-        
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "SubCategoryCell")
-        }
-        
-        let subcategory = subcategories![indexPath.row]
-        
-        cell!.textLabel?.text = subcategory.name
-        cell!.textLabel?.textColor = UIColor.darkGray
-        cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        
-        cell!.accessoryType = subcategory.children != nil && subcategory.children!.count > 0 ? .disclosureIndicator : .none
-        
-        return cell!
-    }
-}
-
-class StoreSortDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
-    var sorts: [Sort]? = nil
-    
-    override init() {
-        super.init()
-    }
-    
-    func setSource (sorts: [Sort]?) {
-        self.sorts = sorts
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sorts == nil ? 0 : sorts!.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "SortCell")
-        
-        if cell == nil {
-            cell = UITableViewCell (style: .default, reuseIdentifier: "SortCell")
-        }
-        
-        let sort = sorts![indexPath.row]
-        
-        cell!.textLabel?.text = sort.name
-        cell!.textLabel?.textColor = UIColor.darkGray
-        cell!.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell!.tintColor = StoreCategoryControl.shared.themeColor
-        cell!.accessoryType = .checkmark
-        
-        return cell!
-    }
-}
-
-class StoreFilterDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
-    var filters: [StoreFilter]? = nil
-    
-    override init() {
-        super.init()
-    }
-    
-    func setSource (filters: [StoreFilter]?) {
-        self.filters = filters
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filters == nil ? 0 : filters!.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
     }
 }
 

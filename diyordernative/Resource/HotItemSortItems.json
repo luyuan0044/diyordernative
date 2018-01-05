@@ -2,32 +2,32 @@
     "records": [
         {
             "name": "relevance",
-            "id": "1",
+            "id": 1,
             "type": "List"
         },
         {
             "name": "volume",
-            "id": "2",
+            "id": 2,
             "type": "Tab"
         },
         {
             "name": "rating",
-            "id": "3",
+            "id": 3,
             "type": "List"
         },
         {
             "name": "distance",
-            "id": "4",
+            "id": 4,
             "type": "List"
         },
         {
             "name": "price low to high",
-            "id": "5",
+            "id": 5,
             "type": "List"
         },
         {
             "name": "price high to low",
-            "id": "6",
+            "id": 6,
             "type": "List"
         }
     ]

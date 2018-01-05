@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class Sort: Mappable {
-    var id: String?
+    var id: Int?
     var name: String?
     
     required init?(map: Map) {

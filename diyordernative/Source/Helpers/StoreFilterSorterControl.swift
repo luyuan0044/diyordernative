@@ -20,11 +20,11 @@ class StoreFilterSorterControl {
     
     private(set) var filters: [StoreFilter]?
     
-    private var selectedSubCategory: StoreSubCategory? = nil
+    private(set) var selectedSubCategory: StoreSubCategory? = nil
     
-    private var selectedSort: Sort? = nil
+    private(set) var selectedSort: Sort? = nil
     
-    private var selectedFilter: StoreFilter? = nil
+    private(set) var selectedFilter: StoreFilter? = nil
     
     // MARK: - Implementation
     
@@ -86,11 +86,11 @@ class StoreFilterSorterControl {
             urlparams!["t_id"] = "\(id)"
         }
         
-        if let sort = selectedSort {
+        if let sort = selectedSort, let id = sort.id {
             if urlparams == nil {
                 urlparams = [:]
             }
-            urlparams!["sort_id"] = sort.id
+            urlparams!["sort_id"] = "\(id)"
         }
         
         return urlparams

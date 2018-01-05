@@ -11,6 +11,7 @@ import ObjectMapper
 
 class StoreSubCategory: Mappable {
     var id: Int?
+    var parentId: Int?
     var name: String?
     var imageUrl: String?
     var level: Int?
@@ -22,6 +23,7 @@ class StoreSubCategory: Mappable {
     
     func mapping(map: Map) {
         self.id <- map["id"]
+        self.parentId <- map["parent_id"]
         self.name <- map["name"]
         self.imageUrl <- map["img"]
         self.level <- map["level"]
