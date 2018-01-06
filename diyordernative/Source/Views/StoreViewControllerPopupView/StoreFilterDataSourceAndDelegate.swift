@@ -11,21 +11,58 @@ import UIKit
 
 class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate {
     
-    var filters: [StoreFilter]? = nil
+    var switchFitlers: [StoreFilter]? = nil
+    
+    var selectionFilters: [StoreFilter]? = nil
+    
+    private var numberOfRows = 0
     
     override init() {
         super.init()
     }
     
     func setSource (filters: [StoreFilter]?) {
-        self.filters = filters
+        guard let fts = filters else {
+            return
+        }
+        
+        switchFitlers = fts.filter({$0.getFilterType() == .switcher})
+        selectionFilters = fts.filter({$0.getFilterType() == .mutiSelect || $0.getFilterType() == .singleSelect})
+        if switchFitlers != nil {
+            numberOfRows += 1
+        }
+        if selectionFilters != nil {
+            numberOfRows += selectionFilters!.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filters == nil ? 0 : filters!.count
+        return numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: StoreFilterCell.key) as! StoreFilterCell
+        
+        if indexPath.row == 0 && switchFitlers != nil {
+            cell.setSwitchFilters(switchFitlers!)
+        } else {
+            let dataOffset = switchFitlers == nil ? 0 : 1
+            let selectionFilter = selectionFilters![indexPath.row - dataOffset]
+            cell.setSelectionFilter(selectionFilter)
+        }
+        
+        return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIConstants.tableViewDefaultCellHeight
+    }
+}
+
+extension StoreFilterDataSourceAndDelegate {
+    
 }

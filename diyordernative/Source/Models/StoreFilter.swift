@@ -28,6 +28,20 @@ class StoreFilter: Mappable {
     }
 }
 
+extension StoreFilter {
+    func getFilterType () -> storeFilterType {
+        if type != nil, let t = storeFilterType (rawValue: type!) {
+            return t
+        } else {
+            if options == nil || options!.count == 0 {
+                return storeFilterType.switcher
+            } else {
+                return storeFilterType.singleSelect
+            }
+        }
+    }
+}
+
 class StoreFilterOption: Mappable {
     
     var id: Int?

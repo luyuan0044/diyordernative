@@ -193,7 +193,10 @@ class StoresViewController: BaseViewController,
                 status, filters in
                 
                 self.storeFilterSorterControl.setFilters(filters)
-                self.storeFilterDataSourceAndDelegate.setSource(filters: filters)
+                
+                DispatchQueue.main.async {
+                    self.storeFilterDataSourceAndDelegate.setSource(filters: filters)
+                }
                 
                 completion?()
             })

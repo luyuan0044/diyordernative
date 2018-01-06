@@ -55,3 +55,9 @@ enum storeCategoryType: Int {
     case shopping
     case service
 }
+
+enum storeFilterType: Int {
+    case switcher = 1
+    case mutiSelect
+    case singleSelect
+}

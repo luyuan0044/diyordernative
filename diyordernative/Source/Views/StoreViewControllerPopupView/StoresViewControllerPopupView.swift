@@ -129,6 +129,7 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         
         leftTableView.isScrollEnabled = false
         leftTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
+        leftTableView.register(StoreFilterCell.nib, forCellReuseIdentifier: StoreFilterCell.key)
         
         rightTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         

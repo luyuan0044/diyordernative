@@ -40,6 +40,10 @@
 		792F96631FE3310100A67ADC /* BannerItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96621FE3310100A67ADC /* BannerItemCell.swift */; };
 		792F96651FE33FB500A67ADC /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96641FE33FB500A67ADC /* ImageHelper.swift */; };
 		792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */; };
+		793C90A120003DF6009E4AB4 /* StoreFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793C909F20003DF6009E4AB4 /* StoreFilterCell.swift */; };
+		793C90A220003DF6009E4AB4 /* StoreFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793C90A020003DF6009E4AB4 /* StoreFilterCell.xib */; };
+		793C90A5200040CC009E4AB4 /* StoreFilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793C90A3200040CC009E4AB4 /* StoreFilterOptionCell.swift */; };
+		793C90A6200040CD009E4AB4 /* StoreFilterOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793C90A4200040CC009E4AB4 /* StoreFilterOptionCell.xib */; };
 		794380271FE0A2ED00F6594D /* IconLabelButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */; };
 		794380291FE0A31800F6594D /* IconLabelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794380281FE0A31800F6594D /* IconLabelButtonView.swift */; };
 		7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7943802A1FE0B15200F6594D /* RootNavigationController.swift */; };
@@ -177,6 +181,10 @@
 		792F96621FE3310100A67ADC /* BannerItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemCell.swift; sourceTree = "<group>"; };
 		792F96641FE33FB500A67ADC /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryHelper.swift; sourceTree = "<group>"; };
+		793C909F20003DF6009E4AB4 /* StoreFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterCell.swift; sourceTree = "<group>"; };
+		793C90A020003DF6009E4AB4 /* StoreFilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreFilterCell.xib; sourceTree = "<group>"; };
+		793C90A3200040CC009E4AB4 /* StoreFilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterOptionCell.swift; sourceTree = "<group>"; };
+		793C90A4200040CC009E4AB4 /* StoreFilterOptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreFilterOptionCell.xib; sourceTree = "<group>"; };
 		794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconLabelButtonView.xib; sourceTree = "<group>"; };
 		794380281FE0A31800F6594D /* IconLabelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelButtonView.swift; sourceTree = "<group>"; };
 		7943802A1FE0B15200F6594D /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
@@ -320,6 +328,10 @@
 				79533808200003FF00FE589E /* StoreSubCategoryDataSourceAndDelegate.swift */,
 				7953380A2000042900FE589E /* StoreSortDataSourceAndDelegate.swift */,
 				7953380C2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift */,
+				793C909F20003DF6009E4AB4 /* StoreFilterCell.swift */,
+				793C90A020003DF6009E4AB4 /* StoreFilterCell.xib */,
+				793C90A3200040CC009E4AB4 /* StoreFilterOptionCell.swift */,
+				793C90A4200040CC009E4AB4 /* StoreFilterOptionCell.xib */,
 			);
 			path = StoreViewControllerPopupView;
 			sourceTree = "<group>";
@@ -665,6 +677,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				79F57B921FEDCC290066B131 /* Setting.storyboard in Resources */,
+				793C90A220003DF6009E4AB4 /* StoreFilterCell.xib in Resources */,
+				793C90A6200040CD009E4AB4 /* StoreFilterOptionCell.xib in Resources */,
 				79679B951FED75EA00E69E85 /* Login.storyboard in Resources */,
 				79BF83D81FFEF19F007B3DE3 /* StoresViewControllerPopupView.xib in Resources */,
 				794380271FE0A2ED00F6594D /* IconLabelButtonView.xib in Resources */,
@@ -797,6 +811,7 @@
 				794599F61FE9AA2400419612 /* ShoppingCartViewController.swift in Sources */,
 				797358661FFD7FEE00A9C71D /* StoreListManager.swift in Sources */,
 				792F965B1FE3022C00A67ADC /* BannerItemLoader.swift in Sources */,
+				793C90A5200040CC009E4AB4 /* StoreFilterOptionCell.swift in Sources */,
 				79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */,
 				792F96571FE3015A00A67ADC /* OauthKeyPair.swift in Sources */,
 				792F96551FE2EB6D00A67ADC /* ApiManager.swift in Sources */,
@@ -809,6 +824,7 @@
 				792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */,
 				79D22DA71FFE00E50033A40C /* HeaderFooterLoadingView.swift in Sources */,
 				79E9F1EE1FFDA44C0003D795 /* StoreCategoryControl.swift in Sources */,
+				793C90A120003DF6009E4AB4 /* StoreFilterCell.swift in Sources */,
 				7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */,
 				792F96671FE3403F00A67ADC /* CloudinaryHelper.swift in Sources */,
 				792E9D511FEB2494004D5045 /* HotItemRightSlideTableViewHeaderView.swift in Sources */,
