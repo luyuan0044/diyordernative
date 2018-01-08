@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate {
-    
+class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate, StoreFilterCellDelegate {
     var switchFitlers: [StoreFilter]? = nil
     
     var selectionFilters: [StoreFilter]? = nil
@@ -51,6 +50,8 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
             cell.setSelectionFilter(selectionFilter)
         }
         
+        cell.delegate = self
+        
         return cell
     }
     
@@ -60,6 +61,24 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIConstants.tableViewDefaultCellHeight
+    }
+    
+    //MARK: - StoreFilterCellDelegate
+    
+    func onSwitchFilterTapped(id: Int) {
+        delegate?.onSwitchFilterTapped(id: id)
+    }
+    
+    func onSelectionFilterOptionTapped(id: Int, optionId: Int) {
+        delegate?.onSelectionFilterOptionTapped(id: id, optionId: optionId)
+    }
+    
+    func isSwitchFilterSelected(id: Int) -> Bool {
+        return delegate?.isSwitchFilterSelected(id: id) ?? false
+    }
+    
+    func isSelectionFilterOptionSelected(id: Int, optionId: Int) -> Bool {
+        return delegate?.isSelectionFilterOptionSelected(id: id, optionId: optionId) ?? false
     }
 }
 

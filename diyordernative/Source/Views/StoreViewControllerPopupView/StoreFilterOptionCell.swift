@@ -35,6 +35,7 @@ class StoreFilterOptionCell: UICollectionViewCell {
         actionButton.titleLabel?.minimumScaleFactor = 8
         actionButton.titleLabel?.textAlignment = .center
         actionButton.layer.cornerRadius = 5
+        actionButton.isUserInteractionEnabled = false
     }
     
     func update (title: String?, isSelected: Bool) {

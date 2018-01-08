@@ -86,7 +86,7 @@ class TripleButtonHeaderView: UITableViewHeaderFooterView {
         rightButton.setTitleColor(color, for: .normal)
     }
     
-    func update (selectedSubcategory: StoreSubCategory?, selectedSort: Sort?, selectedFilter: StoreFilter?) {
+    func update (selectedSubcategory: StoreSubCategory?, selectedSort: Sort?, hasFilterSelected: Bool) {
         if let subcategory = selectedSubcategory {
             leftButton.setTitle(subcategory.name, for: .normal)
             leftButton.setTitleColor(StoreCategoryControl.shared.themeColor, for: .normal)
@@ -97,8 +97,7 @@ class TripleButtonHeaderView: UITableViewHeaderFooterView {
             middleButton.setTitleColor(StoreCategoryControl.shared.themeColor, for: .normal)
         }
         
-        if let filter = selectedFilter {
-            rightButton.setTitle(filter.name, for: .normal)
+        if hasFilterSelected {
             rightButton.setTitleColor(StoreCategoryControl.shared.themeColor, for: .normal)
         }
     }

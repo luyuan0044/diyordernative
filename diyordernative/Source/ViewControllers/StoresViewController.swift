@@ -14,7 +14,7 @@ class StoresViewController: BaseViewController,
                             TripleButtonHeaderViewDelegate,
                             StoreSubCategoryHeaderViewDelegate,
                             StoresViewControllerPopupViewDelegate {
-    
+
     @IBOutlet weak var contentTableView: UITableView!
     
     @IBOutlet weak var storeViewControllerPopupView: StoresViewControllerPopupView!
@@ -180,7 +180,10 @@ class StoresViewController: BaseViewController,
                 status, sorts in
                 
                 self.storeFilterSorterControl.setSorts(sorts)
-                self.storeSortDataSourceAndDelegate.setSource(sorts: sorts, selectedSort: self.storeFilterSorterControl.selectedSort)
+                
+                DispatchQueue.main.async {
+                    self.storeSortDataSourceAndDelegate.setSource(sorts: sorts, selectedSort: self.storeFilterSorterControl.selectedSort)
+                }
                 
                 completion?()
             })
@@ -336,7 +339,7 @@ class StoresViewController: BaseViewController,
             header.rightButton.setTitle(LanguageControl.shared.getLocalizeString(by: "filter"), for: .normal)
             
             header.delegate = self
-            header.update(selectedSubcategory: storeFilterSorterControl.selectedSubCategory, selectedSort: storeFilterSorterControl.selectedSort, selectedFilter: storeFilterSorterControl.selectedFilter)
+            header.update(selectedSubcategory: storeFilterSorterControl.selectedSubCategory, selectedSort: storeFilterSorterControl.selectedSort, hasFilterSelected: storeFilterSorterControl.hasFilterSelected())
             
             return header
         }
@@ -414,6 +417,8 @@ class StoresViewController: BaseViewController,
         header.updateLeftButton(title: subcategory.name, with: StoreCategoryControl.shared.themeColor)
     }
     
+    // MARK: - StoresViewControllerPopupViewDelegate
+    
     func onSelectedSort(_ sort: Sort) {
         if !storeViewControllerPopupView.isHidden {
             hideStoreViewControllerPopupView()
@@ -434,14 +439,28 @@ class StoresViewController: BaseViewController,
         header.updateMiddleButton(title: sort.name, with: StoreCategoryControl.shared.themeColor)
     }
     
-    // MARK: - StoresViewControllerPopupViewDelegate
-    
     func handleOnDismissButtonTapped() {
         hideStoreViewControllerPopupView()
     }
     
     func getSelectedSubcategory() -> StoreSubCategory? {
         return storeFilterSorterControl.selectedSubCategory
+    }
+    
+    func onSwitchFilterSelected(id: Int) {
+        storeFilterSorterControl.selectSwitchFilter(id: id)
+    }
+    
+    func onSelectionFitlerSelected(id: Int, optionId: Int) {
+        storeFilterSorterControl.selectSelectionFilter(id: id, optionId: optionId)
+    }
+    
+    func isSwitchFilterSelected(id: Int) -> Bool {
+        return storeFilterSorterControl.isSwitchFilterSelected(id: id)
+    }
+    
+    func isSelectionFilterSelected(id: Int, optionId: Int) -> Bool {
+        return storeFilterSorterControl.isSelectionFilterOptionSelected(id: id, optionId: optionId)
     }
 
     /*
@@ -453,5 +472,4 @@ class StoresViewController: BaseViewController,
         // Pass the selected object to the new view controller.
     }
     */
-
 }

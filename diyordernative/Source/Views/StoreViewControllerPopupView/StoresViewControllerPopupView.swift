@@ -13,6 +13,10 @@ protocol StoresViewControllerPopupViewDelegate {
     func onSelectedSubcategory(_ subcategory: StoreSubCategory)
     func onSelectedSort (_ sort: Sort)
     func getSelectedSubcategory () -> StoreSubCategory?
+    func onSwitchFilterSelected (id: Int)
+    func onSelectionFitlerSelected (id: Int, optionId: Int)
+    func isSwitchFilterSelected (id: Int) -> Bool
+    func isSelectionFilterSelected (id: Int, optionId: Int) -> Bool
 }
 
 class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelegateDelegate {
@@ -61,6 +65,9 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         sourceAndDelegate.delegate = self
         leftTableView.dataSource = sourceAndDelegate
         leftTableView.delegate = sourceAndDelegate
+        
+        refreshLeftTableView()
+        layoutIfNeeded()
         
         refreshLeftTableView()
         layoutIfNeeded()
@@ -147,6 +154,13 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         rightTableViewSourceAndDelegate?.setSelectedSubCategory(selectedSubcategory: selectedSubcategory)
     }
     
+    private func createRightTableViewSourceAndDelegate () {
+        rightTableViewSourceAndDelegate = StoreSubCategoryDataSourceAndDelegate()
+        rightTableView.dataSource = rightTableViewSourceAndDelegate
+        rightTableView.delegate = rightTableViewSourceAndDelegate
+        rightTableViewSourceAndDelegate!.delegate = self
+    }
+    
     // MARK: - StoreSubCategoryDataSourceAndDelegateDelegate
     
     func onSubCategoryCellTapped(subcategory: StoreSubCategory) {
@@ -170,11 +184,20 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         delegate?.onSelectedSort(sort)
     }
     
-    private func createRightTableViewSourceAndDelegate () {
-        rightTableViewSourceAndDelegate = StoreSubCategoryDataSourceAndDelegate()
-        rightTableView.dataSource = rightTableViewSourceAndDelegate
-        rightTableView.delegate = rightTableViewSourceAndDelegate
-        rightTableViewSourceAndDelegate!.delegate = self
+    func onSwitchFilterTapped(id: Int) {
+        delegate?.onSwitchFilterSelected(id: id)
+    }
+    
+    func onSelectionFilterOptionTapped(id: Int, optionId: Int) {
+        delegate?.onSelectionFitlerSelected(id: id, optionId: optionId)
+    }
+    
+    func isSwitchFilterSelected(id: Int) -> Bool {
+        return delegate?.isSwitchFilterSelected(id: id) ?? false
+    }
+    
+    func isSelectionFilterOptionSelected(id: Int, optionId: Int) -> Bool {
+        return delegate?.isSelectionFilterSelected(id: id, optionId: optionId) ?? false
     }
 }
 

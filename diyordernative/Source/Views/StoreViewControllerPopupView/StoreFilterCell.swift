@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol StoreFilterCellDelegate {
+    func onSwitchFilterTapped (id: Int)
+    func onSelectionFilterOptionTapped (id: Int, optionId: Int)
+    func isSwitchFilterSelected (id: Int) -> Bool
+    func isSelectionFilterOptionSelected (id: Int, optionId: Int) -> Bool
+}
+
 class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Properties
@@ -29,6 +36,8 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
     private let itemHeight: CGFloat = 55
     
     private let itemPadding: CGFloat = 2
+    
+    var delegate: StoreFilterCellDelegate? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,10 +96,12 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         if switchFilters != nil {
             let switchFilter = switchFilters![indexPath.row]
-            cell.update(title: switchFilter.name, isSelected: false)
+            let isSelected = delegate?.isSwitchFilterSelected(id: switchFilter.id!) ?? false
+            cell.update(title: switchFilter.name, isSelected: isSelected)
         } else {
             let filterOption = selectionFilter!.options![indexPath.row]
-            cell.update(title: filterOption.name, isSelected: false)
+            let isSelected = delegate?.isSelectionFilterOptionSelected(id: selectionFilter!.id!, optionId: filterOption.id!) ?? false
+            cell.update(title: filterOption.name, isSelected: isSelected)
         }
         
         return cell
@@ -120,12 +131,13 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var selectedFilter: StoreFilter!
-        
         if switchFilters != nil && indexPath.section == 0 {
-            selectedFilter = switchFilters![indexPath.row]
+            let selectedFilter = switchFilters![indexPath.row]
+            delegate?.onSwitchFilterTapped(id: selectedFilter.id!)
         } else {
-//            selectionFilter!.options![indexPath.row]
+            let filterOption = selectionFilter!.options![indexPath.row]
+            delegate?.onSelectionFilterOptionTapped(id: selectionFilter!.id!, optionId: filterOption.id!)
         }
+        refreshData()
     }
 }

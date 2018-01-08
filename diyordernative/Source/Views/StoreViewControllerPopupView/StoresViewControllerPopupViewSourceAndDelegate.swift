@@ -12,6 +12,10 @@ import UIKit
 protocol StoreSubCategoryDataSourceAndDelegateDelegate {
     func onSubCategoryCellTapped (subcategory: StoreSubCategory)
     func onSortCelltapped (sort: Sort)
+    func onSwitchFilterTapped (id: Int)
+    func onSelectionFilterOptionTapped (id: Int, optionId: Int)
+    func isSwitchFilterSelected (id: Int) -> Bool
+    func isSelectionFilterOptionSelected (id: Int, optionId: Int) -> Bool
 }
 
 class StoresViewControllerPopupViewSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
