@@ -25,7 +25,7 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     @IBOutlet weak var filterOptionCollectionView: UICollectionView!
 
-    @IBOutlet weak var filterOptionCollectionViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var filterOptionCollectionViewHeightConstraint: NSLayoutConstraint!
     
     var selectionFilter: StoreFilter? = nil
     
@@ -54,24 +54,30 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         // Configure the view for the selected state
     }
     
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+        filterOptionCollectionView.frame = CGRect (x: 0, y: 0, width: targetSize.width, height: 1)
+        filterOptionCollectionView.layoutIfNeeded()
+        return filterOptionCollectionView.collectionViewLayout.collectionViewContentSize
+    }
+    
     // MARK: - Implementation
     
     func setSwitchFilters (_ storeFilters: [StoreFilter]?) {
+        contentView.setNeedsLayout()
+        
         switchFilters = storeFilters
-        
         refreshData()
-        
-        filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
-        layoutIfNeeded()
+        //filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
+        contentView.layoutIfNeeded()
     }
     
     func setSelectionFilter (_ storeFilter: StoreFilter) {
+        contentView.setNeedsLayout()
+        
         selectionFilter = storeFilter
-        
         refreshData()
-        
-        filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
-        layoutIfNeeded()
+        //filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
+        contentView.layoutIfNeeded()
     }
     
     func refreshData () {
