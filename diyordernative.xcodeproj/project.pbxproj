@@ -94,6 +94,8 @@
 		79BC08F61FE090C100D53620 /* diyordernativeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BC08F51FE090C100D53620 /* diyordernativeUITests.swift */; };
 		79BF83D61FFEF191007B3DE3 /* StoresViewControllerPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BF83D51FFEF191007B3DE3 /* StoresViewControllerPopupView.swift */; };
 		79BF83D81FFEF19F007B3DE3 /* StoresViewControllerPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79BF83D71FFEF19F007B3DE3 /* StoresViewControllerPopupView.xib */; };
+		79CA0D372005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA0D362005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift */; };
+		79CA0D392005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CA0D382005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib */; };
 		79CE931C1FFEA7EB00A283C2 /* UtilsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE931A1FFEA7EB00A283C2 /* UtilsPopupViewController.swift */; };
 		79CE931D1FFEA7EB00A283C2 /* UtilsPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CE931B1FFEA7EB00A283C2 /* UtilsPopupViewController.xib */; };
 		79D22DA31FFDDA5A0033A40C /* PagingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D22DA21FFDDA5A0033A40C /* PagingControl.swift */; };
@@ -243,6 +245,8 @@
 		79BF83D71FFEF19F007B3DE3 /* StoresViewControllerPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresViewControllerPopupView.xib; sourceTree = "<group>"; };
 		79C3C6FD1FE8EB8600693C72 /* Burnaby.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Burnaby.gpx; sourceTree = "<group>"; };
 		79C3C6FE1FE8EBF800693C72 /* Vancouver.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Vancouver.gpx; sourceTree = "<group>"; };
+		79CA0D362005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewControllerPopupResetAndConfirmView.swift; sourceTree = "<group>"; };
+		79CA0D382005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewControllerPopupResetAndConfirmView.xib; sourceTree = "<group>"; };
 		79CE931A1FFEA7EB00A283C2 /* UtilsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsPopupViewController.swift; sourceTree = "<group>"; };
 		79CE931B1FFEA7EB00A283C2 /* UtilsPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UtilsPopupViewController.xib; sourceTree = "<group>"; };
 		79D22DA21FFDDA5A0033A40C /* PagingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingControl.swift; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 				793C90A020003DF6009E4AB4 /* StoreFilterCell.xib */,
 				793C90A3200040CC009E4AB4 /* StoreFilterOptionCell.swift */,
 				793C90A4200040CC009E4AB4 /* StoreFilterOptionCell.xib */,
+				79CA0D362005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift */,
+				79CA0D382005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib */,
 			);
 			path = StoreViewControllerPopupView;
 			sourceTree = "<group>";
@@ -701,6 +707,7 @@
 				79FF87081FE9DC81004AF317 /* HotItemSortItems.json in Resources */,
 				7967D96C1FFC6D0A0052F8DD /* StoreSubCategoryHeaderView.xib in Resources */,
 				792EC6031FE45E2600B4C563 /* HotItemCategoryHeaderView.xib in Resources */,
+				79CA0D392005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib in Resources */,
 				798A35CE1FEB89C000A34616 /* FilterPriceRangeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,6 +826,7 @@
 				792F96651FE33FB500A67ADC /* ImageHelper.swift in Sources */,
 				7944496D1FFD644B000E5E8C /* TripleButtonHeaderView.swift in Sources */,
 				797358621FFD6EB900A9C71D /* StoreTableViewCell.swift in Sources */,
+				79CA0D372005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift in Sources */,
 				7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */,
 				79D696921FEC333100097B4F /* Profile.swift in Sources */,
 				792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */,

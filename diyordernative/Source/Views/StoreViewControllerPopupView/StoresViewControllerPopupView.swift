@@ -13,10 +13,8 @@ protocol StoresViewControllerPopupViewDelegate {
     func onSelectedSubcategory(_ subcategory: StoreSubCategory)
     func onSelectedSort (_ sort: Sort)
     func getSelectedSubcategory () -> StoreSubCategory?
-    func onSwitchFilterSelected (id: Int)
-    func onSelectionFitlerSelected (id: Int, optionId: Int)
-    func isSwitchFilterSelected (id: Int) -> Bool
-    func isSelectionFilterSelected (id: Int, optionId: Int) -> Bool
+    func onConfirmButtonTapped (switchFilterId: [Int]?, selectionFilterIds: [Int: [Int]]?)
+    func onResetButtonTapped ()
 }
 
 class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelegateDelegate {
@@ -65,9 +63,6 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         sourceAndDelegate.delegate = self
         leftTableView.dataSource = sourceAndDelegate
         leftTableView.delegate = sourceAndDelegate
-        
-        refreshLeftTableView()
-        layoutIfNeeded()
         
         refreshLeftTableView()
         layoutIfNeeded()
@@ -137,6 +132,7 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         leftTableView.isScrollEnabled = false
         leftTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         leftTableView.register(StoreFilterCell.nib, forCellReuseIdentifier: StoreFilterCell.key)
+        leftTableView.register(StoreViewControllerPopupResetAndConfirmView.nib, forHeaderFooterViewReuseIdentifier: StoreViewControllerPopupResetAndConfirmView.key)
         
         rightTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         
@@ -184,20 +180,12 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         delegate?.onSelectedSort(sort)
     }
     
-    func onSwitchFilterTapped(id: Int) {
-        delegate?.onSwitchFilterSelected(id: id)
+    func onResetButtonTapped() {
+        delegate?.onResetButtonTapped()
     }
     
-    func onSelectionFilterOptionTapped(id: Int, optionId: Int) {
-        delegate?.onSelectionFitlerSelected(id: id, optionId: optionId)
-    }
-    
-    func isSwitchFilterSelected(id: Int) -> Bool {
-        return delegate?.isSwitchFilterSelected(id: id) ?? false
-    }
-    
-    func isSelectionFilterOptionSelected(id: Int, optionId: Int) -> Bool {
-        return delegate?.isSelectionFilterSelected(id: id, optionId: optionId) ?? false
+    func onConfirmButtonTapped(switchFilterId: [Int]?, selectionFilterIds: [Int: [Int]]?) {
+        delegate?.onConfirmButtonTapped(switchFilterId: switchFilterId, selectionFilterIds: selectionFilterIds)
     }
 }
 

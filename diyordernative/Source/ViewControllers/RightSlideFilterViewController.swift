@@ -42,12 +42,12 @@ class RightSlideFilterViewController: UIViewController {
         rightBackgroundView.backgroundColor = UIColor.white
         
         confirmButton.backgroundColor = UIConstants.appThemeColor
-        confirmButton.setTitle("Confirm", for: .normal)
+        confirmButton.setTitle(LanguageControl.shared.getLocalizeString(by: "confirm"), for: .normal)
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.addTarget(self, action: #selector(onConfirmButtonTapped(_:)), for: .touchUpInside)
         
         resetButton.backgroundColor = UIConstants.appThemeColor.withAlphaComponent(0.6)
-        resetButton.setTitle("Reset", for: .normal)
+        resetButton.setTitle(LanguageControl.shared.getLocalizeString(by: "reset"), for: .normal)
         resetButton.setTitleColor(UIColor.white, for: .normal)
         resetButton.addTarget(self, action: #selector(onResetButtonTapped(_:)), for: .touchUpInside)
         

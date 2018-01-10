@@ -93,54 +93,19 @@ class StoreFilterSorterControl {
         
         return dict.contains(where: {
                 key, values in
-                
+            
                 return key == id && values.contains(optionId)
             })
     }
     
-    func selectSwitchFilter (id: Int) {
-        if !isSwitchFilterSelected(id: id) {
-            if selectedSwitchFilterId == nil {
-                selectedSwitchFilterId = []
-            }
-            
-            selectedSwitchFilterId!.append(id)
-        } else {
-            if selectedSwitchFilterId == nil {
-                return
-            }
-            
-            if let idx = selectedSwitchFilterId!.index(of: id) {
-                selectedSwitchFilterId!.remove(at: idx)
-            }
-        }
+    func setSelectedFilters (switchFilterId: [Int]?, selectionFilterIds: [Int: [Int]]?) {
+        selectedSwitchFilterId = switchFilterId
+        selectedSelectionFilter = selectionFilterIds
     }
     
-    func selectSelectionFilter (id: Int, optionId: Int) {
-        if !isSelectionFilterOptionSelected(id: id, optionId: optionId) {
-            if selectedSelectionFilter == nil {
-                selectedSelectionFilter = [:]
-            }
-            
-            let filter = filters!.filter({$0.id! == id}).first!
-            if filter.getFilterType() == .mutiSelect {
-                if selectedSelectionFilter!.keys.contains(id) {
-                    var optionIds = selectedSelectionFilter![id]!
-                    optionIds.append(optionId)
-                    selectedSelectionFilter![id] = optionIds
-                } else {
-                    selectedSelectionFilter![id] = [optionId]
-                }
-            } else {
-                selectedSelectionFilter![id] = [optionId]
-            }
-        } else {
-            var optionIds = selectedSelectionFilter![id]!
-            if let idx = optionIds.index(of: optionId) {
-                optionIds.remove(at: idx)
-            }
-            selectedSelectionFilter![id] = optionIds
-        }
+    func resetFilters () {
+        selectedSwitchFilterId = nil
+        selectedSelectionFilter = nil
     }
     
     func getUrlParams () -> [String: String]? {

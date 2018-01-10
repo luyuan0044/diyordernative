@@ -43,6 +43,7 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         super.awakeFromNib()
         // Initialization code
         
+        filterOptionCollectionView.isScrollEnabled = false
         filterOptionCollectionView.register(StoreFilterOptionCell.nib, forCellWithReuseIdentifier: StoreFilterOptionCell.key)
         filterOptionCollectionView.dataSource = self
         filterOptionCollectionView.delegate = self
@@ -67,7 +68,7 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         switchFilters = storeFilters
         refreshData()
-        //filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
+        
         contentView.layoutIfNeeded()
     }
     
@@ -76,7 +77,7 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         
         selectionFilter = storeFilter
         refreshData()
-        //filterOptionCollectionViewHeightConstraint.constant = filterOptionCollectionView.contentSize.height
+        
         contentView.layoutIfNeeded()
     }
     

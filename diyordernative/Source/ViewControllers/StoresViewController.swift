@@ -266,7 +266,6 @@ class StoresViewController: BaseViewController,
     }
     
     private func showStoreViewControllerPopupView (with sourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate) {
-        
         storeViewControllerPopupView.setSourceAndDelegate(sourceAndDelegate: sourceAndDelegate)
         
         if storeViewControllerPopupView.isHidden {
@@ -387,6 +386,8 @@ class StoresViewController: BaseViewController,
     
     func handleOnRightButtonTapped() {
         if storeViewControllerPopupView.isHidden || (lastTappedButton != nil && lastTappedButton != .right) {
+            storeFilterDataSourceAndDelegate.setSelectedSwitchFilterIds(storeFilterSorterControl.selectedSwitchFilterId)
+            storeFilterDataSourceAndDelegate.setSelectedSelectionFilterIds(storeFilterSorterControl.selectedSelectionFilter)
             showStoreViewControllerPopupView(with: storeFilterDataSourceAndDelegate)
         } else {
             hideStoreViewControllerPopupView()
@@ -447,20 +448,30 @@ class StoresViewController: BaseViewController,
         return storeFilterSorterControl.selectedSubCategory
     }
     
-    func onSwitchFilterSelected(id: Int) {
-        storeFilterSorterControl.selectSwitchFilter(id: id)
+    func onConfirmButtonTapped(switchFilterId: [Int]?, selectionFilterIds: [Int: [Int]]?) {
+        storeFilterSorterControl.setSelectedFilters(switchFilterId: switchFilterId, selectionFilterIds: selectionFilterIds)
+        storeListManager.cleanCache()
+        loadStores(force: true, completion: {
+            DispatchQueue.main.async {
+                self.refreshData()
+            }
+        })
+        if !storeViewControllerPopupView.isHidden {
+            hideStoreViewControllerPopupView()
+        }
     }
     
-    func onSelectionFitlerSelected(id: Int, optionId: Int) {
-        storeFilterSorterControl.selectSelectionFilter(id: id, optionId: optionId)
-    }
-    
-    func isSwitchFilterSelected(id: Int) -> Bool {
-        return storeFilterSorterControl.isSwitchFilterSelected(id: id)
-    }
-    
-    func isSelectionFilterSelected(id: Int, optionId: Int) -> Bool {
-        return storeFilterSorterControl.isSelectionFilterOptionSelected(id: id, optionId: optionId)
+    func onResetButtonTapped() {
+        storeFilterSorterControl.resetFilters()
+        storeListManager.cleanCache()
+        loadStores(force: true, completion: {
+            DispatchQueue.main.async {
+                self.refreshData()
+            }
+        })
+        if !storeViewControllerPopupView.isHidden {
+            hideStoreViewControllerPopupView()
+        }
     }
 
     /*
