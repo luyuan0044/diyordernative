@@ -27,13 +27,15 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
 
     //@IBOutlet weak var filterOptionCollectionViewHeightConstraint: NSLayoutConstraint!
     
-    var selectionFilter: StoreFilter? = nil
+    var selectionFilters: [StoreFilter]? = nil
     
     var switchFilters: [StoreFilter]? = nil
     
+    var sectionCount: Int = 0
+    
     private let itemWidth: CGFloat = 90
     
-    private let itemHeight: CGFloat = 55
+    private let itemHeight: CGFloat = 40
     
     private let itemPadding: CGFloat = 2
     
@@ -43,8 +45,9 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         super.awakeFromNib()
         // Initialization code
         
-        filterOptionCollectionView.isScrollEnabled = false
+//        filterOptionCollectionView.isScrollEnabled = false
         filterOptionCollectionView.register(StoreFilterOptionCell.nib, forCellWithReuseIdentifier: StoreFilterOptionCell.key)
+        filterOptionCollectionView.register(StoreFilterHeaderView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: StoreFilterHeaderView.key)
         filterOptionCollectionView.dataSource = self
         filterOptionCollectionView.delegate = self
     }
@@ -63,21 +66,20 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     // MARK: - Implementation
     
-    func setSwitchFilters (_ storeFilters: [StoreFilter]?) {
-        contentView.setNeedsLayout()
+    func setFilterSource (switchFilters: [StoreFilter]?, selectionFilters: [StoreFilter]?) {
+        sectionCount = 0
         
-        switchFilters = storeFilters
+        self.switchFilters = switchFilters
+        self.selectionFilters = selectionFilters
+        
+        if switchFilters != nil && switchFilters!.count > 0 {
+            sectionCount += 1
+        }
+        if selectionFilters != nil && selectionFilters!.count > 0 {
+            sectionCount += selectionFilters!.count
+        }
+        
         refreshData()
-        
-        contentView.layoutIfNeeded()
-    }
-    
-    func setSelectionFilter (_ storeFilter: StoreFilter) {
-        contentView.setNeedsLayout()
-        
-        selectionFilter = storeFilter
-        refreshData()
-        
         contentView.layoutIfNeeded()
     }
     
@@ -88,26 +90,33 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
     
     // MARK: - UICollectionViewDataSource
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sectionCount;
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if switchFilters != nil {
+        if switchFilters != nil && section == 0 {
             return switchFilters!.count
-        } else if selectionFilter != nil && selectionFilter!.options != nil {
-            return selectionFilter!.options!.count
         } else {
-            return 0
+            let dataOffset = switchFilters != nil ? 1 : 0
+            let idx = section - dataOffset
+            return selectionFilters![idx].options!.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreFilterOptionCell.key, for: indexPath) as! StoreFilterOptionCell
         
-        if switchFilters != nil {
+        if switchFilters != nil && indexPath.section == 0 {
             let switchFilter = switchFilters![indexPath.row]
             let isSelected = delegate?.isSwitchFilterSelected(id: switchFilter.id!) ?? false
             cell.update(title: switchFilter.name, isSelected: isSelected)
         } else {
-            let filterOption = selectionFilter!.options![indexPath.row]
-            let isSelected = delegate?.isSelectionFilterOptionSelected(id: selectionFilter!.id!, optionId: filterOption.id!) ?? false
+            let dataOffset = switchFilters != nil ? 1 : 0
+            let idx = indexPath.section - dataOffset
+            let selectionFilter = selectionFilters![idx]
+            let filterOption = selectionFilter.options![indexPath.row]
+            let isSelected = delegate?.isSelectionFilterOptionSelected(id: selectionFilter.id!, optionId: filterOption.id!) ?? false
             cell.update(title: filterOption.name, isSelected: isSelected)
         }
         
@@ -142,9 +151,33 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
             let selectedFilter = switchFilters![indexPath.row]
             delegate?.onSwitchFilterTapped(id: selectedFilter.id!)
         } else {
-            let filterOption = selectionFilter!.options![indexPath.row]
-            delegate?.onSelectionFilterOptionTapped(id: selectionFilter!.id!, optionId: filterOption.id!)
+            let dataOffset = switchFilters != nil ? 1 : 0
+            let idx = indexPath.section - dataOffset
+            let selectionFilter = selectionFilters![idx]
+            let filterOption = selectionFilter.options![indexPath.row]
+            delegate?.onSelectionFilterOptionTapped(id: selectionFilter.id!, optionId: filterOption.id!)
         }
         refreshData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: StoreFilterHeaderView.key, for: indexPath) as! StoreFilterHeaderView
+        
+        let dataOffset = switchFilters != nil ? 1 : 0
+        let idx = indexPath.section - dataOffset
+        let selectionFilter = selectionFilters![idx]
+        
+        let title = switchFilters != nil && indexPath.section == 0 ? nil : selectionFilter.name
+        header.update(titleText: title)
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if switchFilters != nil && section == 0 {
+            return CGSize (width: 0, height: 0)
+        }
+        
+        return CGSize (width: collectionView.frame.width, height: 25)
     }
 }

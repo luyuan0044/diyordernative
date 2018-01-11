@@ -113,20 +113,13 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRows
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: StoreFilterCell.key) as! StoreFilterCell
         
-        if indexPath.row == 0 && switchFitlers != nil {
-            cell.setSwitchFilters(switchFitlers!)
-        } else {
-            let dataOffset = switchFitlers == nil ? 0 : 1
-            let selectionFilter = selectionFilters![indexPath.row - dataOffset]
-            cell.setSelectionFilter(selectionFilter)
-        }
-        
+        cell.setFilterSource(switchFilters: switchFitlers, selectionFilters: selectionFilters)
         cell.delegate = self
         
         return cell
@@ -179,8 +172,4 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
     func onResetButtonTapped() {
         delegate?.onResetButtonTapped()
     }
-}
-
-extension StoreFilterDataSourceAndDelegate {
-    
 }

@@ -102,6 +102,8 @@
 		79D22DA51FFDDAB70033A40C /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D22DA41FFDDAB70033A40C /* Paging.swift */; };
 		79D22DA71FFE00E50033A40C /* HeaderFooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D22DA61FFE00E50033A40C /* HeaderFooterLoadingView.swift */; };
 		79D22DA91FFE00F50033A40C /* HeaderFooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D22DA81FFE00F50033A40C /* HeaderFooterLoadingView.xib */; };
+		79D562372007F23400BF7428 /* StoreFilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D562352007F23400BF7428 /* StoreFilterHeaderView.swift */; };
+		79D562382007F23400BF7428 /* StoreFilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D562362007F23400BF7428 /* StoreFilterHeaderView.xib */; };
 		79D696921FEC333100097B4F /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696911FEC333100097B4F /* Profile.swift */; };
 		79D696941FEC34DD00097B4F /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696931FEC34DD00097B4F /* Phone.swift */; };
 		79D696961FEC420700097B4F /* AccountHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D696951FEC420700097B4F /* AccountHeaderCell.swift */; };
@@ -253,6 +255,8 @@
 		79D22DA41FFDDAB70033A40C /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		79D22DA61FFE00E50033A40C /* HeaderFooterLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFooterLoadingView.swift; sourceTree = "<group>"; };
 		79D22DA81FFE00F50033A40C /* HeaderFooterLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderFooterLoadingView.xib; sourceTree = "<group>"; };
+		79D562352007F23400BF7428 /* StoreFilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterHeaderView.swift; sourceTree = "<group>"; };
+		79D562362007F23400BF7428 /* StoreFilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreFilterHeaderView.xib; sourceTree = "<group>"; };
 		79D696911FEC333100097B4F /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		79D696931FEC34DD00097B4F /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		79D696951FEC420700097B4F /* AccountHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHeaderCell.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 				793C90A020003DF6009E4AB4 /* StoreFilterCell.xib */,
 				793C90A3200040CC009E4AB4 /* StoreFilterOptionCell.swift */,
 				793C90A4200040CC009E4AB4 /* StoreFilterOptionCell.xib */,
+				79D562352007F23400BF7428 /* StoreFilterHeaderView.swift */,
+				79D562362007F23400BF7428 /* StoreFilterHeaderView.xib */,
 				79CA0D362005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift */,
 				79CA0D382005744500767AB1 /* StoreViewControllerPopupResetAndConfirmView.xib */,
 			);
@@ -699,6 +705,7 @@
 				792EC6121FE4912C00B4C563 /* GridProductCell.xib in Resources */,
 				7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */,
 				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
+				79D562382007F23400BF7428 /* StoreFilterHeaderView.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
 				792E9D531FEB24B1004D5045 /* HotItemRightSlideTableViewHeaderView.xib in Resources */,
 				799AFEF51FFEAEEC00A13E51 /* UtilsPopupItemView.xib in Resources */,
@@ -845,6 +852,7 @@
 				794C55381FEC781200A2C0BD /* UIButtonExtension.swift in Sources */,
 				79FF870C1FE9DE74004AF317 /* Sort.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
+				79D562372007F23400BF7428 /* StoreFilterHeaderView.swift in Sources */,
 				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
 				79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */,
