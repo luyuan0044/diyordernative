@@ -125,6 +125,35 @@ class StoreFilterSorterControl {
             urlparams!["sort_id"] = "\(id)"
         }
         
+        if let switchs = selectedSwitchFilterId, let selections = selectedSelectionFilter {
+            var result: [String] = []
+            for id in 1...filters!.count {
+                let filter = filters!.filter({$0.id! == id}).first!
+                if filter.getFilterType() == .switcher {
+                    let isOn = switchs.contains(id) ? "1" : "0"
+                    result.append(isOn)
+                } else {
+                    var optionIdsStr = "0"
+                    if let selected = selections.filter({$0.key == id}).first {
+                        var optionResult: [String] = []
+                        for optionId in 1...filter.options!.count {
+                            let isOn = selected.value.contains(optionId) ? "1" : "0"
+                            optionResult.append(isOn)
+                        }
+                        optionIdsStr = optionResult.joined()
+                    } else {
+                        optionIdsStr = String (repeating: "0", count: filter.options!.count)
+                    }
+                    result.append(optionIdsStr)
+                }
+            }
+            
+            if urlparams == nil {
+                urlparams = [:]
+            }
+            urlparams!["flag"] = result.joined(separator: ",")
+        }
+        
         return urlparams
     }
 }

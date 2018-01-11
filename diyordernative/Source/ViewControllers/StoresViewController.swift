@@ -220,6 +220,13 @@ class StoresViewController: BaseViewController,
                         (self.contentTableView.tableFooterView as! HeaderFooterLoadingView).update(hasMoreData: self.storeListManager.pagingControl.hasMore)
                         self.isLoading = false
                     }
+                } else if status == .noData {
+                    self.stores = nil
+                    
+                    DispatchQueue.main.async {
+                        (self.contentTableView.tableFooterView as! HeaderFooterLoadingView).update(hasMoreData: self.storeListManager.pagingControl.hasMore)
+                        self.isLoading = false
+                    }
                 }
                 
                 completion?()
