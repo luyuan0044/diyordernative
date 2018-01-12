@@ -81,6 +81,7 @@
 		799758411FFC656300778716 /* StoreFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799758401FFC656300778716 /* StoreFilter.swift */; };
 		799AFEF31FFEAEDF00A13E51 /* UtilsPopupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799AFEF21FFEAEDF00A13E51 /* UtilsPopupItemView.swift */; };
 		799AFEF51FFEAEEC00A13E51 /* UtilsPopupItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 799AFEF41FFEAEEC00A13E51 /* UtilsPopupItemView.xib */; };
+		799E603C200871B900717375 /* StoresMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E603B200871B900717375 /* StoresMapViewController.swift */; };
 		79A760881FFC16F60012F096 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760871FFC16F60012F096 /* Store.swift */; };
 		79A7608A1FFC19100012F096 /* StoreDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760891FFC19100012F096 /* StoreDetail.swift */; };
 		79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */; };
@@ -227,6 +228,7 @@
 		799758401FFC656300778716 /* StoreFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilter.swift; sourceTree = "<group>"; };
 		799AFEF21FFEAEDF00A13E51 /* UtilsPopupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsPopupItemView.swift; sourceTree = "<group>"; };
 		799AFEF41FFEAEEC00A13E51 /* UtilsPopupItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UtilsPopupItemView.xib; sourceTree = "<group>"; };
+		799E603B200871B900717375 /* StoresMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresMapViewController.swift; sourceTree = "<group>"; };
 		79A760871FFC16F60012F096 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		79A760891FFC19100012F096 /* StoreDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetail.swift; sourceTree = "<group>"; };
 		79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				7943802A1FE0B15200F6594D /* RootNavigationController.swift */,
 				7943802C1FE0B36100F6594D /* RootTabBarController.swift */,
 				79654EAE1FFC0C5E00BBC620 /* StoresViewController.swift */,
+				799E603B200871B900717375 /* StoresMapViewController.swift */,
 				79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */,
 				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
 				79CE931A1FFEA7EB00A283C2 /* UtilsPopupViewController.swift */,
@@ -888,6 +891,7 @@
 				79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */,
 				79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */,
 				792F96591FE3019E00A67ADC /* Enums.swift in Sources */,
+				799E603C200871B900717375 /* StoresMapViewController.swift in Sources */,
 				792127251FE1F742006C5F42 /* HotItemManager.swift in Sources */,
 				790DC2C81FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift in Sources */,
 				79FF870A1FE9DD60004AF317 /* HotItemSort.swift in Sources */,
@@ -1070,7 +1074,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SSFYC2Q9U6;
+				DEVELOPMENT_TEAM = 5JYS6CF7W7;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1087,7 +1091,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SSFYC2Q9U6;
+				DEVELOPMENT_TEAM = 5JYS6CF7W7;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

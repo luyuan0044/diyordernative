@@ -47,12 +47,12 @@ class BaseViewController: UIViewController {
         present(utilsPopupViewController!, animated: true, completion: nil)
     }
     
-    func dismissUtilsPopupViewController () {
+    func dismissUtilsPopupViewController (completion: (() -> Void)? = nil) {
         guard let viewController = utilsPopupViewController else {
             return
         }
         
-        viewController.dismiss(animated: true, completion: nil)
+        viewController.dismiss(animated: true, completion: completion)
     }
 
     /*

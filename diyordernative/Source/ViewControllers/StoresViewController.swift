@@ -14,6 +14,8 @@ class StoresViewController: BaseViewController,
                             TripleButtonHeaderViewDelegate,
                             StoreSubCategoryHeaderViewDelegate,
                             StoresViewControllerPopupViewDelegate {
+    
+    let presentStoresMapViewControllerSegueId = "present_stores_map_view_controller"
 
     @IBOutlet weak var contentTableView: UITableView!
     
@@ -307,7 +309,9 @@ class StoresViewController: BaseViewController,
      Handle map button in utils popup view
      */
     func handleOnMapButtonTapped () {
-        dismissUtilsPopupViewController()
+        dismissUtilsPopupViewController(completion: {
+            self.performSegue(withIdentifier: self.presentStoresMapViewControllerSegueId, sender: self)
+        })
     }
     
     /**

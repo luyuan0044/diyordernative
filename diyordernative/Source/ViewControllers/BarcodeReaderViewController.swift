@@ -38,7 +38,6 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
             // Fallback on earlier versions
         }
         
-        print(deviceDiscoverySession?.devices)
         guard let captureDevice = deviceDiscoverySession!.devices.first else {
             print("Failed to get the camera device")
             return
@@ -103,19 +102,33 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
     
     func barcodeDetected (code: String) {
         let alert = UIAlertController(title: "Found a Barcode!", message: code, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            action in
+            
+            self.qrCodeFrameView?.frame = CGRect.zero
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
+        }))
         present(alert, animated: true, completion: nil)
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        
-        if let barcodeData = metadataObjects.first {
-            let barcodeReadable = barcodeData as? AVMetadataMachineReadableCodeObject
-            if let readableCode = barcodeReadable {
-                barcodeDetected (code: readableCode.stringValue ?? "empty")
-            }
+        // Check if the metadataObjects array is not nil and it contains at least one object.
+        if metadataObjects.count == 0 {
+            qrCodeFrameView?.frame = CGRect.zero
             
-            AudioServicesPlayAlertSound(SystemSoundID (kSystemSoundID_Vibrate))
+            return
+        }
+        
+        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+
+        if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+            let barCodeObject = previewLayer?.transformedMetadataObject(for: metadataObj)
+            qrCodeFrameView?.frame = barCodeObject!.bounds
+            
+            barcodeDetected (code: metadataObj.stringValue ?? "Empty")
         }
         
         session.stopRunning()
