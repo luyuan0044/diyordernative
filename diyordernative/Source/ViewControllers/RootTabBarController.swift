@@ -13,7 +13,7 @@ class RootTabBarController: UITabBarController {
     let tabBarTitleIcon: Array<(String, UIImage)> = [
         (HomeViewController.tabTitle, HomeViewController.icon),
         (HotItemViewController.tabTitle, HotItemViewController.icon),
-        (OrderViewController.tabTitle, OrderViewController.icon),
+        (BarcodeReaderViewController.tabTitle, BarcodeReaderViewController.icon),
         (ShoppingCartViewController.tabTitle, ShoppingCartViewController.icon),
         (AccountViewController.tabTitle, AccountViewController.icon),
     ]

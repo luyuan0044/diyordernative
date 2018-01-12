@@ -59,6 +59,11 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
     
     // MARK: - Implementation
     
+    /**
+     Set source and delegate of tableview and refresh and layout tableview
+     
+     - parameter sourceAndDelegate: source and delegate file
+     */
     func setSourceAndDelegate (sourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate) {
         sourceAndDelegate.delegate = self
         leftTableView.dataSource = sourceAndDelegate
@@ -68,6 +73,12 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         layoutIfNeeded()
     }
     
+    /**
+     Animate left tableview
+     
+     - parameter isShow: show or hide tableview
+     - parameter completion: call back when animation finished
+     */
     func animateLeftTableView (isShow: Bool, completion: (() -> Void)? = nil) {
         hideRightTableView()
         
@@ -114,17 +125,26 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         })
     }
     
+    /**
+     Reload and layout left tableview
+     */
     func refreshLeftTableView () {
         leftTableView.reloadData()
         leftTableView.layoutIfNeeded()
     }
     
+    /**
+     Reload and layout left tableview
+     */
     func refreshRigthtableView () {
         rightTableView.reloadData()
         rightTableView.layoutIfNeeded()
     }
     
-    func viewSetup () {
+    /**
+     View setup with elements initial setup
+     */
+    private func viewSetup () {
         backgroundColor = UIColor.clear
         contentView.backgroundColor = UIColor.clear
         dismissButton.backgroundColor = UIConstants.transparentBlackColor
@@ -139,10 +159,18 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         dismissButton.addTarget(self, action: #selector(onDismissButtonTapped(_:)), for: .touchUpInside)
     }
     
+    /**
+     Handle on dismiss button tapped
+     */
     @objc private func onDismissButtonTapped (_ sender: AnyObject?) {
         delegate?.handleOnDismissButtonTapped()
     }
     
+    /**
+     Update right tableview with given store subcategories
+     
+     - parameter selectedSubcategory: store subcategories to be updated into right tableview
+     */
     func updateSelectedCategoryOnRightTableViewSourceAndDelegate (selectedSubcategory: StoreSubCategory?) {
         if rightTableViewSourceAndDelegate == nil {
             createRightTableViewSourceAndDelegate()
@@ -150,6 +178,9 @@ class StoresViewControllerPopupView: UIView, StoreSubCategoryDataSourceAndDelega
         rightTableViewSourceAndDelegate?.setSelectedSubCategory(selectedSubcategory: selectedSubcategory)
     }
     
+    /**
+     Create source and delegate of right tableview
+     */
     private func createRightTableViewSourceAndDelegate () {
         rightTableViewSourceAndDelegate = StoreSubCategoryDataSourceAndDelegate()
         rightTableView.dataSource = rightTableViewSourceAndDelegate

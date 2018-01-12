@@ -113,6 +113,7 @@
 		79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */; };
 		79E4497F1FE3BB3B005F4FCC /* StoreCategoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */; };
 		79E449811FE3BB7B005F4FCC /* StoreCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E449801FE3BB7B005F4FCC /* StoreCategory.swift */; };
+		79E4C05C20082ED30081B06E /* BarcodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4C05B20082ED30081B06E /* BarcodeReaderViewController.swift */; };
 		79E9F1EE1FFDA44C0003D795 /* StoreCategoryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9F1ED1FFDA44C0003D795 /* StoreCategoryControl.swift */; };
 		79F57B921FEDCC290066B131 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F57B911FEDCC290066B131 /* Setting.storyboard */; };
 		79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FDBA611FE093D300E72807 /* SysConstants.swift */; };
@@ -266,6 +267,7 @@
 		79E4497C1FE3B8B8005F4FCC /* StoreCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryCell.swift; sourceTree = "<group>"; };
 		79E4497E1FE3BB3B005F4FCC /* StoreCategoryLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryLoader.swift; sourceTree = "<group>"; };
 		79E449801FE3BB7B005F4FCC /* StoreCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategory.swift; sourceTree = "<group>"; };
+		79E4C05B20082ED30081B06E /* BarcodeReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderViewController.swift; sourceTree = "<group>"; };
 		79E9F1ED1FFDA44C0003D795 /* StoreCategoryControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCategoryControl.swift; sourceTree = "<group>"; };
 		79F57B911FEDCC290066B131 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		79FDBA611FE093D300E72807 /* SysConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SysConstants.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				79F57B911FEDCC290066B131 /* Setting.storyboard */,
 				79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */,
 				79ADC8401FE1B2A10022B513 /* AccountViewController.swift */,
+				79E4C05B20082ED30081B06E /* BarcodeReaderViewController.swift */,
 				79BC08D41FE090C100D53620 /* HomeViewController.swift */,
 				790DC2C71FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift */,
 				790DC2C51FEA489B00A04AFA /* HotItemRightSlideTableViewMainDataSourceAndDelegate.swift */,
@@ -856,6 +859,7 @@
 				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
 				79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */,
+				79E4C05C20082ED30081B06E /* BarcodeReaderViewController.swift in Sources */,
 				79CE931C1FFEA7EB00A283C2 /* UtilsPopupViewController.swift in Sources */,
 				79E449811FE3BB7B005F4FCC /* StoreCategory.swift in Sources */,
 				7953380D2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift in Sources */,
@@ -1066,7 +1070,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1083,7 +1087,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

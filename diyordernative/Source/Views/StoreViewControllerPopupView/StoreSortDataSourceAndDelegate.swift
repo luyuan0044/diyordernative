@@ -19,14 +19,29 @@ class StoreSortDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDele
         super.init()
     }
     
+    // MARK: - Implementation
+    
+    /**
+     Set store sorts and selected sort
+     
+     - parameter sorts: all stores sorts
+     - parameter selectedSort: selected store sort
+     */
     func setSource (sorts: [Sort]?, selectedSort: Sort?) {
         self.sorts = sorts
         self.selectedSort = selectedSort
     }
     
+    /**
+     Set selected sort
+     
+     - parameter selectedSort: selected store sort
+     */
     func setSelectedSort (selectedSort: Sort?) {
         self.selectedSort = selectedSort
     }
+    
+    // MARK: - UITableViewSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sorts == nil ? 0 : sorts!.count
@@ -50,6 +65,8 @@ class StoreSortDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDele
         
         return cell!
     }
+    
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sort = sorts![indexPath.row]

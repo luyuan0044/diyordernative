@@ -106,6 +106,11 @@ class StoresViewController: BaseViewController,
     
     // MARK: - Implementation
     
+    /**
+     Set store category selected
+     
+     - parameter storeCategory: selected store category (restaurant, shopping ...)
+     */
     func setStoreCategory (_ storeCategory: StoreCategory) {
         titleText = storeCategory.name
         storyCategoryId = storeCategory.id
@@ -115,6 +120,14 @@ class StoresViewController: BaseViewController,
         storeFilterSorterManager = StoreFilterSorterManager.sharedOf(type: self.storeCategory)
     }
     
+    /**
+     Load data tasks to view controller
+     1. scrollable subcategories (at top of view controller)
+     2. subcategories in popup view
+     3. sort items
+     4. filter items
+     5. stores
+    */
     private func loadData () {
         let taskGroup = DispatchGroup ()
         taskGroup.enter()
@@ -147,7 +160,12 @@ class StoresViewController: BaseViewController,
         })
     }
     
-    func loadSubCategories (completion: (() -> Void)?) {
+    /**
+     Load subcategories task
+     
+     - parameter completion: call back when loading task finished
+     */
+    private func loadSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.storeFilterSorterManager.loadSubCategories(completion: {
                 status, subcategories in
@@ -161,6 +179,11 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Load filter categories in popup view
+     
+     - parameter completion: call back when loading task finished
+     */
     func loadFilterSubCategories (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.storeFilterSorterManager.loadFilterSubCategoies(completion: {
@@ -174,6 +197,11 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Load stores
+     
+     - parameter completion: call back when loading task finished
+     */
     func loadSorters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.storeFilterSorterManager.loadSortItems(completion: {
@@ -190,6 +218,11 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Load filters
+     
+     - parameter completion: call back when loading task finished
+     */
     func loadFilters (completion: (() -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.storeFilterSorterManager.loadFilterItems(completion: {
@@ -206,6 +239,11 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Load stores
+     
+     - parameter completion: call back when loading task finished
+     */
     func loadStores (force: Bool, completion: (() -> Void)?) {
         isLoading = true
         DispatchQueue.global(qos: .userInitiated).async {
@@ -234,6 +272,11 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Load next page stores if has more stores
+     
+     - parameter completion: call back when loading task finished
+     */
     func loadMore () {
         if storeListManager.pagingControl.hasMore {
             loadStores (force: true, completion: {
@@ -244,27 +287,48 @@ class StoresViewController: BaseViewController,
         }
     }
     
+    /**
+     Reload data in tableview and layout
+     */
     func refreshData () {
         contentTableView.reloadData()
         contentTableView.layoutIfNeeded()
     }
     
+    /**
+     Handle right nav bar button tapped
+     */
     @objc private func onRightNavBarButtonItemTapped (_ sender: AnyObject?) {
+        hideStoreViewControllerPopupView()
         presentUtilsPopupViewController()
     }
     
+    /**
+     Handle map button in utils popup view
+     */
     func handleOnMapButtonTapped () {
         dismissUtilsPopupViewController()
     }
     
+    /**
+     Handle nearby button in utils popup view
+     */
     func handleOnNearByButtonTapped () {
         dismissUtilsPopupViewController()
     }
     
+    /**
+     Handle search button in utils popup view
+     */
     func handleOnSearchButtonTapped () {
         dismissUtilsPopupViewController()
     }
     
+    /**
+     Calculate y position of bottom of first header in tableview
+     
+     - returns: y position of bottom of first header
+     */
     private func getYPositionOfHeaderInFirstSection () -> CGFloat {
         let rect = contentTableView.rectForHeader(inSection: 1)
         let originalMaxY = rect.maxY
@@ -272,6 +336,11 @@ class StoresViewController: BaseViewController,
         return max(originalMaxY - tableViewOffsetY, heightOfTripleButtonHeader)
     }
     
+    /**
+     Show popup view
+     
+     - parameter sourceAndDelegate: tableview inside popup view souce and delegate
+     */
     private func showStoreViewControllerPopupView (with sourceAndDelegate: StoresViewControllerPopupViewSourceAndDelegate) {
         storeViewControllerPopupView.setSourceAndDelegate(sourceAndDelegate: sourceAndDelegate)
         
@@ -293,6 +362,9 @@ class StoresViewController: BaseViewController,
         storeViewControllerPopupView.animateLeftTableView(isShow: true)
     }
     
+    /**
+     Hide popup view with animation
+     */
     private func hideStoreViewControllerPopupView () {
         lastTappedButton = nil
         storeViewControllerPopupView.animateLeftTableView (isShow: false, completion: {

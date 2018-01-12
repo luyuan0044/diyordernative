@@ -45,7 +45,6 @@ class StoreFilterCell: UITableViewCell, UICollectionViewDataSource, UICollection
         super.awakeFromNib()
         // Initialization code
         
-//        filterOptionCollectionView.isScrollEnabled = false
         filterOptionCollectionView.register(StoreFilterOptionCell.nib, forCellWithReuseIdentifier: StoreFilterOptionCell.key)
         filterOptionCollectionView.register(StoreFilterHeaderView.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: StoreFilterHeaderView.key)
         filterOptionCollectionView.dataSource = self

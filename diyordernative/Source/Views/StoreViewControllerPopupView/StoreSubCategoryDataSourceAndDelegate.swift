@@ -19,11 +19,24 @@ class StoreSubCategoryDataSourceAndDelegate: StoresViewControllerPopupViewSource
         super.init()
     }
     
+    // MARK: - Implementation
+    
+    /**
+     Set store subcategories and selected subcategories
+     
+     - parameter subcategories: all stores subcategories
+     - parameter selectedSubcategory: selected store subcategory
+     */
     func setSource (subcategories: [StoreSubCategory]?, selectedSubcategory: StoreSubCategory?) {
         self.subcategories = subcategories
         self.selectedSubcategory = selectedSubcategory
     }
     
+    /**
+     Set selected subcategories
+     
+     - parameter selectedSubcategory: selected store subcategory
+     */
     func setSelectedSubCategory (selectedSubcategory: StoreSubCategory?) {
         self.selectedSubcategory = selectedSubcategory
     }

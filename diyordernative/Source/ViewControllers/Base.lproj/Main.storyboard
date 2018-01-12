@@ -536,10 +536,10 @@
             </objects>
             <point key="canvasLocation" x="249" y="389"/>
         </scene>
-        <!--Order View Controller-->
+        <!--Barcode Reader View Controller-->
         <scene sceneID="QjW-eJ-sTS">
             <objects>
-                <viewController id="V63-Xx-wfa" customClass="OrderViewController" customModule="diyordernative" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V63-Xx-wfa" customClass="BarcodeReaderViewController" customModule="diyordernative" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LQc-dW-8cO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

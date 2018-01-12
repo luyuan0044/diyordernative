@@ -14,8 +14,6 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
     
     var selectionFilters: [StoreFilter]? = nil
     
-    private var numberOfRows = 0
-    
     private var selectedSwitchFilterIds: [Int]? = nil
     
     private var selectedSelectionFilterOptionIds: [Int: [Int]]? = nil
@@ -24,29 +22,46 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
         super.init()
     }
     
+    // MARK: - Implementation
+    
+    /**
+     Set store filters
+     
+     - parameter sorts: all stores filters
+     */
     func setSource (filters: [StoreFilter]?) {
         guard let fts = filters else {
             return
         }
         
+        // seperate filters by type
         switchFitlers = fts.filter({$0.getFilterType() == .switcher})
         selectionFilters = fts.filter({$0.getFilterType() == .mutiSelect || $0.getFilterType() == .singleSelect})
-        if switchFitlers != nil {
-            numberOfRows += 1
-        }
-        if selectionFilters != nil {
-            numberOfRows += selectionFilters!.count
-        }
     }
     
+    /**
+     Set switch type selected ids
+     
+     - parameter ids: switch type selected ids
+     */
     func setSelectedSwitchFilterIds (_ ids: [Int]?) {
         selectedSwitchFilterIds = ids
     }
     
+    /**
+     Set selection type selected ids
+     
+     - parameter ids: selection type selected ids
+     */
     func setSelectedSelectionFilterIds (_ ids: [Int: [Int]]?) {
         selectedSelectionFilterOptionIds = ids
     }
     
+    /**
+     Handle on switch filter selected.
+     
+     - parameter id: selected switch filter id
+     */
     private func selectSwitchFilter (id: Int) {
         if !isSwitchSelected(id: id) {
             if selectedSwitchFilterIds == nil {
@@ -65,6 +80,12 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
         }
     }
     
+    /**
+     Handle on selection filter selected
+     
+     - parameter id: selected switch filter id
+     - parameter optionId: selected switch filter option id
+     */
     private func selectSelectionFilter (id: Int, optionId: Int) {
         if !isSelectionSelected(id: id, optionId: optionId) {
             if selectedSelectionFilterOptionIds == nil {
@@ -92,6 +113,13 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
         }
     }
     
+    /**
+     Check switch filter of id is selected
+     
+     - parameter id: id of switch filter gonna check
+     
+     - returns: true if id of switch filter is selected
+     */
     func isSwitchSelected (id: Int) -> Bool {
         guard let ids = selectedSwitchFilterIds else {
             return false
@@ -100,6 +128,13 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
         return ids.contains(id)
     }
     
+    /**
+     Check selected filter of id is selected
+     
+     - parameter id: id of selected filter gonna check
+     
+     - returns: true if id of selected filter is selected
+     */
     func isSelectionSelected (id: Int, optionId: Int) -> Bool {
         guard let dict = selectedSelectionFilterOptionIds else {
             return false
@@ -111,6 +146,8 @@ class StoreFilterDataSourceAndDelegate: StoresViewControllerPopupViewSourceAndDe
             return key == id && values.contains(optionId)
         })
     }
+    
+    // MARK: - UITableViewSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
