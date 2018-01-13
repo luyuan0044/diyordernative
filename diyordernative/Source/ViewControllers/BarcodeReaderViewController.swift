@@ -92,25 +92,13 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
         // Dispose of any resources that can be recreated.
     }
     
-    func scanningNotPossible() {
-        // Let the user know that scanning isn't possible with the current device.
-        let alert = UIAlertController(title: "Can't Scan.", message: "Let's try a device equipped with a camera.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        session = nil
-    }
-    
     func barcodeDetected (code: String) {
-        let alert = UIAlertController(title: "Found a Barcode!", message: code, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
-            action in
-            
+        QRCodeHandler.create(result: code).execute(completion: {
             self.qrCodeFrameView?.frame = CGRect.zero
-            if !self.session.isRunning {
+            if self.session != nil && !self.session!.isRunning {
                 self.session.startRunning()
             }
-        }))
-        present(alert, animated: true, completion: nil)
+        })
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

@@ -9,7 +9,17 @@
 import Foundation
 
 class Utils {
-    
+    /**
+     Check given text is match regular expression
+     
+     - parameter regex: regular expression
+     - parameter text: check match text
+     
+     - returns: is match or not
+     */
+    static func isMatch (regex: String, text: String) -> Bool {
+        return text.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
+    }
 }
 
 extension Date {

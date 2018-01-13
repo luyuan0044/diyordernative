@@ -50,4 +50,14 @@ class StoreDataLoader {
             completion (status, stores, paging)
         })
     }
+    
+    /**
+     Request store from server by store url
+     
+     - parameter url: request store information url
+     - parameter completion: completion handler with 'apiStatus' and 'Store'
+     */
+    static func startRequestStore (by url: String, completion: @escaping (apiStatus, Store?) -> Void) {
+        completion (.sourceNotFound, nil)
+    }
 }

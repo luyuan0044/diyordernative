@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790396052009646600BC082F /* QRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790396042009646600BC082F /* QRCodeHandler.swift */; };
+		790396082009648400BC082F /* StoreQRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790396072009648400BC082F /* StoreQRCodeHandler.swift */; };
+		7903960A2009649400BC082F /* ProductQRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790396092009649400BC082F /* ProductQRCodeHandler.swift */; };
+		7903960C200967DD00BC082F /* WaitlistQRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903960B200967DD00BC082F /* WaitlistQRCodeHandler.swift */; };
+		7903960E2009680900BC082F /* MenuQRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903960D2009680900BC082F /* MenuQRCodeHandler.swift */; };
+		790396102009681900BC082F /* TableQRCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903960F2009681900BC082F /* TableQRCodeHandler.swift */; };
 		7907CEDE1FE6424800A617E1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907CEDD1FE6424800A617E1 /* Utils.swift */; };
 		7907CEE31FE6628A00A617E1 /* RightSlideFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */; };
 		7907CEE41FE6628A00A617E1 /* RightSlideFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */; };
@@ -150,6 +156,12 @@
 		0DAB040D9B6640E8D3B5AA89 /* Pods_diyordernativeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_diyordernativeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB6AB920D4613ACC19D9DFB /* Pods-diyordernative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-diyordernative.release.xcconfig"; path = "Pods/Target Support Files/Pods-diyordernative/Pods-diyordernative.release.xcconfig"; sourceTree = "<group>"; };
 		7630F4725898C0F1445ED6AC /* Pods_diyordernative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_diyordernative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		790396042009646600BC082F /* QRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeHandler.swift; sourceTree = "<group>"; };
+		790396072009648400BC082F /* StoreQRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreQRCodeHandler.swift; sourceTree = "<group>"; };
+		790396092009649400BC082F /* ProductQRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductQRCodeHandler.swift; sourceTree = "<group>"; };
+		7903960B200967DD00BC082F /* WaitlistQRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitlistQRCodeHandler.swift; sourceTree = "<group>"; };
+		7903960D2009680900BC082F /* MenuQRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuQRCodeHandler.swift; sourceTree = "<group>"; };
+		7903960F2009681900BC082F /* TableQRCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableQRCodeHandler.swift; sourceTree = "<group>"; };
 		7907CEDD1FE6424800A617E1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7907CEE11FE6628A00A617E1 /* RightSlideFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightSlideFilterViewController.swift; sourceTree = "<group>"; };
 		7907CEE21FE6628A00A617E1 /* RightSlideFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RightSlideFilterViewController.xib; sourceTree = "<group>"; };
@@ -319,6 +331,19 @@
 				0DAB040D9B6640E8D3B5AA89 /* Pods_diyordernativeUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		790396062009646C00BC082F /* QRCodeHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				790396042009646600BC082F /* QRCodeHandler.swift */,
+				790396072009648400BC082F /* StoreQRCodeHandler.swift */,
+				790396092009649400BC082F /* ProductQRCodeHandler.swift */,
+				7903960B200967DD00BC082F /* WaitlistQRCodeHandler.swift */,
+				7903960D2009680900BC082F /* MenuQRCodeHandler.swift */,
+				7903960F2009681900BC082F /* TableQRCodeHandler.swift */,
+			);
+			path = QRCodeHandlers;
 			sourceTree = "<group>";
 		};
 		792F96531FE2EAD300A67ADC /* ApiResponseWrapper */ = {
@@ -537,6 +562,7 @@
 		79FDBA601FE093AC00E72807 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				790396062009646C00BC082F /* QRCodeHandlers */,
 				792F96661FE3403F00A67ADC /* CloudinaryHelper.swift */,
 				792F96541FE2EB6D00A67ADC /* ApiManager.swift */,
 				792F965A1FE3022C00A67ADC /* BannerItemLoader.swift */,
@@ -820,6 +846,7 @@
 				79279D761FEC9FBC00C7C084 /* ShoppingCartCheckoutCell.swift in Sources */,
 				79BC08D51FE090C100D53620 /* HomeViewController.swift in Sources */,
 				792127231FE1F0E2006C5F42 /* HotItem.swift in Sources */,
+				790396082009648400BC082F /* StoreQRCodeHandler.swift in Sources */,
 				79D696961FEC420700097B4F /* AccountHeaderCell.swift in Sources */,
 				7953130D1FE1F97000B940F8 /* ApiResponse.swift in Sources */,
 				797358641FFD7EC000A9C71D /* StoreDataLoader.swift in Sources */,
@@ -836,11 +863,13 @@
 				792F96571FE3015A00A67ADC /* OauthKeyPair.swift in Sources */,
 				792F96551FE2EB6D00A67ADC /* ApiManager.swift in Sources */,
 				792F96631FE3310100A67ADC /* BannerItemCell.swift in Sources */,
+				790396102009681900BC082F /* TableQRCodeHandler.swift in Sources */,
 				792F96651FE33FB500A67ADC /* ImageHelper.swift in Sources */,
 				7944496D1FFD644B000E5E8C /* TripleButtonHeaderView.swift in Sources */,
 				797358621FFD6EB900A9C71D /* StoreTableViewCell.swift in Sources */,
 				79CA0D372005742F00767AB1 /* StoreViewControllerPopupResetAndConfirmView.swift in Sources */,
 				7953130B1FE1F8C000B940F8 /* ListApiResponse.swift in Sources */,
+				7903960A2009649400BC082F /* ProductQRCodeHandler.swift in Sources */,
 				79D696921FEC333100097B4F /* Profile.swift in Sources */,
 				792127211FE1EC11006C5F42 /* BannerItem.swift in Sources */,
 				79D22DA71FFE00E50033A40C /* HeaderFooterLoadingView.swift in Sources */,
@@ -857,6 +886,7 @@
 				79A760881FFC16F60012F096 /* Store.swift in Sources */,
 				794C55381FEC781200A2C0BD /* UIButtonExtension.swift in Sources */,
 				79FF870C1FE9DE74004AF317 /* Sort.swift in Sources */,
+				7903960E2009680900BC082F /* MenuQRCodeHandler.swift in Sources */,
 				79FDBA621FE093D300E72807 /* SysConstants.swift in Sources */,
 				79D562372007F23400BF7428 /* StoreFilterHeaderView.swift in Sources */,
 				792F96611FE320D200A67ADC /* UrlHelper.swift in Sources */,
@@ -889,6 +919,7 @@
 				792EC60A1FE486CD00B4C563 /* UtilityButtonsHeaderView.swift in Sources */,
 				79E4497F1FE3BB3B005F4FCC /* StoreCategoryLoader.swift in Sources */,
 				79DDFD4F1FE1AC5000DA8460 /* HotItemViewController.swift in Sources */,
+				7903960C200967DD00BC082F /* WaitlistQRCodeHandler.swift in Sources */,
 				79E4497D1FE3B8B8005F4FCC /* StoreCategoryCell.swift in Sources */,
 				792F96591FE3019E00A67ADC /* Enums.swift in Sources */,
 				799E603C200871B900717375 /* StoresMapViewController.swift in Sources */,
@@ -896,6 +927,7 @@
 				790DC2C81FEA48EC00A04AFA /* HotItemRightSlideTableViewDataSourceAndDelegate.swift in Sources */,
 				79FF870A1FE9DD60004AF317 /* HotItemSort.swift in Sources */,
 				794C55361FEC687100A2C0BD /* AccountSegmentCell.swift in Sources */,
+				790396052009646600BC082F /* QRCodeHandler.swift in Sources */,
 				799AFEF31FFEAEDF00A13E51 /* UtilsPopupItemView.swift in Sources */,
 				79D696941FEC34DD00097B4F /* Phone.swift in Sources */,
 				79D22DA31FFDDA5A0033A40C /* PagingControl.swift in Sources */,
@@ -1074,7 +1106,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1091,7 +1123,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5JYS6CF7W7;
+				DEVELOPMENT_TEAM = SSFYC2Q9U6;
 				INFOPLIST_FILE = diyordernative/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

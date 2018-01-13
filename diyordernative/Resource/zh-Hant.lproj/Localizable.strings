@@ -121,3 +121,11 @@
 "scan" = "掃一掃";
 
 "redo search in this area" = "重新搜索該區域";
+
+"external url detected" = "偵測到外部鏈接";
+
+"do you want to open url in browser" = "是否在瀏覽器中打開%@";
+
+"cancel" = "取消";
+
+"go" = "前往";

@@ -121,3 +121,11 @@
 "scan" = "Scan";
 
 "redo search in this area" = "Redo Search In This Area";
+
+"external url detected" = "External url detected";
+
+"do you want to open url in browser" = "Do you want to open %@ in browser";
+
+"cancel" = "Cancel";
+
+"go" = "Go";
