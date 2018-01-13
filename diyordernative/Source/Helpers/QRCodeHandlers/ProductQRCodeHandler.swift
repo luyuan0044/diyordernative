@@ -14,7 +14,7 @@ class ProductQRCodeHandler: QRCodeHandler {
         super.init(result: result)
     }
  
-    override func execute(completion: @escaping () -> Void) {
+    override func execute() {
         
     }
 }

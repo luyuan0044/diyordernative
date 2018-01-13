@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -154,13 +155,19 @@
                         <barButtonItem key="leftBarButtonItem" image="icon_logo" style="plain" id="F2b-v8-Yn7">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_dots" style="plain" id="kAw-fu-h6o">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="icon_dots" style="plain" id="kAw-fu-h6o">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <barButtonItem image="icon_qrcode" id="MD7-JE-2Td">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="bottomCollectionView" destination="n6c-yT-8Ox" id="fd7-bK-5fr"/>
                         <outlet property="rightBarButtonItem" destination="kAw-fu-h6o" id="fUE-fh-43t"/>
+                        <outlet property="scanQRCodeButtonItem" destination="MD7-JE-2Td" id="0GF-lW-hKB"/>
                         <outlet property="topCollectionView" destination="lCb-Xm-eGc" id="eC0-ca-AKd"/>
                         <outlet property="topCollectionViewHeightConstraint" destination="Rja-io-A7O" id="YMr-aa-7Uv"/>
                         <segue destination="829-4x-F7x" kind="show" identifier="home_view_controller_show_stores_view_controller" id="ALR-5u-yP3"/>
@@ -536,10 +543,10 @@
             </objects>
             <point key="canvasLocation" x="249" y="389"/>
         </scene>
-        <!--Barcode Reader View Controller-->
+        <!--Order View Controller-->
         <scene sceneID="QjW-eJ-sTS">
             <objects>
-                <viewController id="V63-Xx-wfa" customClass="BarcodeReaderViewController" customModule="diyordernative" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V63-Xx-wfa" customClass="OrderViewController" customModule="diyordernative" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LQc-dW-8cO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -666,6 +673,7 @@
         <image name="icon_dots" width="30" height="30"/>
         <image name="icon_forward" width="30" height="30"/>
         <image name="icon_logo" width="22" height="22"/>
+        <image name="icon_qrcode" width="30" height="30"/>
         <image name="icon_top" width="40" height="40"/>
     </resources>
 </document>

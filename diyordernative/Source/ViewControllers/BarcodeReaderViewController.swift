@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputObjectsDelegate {
-
+class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputObjectsDelegate, QRCodeHandlerDelegate {
+    
     static let tabTitle = "scan"
     
     static let icon = #imageLiteral(resourceName: "icon_qrcode")
@@ -21,13 +21,31 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
     
     var qrCodeFrameView: UIView!
     
+    @IBOutlet weak var scanRectView: UIView!
+    
+    @IBOutlet weak var borderImageView: UIImageView!
+    
+    @IBOutlet weak var lineImageView: UIImageView!
+    
+    @IBOutlet weak var lineImageViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var borderHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var maskView: UIView!
+    
+    @IBOutlet weak var dismissButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.barTintColor = UIConstants.appThemeColor
+        navigationController?.navigationBar.barStyle = .blackTranslucent
         tabBarItem = UITabBarItem (title: BarcodeReaderViewController.tabTitle, image: BarcodeReaderViewController.icon, tag: 2)
         self.title = LanguageControl.shared.getLocalizeString(by: BarcodeReaderViewController.tabTitle)
+        
+        dismissButton.title = LanguageControl.shared.getLocalizeString(by: "close")
+        dismissButton.target = self
+        dismissButton.action = #selector(handleOnDismissButtonTapped(_:))
         
         session = AVCaptureSession()
         
@@ -80,26 +98,64 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setMask ()
+        view.bringSubview(toFront: scanRectView)
+        startAnimation()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if session != nil && session!.isRunning {
             session.stopRunning()
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Implementation
+    
     func barcodeDetected (code: String) {
-        QRCodeHandler.create(result: code).execute(completion: {
-            self.qrCodeFrameView?.frame = CGRect.zero
-            if self.session != nil && !self.session!.isRunning {
-                self.session.startRunning()
-            }
+        let handler = QRCodeHandler.create(result: code)
+        handler.delegate = self
+        handler.execute()
+    }
+    
+    private func startAnimation () {
+        lineImageView.layer.removeAllAnimations()
+        
+        lineImageViewBottomConstraint.constant = -borderHeightConstraint.constant
+        
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 2.0, animations: {
+            self.lineImageViewBottomConstraint.constant = 0
+            UIView.setAnimationRepeatCount(MAXFLOAT)
+            self.view.layoutIfNeeded()
         })
     }
+    
+    private func setMask () {
+        maskView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    
+        let maskPath = UIBezierPath (rect: CGRect(x: 0, y: 0, width: maskView.frame.width, height: maskView.frame.height))
+        maskPath.append(UIBezierPath (roundedRect: scanRectView.frame, cornerRadius: 1).reversing())
+        let maskLayer = CAShapeLayer ()
+        maskLayer.path = maskPath.cgPath
+        maskView.layer.mask = maskLayer
+        view.bringSubview(toFront: maskView)
+    }
+    
+    @objc private func handleOnDismissButtonTapped (_ sender: AnyObject?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - AVCaptureMetadataOutputObjectsDelegate
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Check if the metadataObjects array is not nil and it contains at least one object.
@@ -110,7 +166,7 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
         }
         
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-
+        
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = previewLayer?.transformedMetadataObject(for: metadataObj)
@@ -122,15 +178,26 @@ class BarcodeReaderViewController: BaseViewController, AVCaptureMetadataOutputOb
         session.stopRunning()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - QRCodeHandlerDelegate
+    
+    func onQRCodeExecuteSuccess () {
+        dismiss(animated: true, completion: nil)
     }
-    */
-
+    
+    func onQRCodeExecuteFailure () {
+        
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+

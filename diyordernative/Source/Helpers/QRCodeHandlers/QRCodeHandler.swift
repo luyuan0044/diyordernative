@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+protocol QRCodeHandlerDelegate {
+    func onQRCodeExecuteSuccess ()
+    func onQRCodeExecuteFailure ()
+}
+
 class QRCodeHandler {
     
     static let waitlistRegex = "{[1]}{([A-Za-z0-9\\-]+)}"
@@ -51,43 +56,45 @@ class QRCodeHandler {
     
     var result: String? = nil
     
+    var delegate: QRCodeHandlerDelegate? = nil
+    
     init(result: String?) {
         self.result = result
     }
     
-    func execute (completion: @escaping () -> Void) {
+    func execute () {
         guard let result = result else {
-            completion()
+            delegate?.onQRCodeExecuteFailure()
             return
         }
         
         StoreDataLoader.startRequestStore(by: result, completion: {
             status, store in
-            
-            if status == .success || store != nil {
-                completion()
+            DispatchQueue.main.async {
+                if status == .success || store != nil {
+                    self.delegate?.onQRCodeExecuteSuccess()
+                    
+                    // push to store
+                } else if status == .sourceNotFound, let url = URL (string: result) {
+                    self.delegate?.onQRCodeExecuteSuccess()
                 
-                // push to store
-            } else if status == .sourceNotFound, let url = URL (string: result) {
-                DispatchQueue.main.async {
                     let message = String.init(format: LanguageControl.shared.getLocalizeString(by: "do you want to open url in browser"), result)
                     let alert = UIAlertController(title: LanguageControl.shared.getLocalizeString(by: "external url detected"), message: message, preferredStyle: .alert)
-                    
+                
                     alert.addAction(UIAlertAction(title: LanguageControl.shared.getLocalizeString(by: "cancel"), style: .destructive, handler: {
                         action in
-                        completion()
                     }))
                     alert.addAction(UIAlertAction(title: LanguageControl.shared.getLocalizeString(by: "go"), style: .default, handler: {
                         action in
-                        completion()
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     }))
-                    
+                
                     let rootViewController = UIApplication.shared.keyWindow!.rootViewController! as! UINavigationController
                     rootViewController.present(alert, animated: true, completion: nil)
+                } else {
+                    // invalid qr code
+                    self.delegate?.onQRCodeExecuteFailure()
                 }
-            } else {
-                // invalid qr code
             }
         })
     }

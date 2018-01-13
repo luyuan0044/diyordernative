@@ -38,6 +38,8 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     let heightOfSingleLineOfStoreCategoryItems: CGFloat = 64
     
+    @IBOutlet weak var scanQRCodeButtonItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -53,6 +55,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         rightBarButtonItem.target = self
         rightBarButtonItem.action = #selector(onRightButtonItemTapped(_:))
+        
+        scanQRCodeButtonItem.target = self
+        scanQRCodeButtonItem.action = #selector (onScanQRCodeButtonItemTapped(_:))
         
 //        if (traitCollection.forceTouchCapability == .available) {
 //            registerForPreviewing(with: self, sourceView: bottomCollectionView)
@@ -142,6 +147,15 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         let languages = LanguageControl.shared.getAvaliableAppLanguages();
         LanguageControl.shared.setAppLanguage(languages[0])
         fetch()
+    }
+    
+    @objc private func onScanQRCodeButtonItemTapped (_ sender: AnyObject?) {
+        scanQRCode()
+    }
+    
+    func scanQRCode() {
+        let sb = UIStoryboard(name: "QRCode", bundle: nil)
+        present(sb.instantiateInitialViewController()!, animated: true, completion: nil)
     }
     
     /**
