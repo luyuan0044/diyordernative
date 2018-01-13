@@ -23,9 +23,6 @@ class StoreDataLoader {
         }
         let language = LanguageControl.shared.getAppLanguage().serverKey
         _urlparams!["lan"] = language
-        if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
-            _urlparams!["latlon"] = latlonStr
-        }
         
         let formattedUrlParams = UrlHelper.getFormattedUrlParams(urlparams: _urlparams!)
         let path = SysConstants.REST_PATH_STORES + formattedUrlParams

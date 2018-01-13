@@ -52,6 +52,10 @@ class StoreListManager {
             }
             _urlparams!["c_id"] = "\(storeCategoryType.rawValue)"
             
+            if let latlonStr = UrlHelper.getFormattedUrlLatAndLon(coordinate: LocationHelper.shared.getCurrentLatAndLon()) {
+                _urlparams!["latlon"] = latlonStr
+            }
+            
             pagingControl.loadPagingData (urlparams: _urlparams, completion: {
                 _status, _stores in
                 
