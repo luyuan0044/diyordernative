@@ -90,6 +90,9 @@
 		799E603C200871B900717375 /* StoresMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E603B200871B900717375 /* StoresMapViewController.swift */; };
 		799E603F2009C37E00717375 /* BarcodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E603D2009C37E00717375 /* BarcodeReaderViewController.swift */; };
 		799E60422009C51D00717375 /* QRCode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799E60412009C51D00717375 /* QRCode.storyboard */; };
+		799E60442009F0A200717375 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E60432009F0A200717375 /* MapAnnotation.swift */; };
+		799E6046200B285D00717375 /* StoresMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799E6045200B285D00717375 /* StoresMapAnnotationView.swift */; };
+		799E6048200B286D00717375 /* StoresMapAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 799E6047200B286D00717375 /* StoresMapAnnotationView.xib */; };
 		79A760881FFC16F60012F096 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760871FFC16F60012F096 /* Store.swift */; };
 		79A7608A1FFC19100012F096 /* StoreDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A760891FFC19100012F096 /* StoreDetail.swift */; };
 		79ADC83F1FE1B11F0022B513 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */; };
@@ -244,6 +247,9 @@
 		799E603B200871B900717375 /* StoresMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresMapViewController.swift; sourceTree = "<group>"; };
 		799E603D2009C37E00717375 /* BarcodeReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderViewController.swift; sourceTree = "<group>"; };
 		799E60412009C51D00717375 /* QRCode.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QRCode.storyboard; sourceTree = "<group>"; };
+		799E60432009F0A200717375 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		799E6045200B285D00717375 /* StoresMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresMapAnnotationView.swift; sourceTree = "<group>"; };
+		799E6047200B286D00717375 /* StoresMapAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoresMapAnnotationView.xib; sourceTree = "<group>"; };
 		79A760871FFC16F60012F096 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		79A760891FFC19100012F096 /* StoreDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetail.swift; sourceTree = "<group>"; };
 		79ADC83E1FE1B11F0022B513 /* OrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -520,6 +526,7 @@
 				7997583A1FFC366E00778716 /* StoreSubCategory.swift */,
 				799758401FFC656300778716 /* StoreFilter.swift */,
 				79D22DA41FFDDAB70033A40C /* Paging.swift */,
+				799E60432009F0A200717375 /* MapAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -558,6 +565,8 @@
 				79D22DA81FFE00F50033A40C /* HeaderFooterLoadingView.xib */,
 				799AFEF21FFEAEDF00A13E51 /* UtilsPopupItemView.swift */,
 				799AFEF41FFEAEEC00A13E51 /* UtilsPopupItemView.xib */,
+				799E6045200B285D00717375 /* StoresMapAnnotationView.swift */,
+				799E6047200B286D00717375 /* StoresMapAnnotationView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -743,6 +752,7 @@
 				7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */,
 				79D562382007F23400BF7428 /* StoreFilterHeaderView.xib in Resources */,
 				79BC08D81FE090C100D53620 /* Main.storyboard in Resources */,
+				799E6048200B286D00717375 /* StoresMapAnnotationView.xib in Resources */,
 				792E9D531FEB24B1004D5045 /* HotItemRightSlideTableViewHeaderView.xib in Resources */,
 				799AFEF51FFEAEEC00A13E51 /* UtilsPopupItemView.xib in Resources */,
 				79D22DA91FFE00F50033A40C /* HeaderFooterLoadingView.xib in Resources */,
@@ -913,8 +923,10 @@
 				79FDBA681FE0981E00E72807 /* BaseViewController.swift in Sources */,
 				79FDBA6F1FE098DE00E72807 /* BaseCollectionViewController.swift in Sources */,
 				799E603F2009C37E00717375 /* BarcodeReaderViewController.swift in Sources */,
+				799E60442009F0A200717375 /* MapAnnotation.swift in Sources */,
 				792F965F1FE303E700A67ADC /* Language.swift in Sources */,
 				792EC6051FE45F3C00B4C563 /* HotItemCategory.swift in Sources */,
+				799E6046200B285D00717375 /* StoresMapAnnotationView.swift in Sources */,
 				795313091FE1F8AC00B940F8 /* BaseApiResponse.swift in Sources */,
 				79DD61E01FFD4C4E008FF8F4 /* StoreFilterSorterControl.swift in Sources */,
 				7907CEE31FE6628A00A617E1 /* RightSlideFilterViewController.swift in Sources */,

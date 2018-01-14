@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class StoresMapViewController: BaseViewController, MKMapViewDelegate {
+class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -22,6 +22,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
     @IBOutlet weak var dismissButton: UIButton!
     
     @IBOutlet weak var storesScrollViewBottomConstraint: NSLayoutConstraint!
+    
+    var navController: UINavigationController?
     
     var storeCategoryType: storeCategoryType!
     
@@ -37,9 +39,17 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
     
     var lastSearchCoordinate: CLLocationCoordinate2D?
     
+    var stores: [Store]? = nil
+    
+    var scrollSubview: [StoresMapAnnotationView] = []
+    
+    var isRegionChangedBySelectAnnotation = false
+    
+    var isBySelectedAnnotation = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         if let currentLoaction = LocationHelper.shared.currentLocation {
@@ -48,6 +58,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
         
         mapView.showsUserLocation = true
         mapView.delegate = self
+        mapView.showsPointsOfInterest = false
+        mapView.deselectAnnotation(mapView.selectedAnnotations.first, animated: false)
         
         searchAreaButton.isHidden = true
         searchAreaButton.alpha = 0
@@ -74,21 +86,21 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
         moveToCurrentLocationButton.layer.shadowOpacity = 0.5
         moveToCurrentLocationButton.addTarget(self, action: #selector(handleMoveToCurrentLocationButtonTapped(_:)), for: .touchUpInside)
         
+        storesScrollView.delegate = self
         storesScrollView.backgroundColor = UIColor.clear
         storesScrollView.isPagingEnabled = true
         storesScrollView.showsHorizontalScrollIndicator = false
+        
+        // config scroll view subviews
         let padding: CGFloat = 16
         var offset: CGFloat = padding
         let width: CGFloat = storesScrollView.frame.width - 2 * padding
-        for color in testColor {
-            let colorView = UIView (frame: CGRect(x: offset, y: 5, width: width, height: storesScrollView.frame.height - 10))
-            colorView.layer.cornerRadius = 3
-            colorView.layer.shadowOffset = CGSize (width: 0, height: 0)
-            colorView.layer.shadowRadius = 3
-            colorView.layer.shadowOpacity = 0.5
-            colorView.layer.masksToBounds = false
-            colorView.backgroundColor = color
-            storesScrollView.addSubview(colorView)
+        for _ in 0...2 {
+            let view = StoresMapAnnotationView.create()
+            view.frame = CGRect(x: offset, y: 5, width: width, height: storesScrollView.frame.height - 10)
+            view.layoutIfNeeded()
+            storesScrollView.addSubview(view)
+            scrollSubview.append(view)
             offset += width + 2 * padding
         }
         storesScrollView.contentSize = CGSize (width: offset - padding, height: storesScrollView.frame.height)
@@ -110,6 +122,10 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
         self.storeCategoryType = storeCategoryType
     }
     
+    func setNavigationController (navigationController: UINavigationController) {
+        self.navController = navigationController
+    }
+    
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -128,7 +144,18 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
             StoreDataLoader.startRequestStores(urlparams: _urlparams, completion: {
                 status, stores, _ in
                 
-                
+                DispatchQueue.main.async {
+                    //remove previous annotations
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    
+                    if status == .success && stores != nil && stores!.count > 0 {
+                        self.stores = stores
+                        for store in self.stores! {
+                            let annotation = MapAnnotation (model: store)
+                            self.mapView.addAnnotation(annotation)
+                        }
+                    }
+                }
             })
         }
     }
@@ -214,9 +241,59 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    func handleSelectedAnnotationChanged (annotation: MapAnnotation) {
+        // If selected annotation changed is by selecting annotation on mapview
+        // 1. get the selected model and update scroll view content
+        // 2. scroll the scroll view
+        if isBySelectedAnnotation {
+            let idx = stores!.index(where: {$0.getId() == annotation.id})!
+            loadScrollViewData(with: idx)
+            scrollToScrollSubviewIndex (1)
+        }
+        // If selected annotation changed is by scrolling the scrollview
+        // select the annotation
+        else {
+            mapView.selectAnnotation(annotation, animated: true)
+        }
+        
+        // Turn on switch of annotation is selected the annotation on map self
+        isBySelectedAnnotation = true
+    }
+    
+    func loadScrollViewData (with index: Int) {
+        guard let stores = self.stores else {
+            return
+        }
+        
+        let store = stores[index]
+        let preStore = index == 0 ? stores[stores.count - 1] : stores[index - 1]
+        let nextStore = index == stores.count - 1 ? stores[0] : stores[index + 1]
+        
+        scrollSubview[0].update(model: preStore)
+        scrollSubview[1].update(model: store)
+        scrollSubview[2].update(model: nextStore)
+    }
+    
+    func scrollToScrollSubviewIndex (_ index: Int) {
+        storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(index), y: 0)  , animated: true)
+    }
+    
     // MARK: - MKMapViewDelegate
     
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        // Hide bottom scroll view if map will moved
+        showScrollView(show: false)
+        
+        // If there is at least one annotation selected on mapview and the region changed is not by selecting annotation
+        // deselect the annotation
+        if mapView.selectedAnnotations.count > 0 && !isRegionChangedBySelectAnnotation {
+            mapView.deselectAnnotation(mapView.selectedAnnotations.first!, animated: true)
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        isRegionChangedBySelectAnnotation = false
+        
         // show move to current location button if current location point is invisible on map
         if !mapView.isUserLocationVisible {
             showMoveToCurrentLocationButton (show: true)
@@ -233,6 +310,47 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // Check selected annotation view is not nil
+        // also check annotation is MapAnnotation to avoid user current location annotation selected
+        guard view.annotation != nil || !(view.annotation is MapAnnotation) else {
+            return
+        }
+        
+        // If the select annotation action is triggered by selecting annotation on mapview
+        if isBySelectedAnnotation, let selectedAnnotation = view.annotation as? MapAnnotation {
+            handleSelectedAnnotationChanged (annotation: selectedAnnotation)
+        }
+        // If the select annotation action is triggered by scrolling the scroll view
+        else if !isBySelectedAnnotation, let selectedAnnotation = view.annotation as? MapAnnotation {
+            // Turn on switch of region change by selecting annotation
+            isRegionChangedBySelectAnnotation = true
+            
+            // Move the selected annotation to center of the mapview
+            let coordinate = selectedAnnotation.coordinate
+            mapView.setCenter(coordinate, animated: true)
+        }
+        
+        showScrollView(show: true)
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // Turn off switch of annotation is selected the annotation on map self
+        isBySelectedAnnotation = false
+        
+        let offset = scrollView.contentOffset.x
+        let width = scrollView.frame.width
+        
+        let idx = Int(offset / width)
+        let modelId = (scrollSubview[idx] as StoresMapAnnotationView).model!.getId()
+        if let annotation = mapView.annotations.filter({$0 is MapAnnotation && ($0 as! MapAnnotation).id == modelId}).first {
+            handleSelectedAnnotationChanged (annotation: annotation as! MapAnnotation)
+        }
+    }
+    
 
     /*
     // MARK: - Navigation

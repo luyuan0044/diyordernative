@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class Store: Mappable, Pagingable {
-    var id: Int?
+    var id: String?
     var storeCategoryIds: [Int]?
     var name: String?
     var latitude: Double?
@@ -46,5 +46,27 @@ class Store: Mappable, Pagingable {
         self.displayStyle <- map["df"]
         self.pricePlan <- map["pp"]
         self.detail <- map["store_detail"]
+    }
+}
+
+extension Store: IMapAnnotation {
+    func getId () -> String {
+        return self.id!
+    }
+    
+    func getImageUrl () -> String? {
+        return self.imageUrl
+    }
+    
+    func getName() -> String? {
+        return self.name
+    }
+    
+    func getLatitude() -> Double? {
+        return self.latitude
+    }
+    
+    func getLongitude() -> Double? {
+        return self.longitude
     }
 }

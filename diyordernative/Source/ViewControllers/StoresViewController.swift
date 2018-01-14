@@ -564,6 +564,7 @@ class StoresViewController: BaseViewController,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == presentStoresMapViewControllerSegueId {
             (segue.destination as! StoresMapViewController).setStoreCategoryType(self.storeCategory)
+            (segue.destination as! StoresMapViewController).setNavigationController(navigationController: self.navigationController!)
         }
     }
 }
