@@ -37,7 +37,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     
     let testColor: [UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.yellow, UIColor.gray, UIColor.black]
     
-    let scrollViewShowHideDisplacement: CGFloat = 178
+    let scrollViewShowHideDisplacement: CGFloat = 158
     
     var lastSearchCoordinate: CLLocationCoordinate2D?
     
