@@ -11,6 +11,8 @@ import MapKit
 
 class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollViewDelegate {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var searchAreaButton: UIButton!
@@ -35,7 +37,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     
     let testColor: [UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.yellow, UIColor.gray, UIColor.black]
     
-    let scrollViewShowHideDisplacement: CGFloat = 158
+    let scrollViewShowHideDisplacement: CGFloat = 178
     
     var lastSearchCoordinate: CLLocationCoordinate2D?
     
@@ -119,6 +121,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Implementation
     
     func setStoreCategoryType (_ storeCategoryType: storeCategoryType) {
         self.storeCategoryType = storeCategoryType

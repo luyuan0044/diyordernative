@@ -69,4 +69,16 @@ extension Store: IMapAnnotation {
     func getLongitude() -> Double? {
         return self.longitude
     }
+    
+    func getRating() -> Float? {
+        return self.rating
+    }
+    
+    func getAddress() -> String? {
+        return self.address
+    }
+    
+    func getMeta() -> String? {
+        return self.meta
+    }
 }

@@ -25,6 +25,10 @@ class StoresViewController: BaseViewController,
     
     @IBOutlet weak var storeSubCategoryPopupViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var toTopButton: UIButton!
+    
+    @IBOutlet weak var topTopButtonBottomConstraint: NSLayoutConstraint!
+    
     var storyCategoryId: Int!
     
     var storeCategory: storeCategoryType { get { return storeCategoryType (rawValue: storyCategoryId)! }}
@@ -54,6 +58,10 @@ class StoresViewController: BaseViewController,
     var stores: [Store]? = nil
     
     var isLoading = false
+    
+    var isToTopButtonOnView = false
+    
+    let toTopButtonDisplacement: CGFloat = 116
     
     enum tripleButton {
         case left
@@ -97,6 +105,15 @@ class StoresViewController: BaseViewController,
         contentTableView.separatorInset = UIEdgeInsets (top: 0, left: 15, bottom: 0, right: 15)
         
         storeViewControllerPopupView.delegate = self
+        
+        toTopButton.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        toTopButton.setImage(#imageLiteral(resourceName: "icon_top").withRenderingMode(.alwaysTemplate), for: .normal)
+        toTopButton.tintColor = UIColor.darkGray
+        toTopButton.layer.cornerRadius = toTopButton.frame.height / 2
+        toTopButton.layer.borderColor = UIConstants.generalBorderColor.cgColor
+        toTopButton.layer.borderWidth = 0.5
+        toTopButton.contentEdgeInsets = UIEdgeInsets (top: 10, left: 10, bottom: 10, right: 10)
+        toTopButton.addTarget(self, action: #selector(handleOnToTopButtonTapped(_:)), for: .touchUpInside)
         
         loadData()
     }
@@ -328,6 +345,42 @@ class StoresViewController: BaseViewController,
         dismissUtilsPopupViewController()
     }
     
+    @objc private func handleOnToTopButtonTapped (_ sender: AnyObject?) {
+        contentTableView.setContentOffset(CGPoint.zero, animated: true)
+    }
+    
+    /**
+     Show to top button
+     */
+    func showToTopButton () {
+        if isToTopButtonOnView {
+            return
+        }
+        
+        self.isToTopButtonOnView = true
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.topTopButtonBottomConstraint.constant += self.toTopButtonDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    /**
+     Hide to top button
+     */
+    func hideToTopButton () {
+        if !isToTopButtonOnView {
+            return
+        }
+        
+        self.isToTopButtonOnView = false
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.topTopButtonBottomConstraint.constant -= self.toTopButtonDisplacement
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     /**
      Calculate y position of bottom of first header in tableview
      
@@ -435,7 +488,7 @@ class StoresViewController: BaseViewController,
         return heightOfTripleButtonHeader
     }
     
-    // UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         loadMore()
@@ -445,6 +498,20 @@ class StoresViewController: BaseViewController,
         if indexPath.section == 1 && stores!.count - 1 == indexPath.row && !isLoading {
             loadMore()
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        
+        if offsetY > 50 {
+            showToTopButton()
+        } else {
+            hideToTopButton()
+        }
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        hideToTopButton()
     }
     
     // MARK: - TripleButtonHeaderViewDelegate

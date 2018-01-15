@@ -14,6 +14,12 @@ class StoresMapAnnotationView: UIView {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var ratingImageView: UIImageView!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var metaLabel: UILabel!
+    
     var defaultImage = StoreCategoryControl.shared.defaultStoreCategoryImageSmall
     
     var model: IMapAnnotation?
@@ -45,6 +51,8 @@ class StoresMapAnnotationView: UIView {
         iconImageView.image = defaultImage
         
         nameLabel.textColor = UIColor.darkGray
+        addressLabel.textColor = UIColor.lightGray
+        metaLabel.textColor = UIColor.lightGray
     }
     
     func update (model: IMapAnnotation) {
@@ -58,5 +66,11 @@ class StoresMapAnnotationView: UIView {
         }
         
         nameLabel.text = model.getName()
+        
+        ratingImageView.image = ImageHelper.getRatingStartImage(by: model.getRating()).withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        ratingImageView.tintColor = StoreCategoryControl.shared.themeColor
+        
+        addressLabel.text = model.getAddress()
+        metaLabel.text = model.getMeta()
     }
 }

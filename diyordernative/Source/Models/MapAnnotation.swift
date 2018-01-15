@@ -15,6 +15,9 @@ protocol IMapAnnotation {
     func getImageUrl () -> String?
     func getLatitude () -> Double?
     func getLongitude () -> Double?
+    func getRating () -> Float?
+    func getAddress () -> String?
+    func getMeta () -> String?
 }
 
 class MapAnnotation: NSObject, MKAnnotation {
