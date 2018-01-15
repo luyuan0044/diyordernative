@@ -107,19 +107,6 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         storesScrollView.isPagingEnabled = true
         storesScrollView.showsHorizontalScrollIndicator = false
         
-        // config scroll view subviews
-        
-        var offset: CGFloat = scrollSubViewPadding
-        for _ in 0...2 {
-            let view = StoresMapAnnotationView.create()
-            view.frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
-            view.layoutIfNeeded()
-            storesScrollView.addSubview(view)
-            scrollSubview.append(view)
-            offset += scrollSubviewWidth + 2 * scrollSubViewPadding
-        }
-        storesScrollView.contentSize = CGSize (width: offset - scrollSubViewPadding, height: storesScrollView.frame.height)
-        
         dismissButton.setImage(#imageLiteral(resourceName: "icon_list").withRenderingMode(.alwaysTemplate), for: .normal)
         dismissButton.tintColor = UIColor.darkGray
         dismissButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
@@ -146,6 +133,20 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    func configScrollSubview (numberOfSubViews: Int) {
+        scrollSubview = []
+        var offset: CGFloat = scrollSubViewPadding
+        for _ in 1...numberOfSubViews {
+            let view = StoresMapAnnotationView.create()
+            view.frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
+            view.layoutIfNeeded()
+            storesScrollView.addSubview(view)
+            scrollSubview.append(view)
+            offset += scrollSubviewWidth + 2 * scrollSubViewPadding
+        }
+        storesScrollView.contentSize = CGSize (width: offset - scrollSubViewPadding, height: storesScrollView.frame.height)
+    }
+    
     func loadData () {
         var _urlparams: [String: String] = [:]
         
@@ -169,6 +170,9 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
                             let annotation = MapAnnotation (model: store)
                             self.mapView.addAnnotation(annotation)
                         }
+                        
+                        let numberOfScrollSubview = self.stores!.count > 1 ? 3 : 1
+                        self.configScrollSubview (numberOfSubViews: numberOfScrollSubview)
                     }
                 }
             })
@@ -263,7 +267,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         if isBySelectedAnnotation {
             let idx = stores!.index(where: {$0.getId() == annotation.id})!
             loadScrollViewData(with: idx)
-            scrollToScrollSubviewIndex (1)
+            scrollToCenterOfScrollSubviewIndex()
         }
         // If selected annotation changed is by scrolling the scrollview
         // select the annotation
@@ -288,19 +292,23 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
             return
         }
         
-        let store = stores[index]
-        let preStore = stores[getPreModelIdx(idx: index)]
-        let nextStore = stores[getNextModelIdx(idx: index)]
-        
-        print("\(preStore.name!) \(store.name!) \(nextStore.name!)")
-        
-        scrollSubview[0].update(model: preStore)
-        scrollSubview[1].update(model: store)
-        scrollSubview[2].update(model: nextStore)
+        if stores.count > 1 {
+            let store = stores[index]
+            let preStore = stores[getPreModelIdx(idx: index)]
+            let nextStore = stores[getNextModelIdx(idx: index)]
+            
+            scrollSubview[0].update(model: preStore)
+            scrollSubview[1].update(model: store)
+            scrollSubview[2].update(model: nextStore)
+        } else {
+            let store = stores[index]
+            scrollSubview[0].update(model: store)
+        }
     }
     
-    func scrollToScrollSubviewIndex (_ index: Int, animation: Bool = true) {
-        storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(index), y: 0)  , animated: animation)
+    func scrollToCenterOfScrollSubviewIndex (animation: Bool = true) {
+        let idx = scrollSubview.count == 1 ? 0 : 1
+        storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(idx), y: 0)  , animated: animation)
     }
     
     // MARK: - MKMapViewDelegate
@@ -375,7 +383,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         // Update scroll view's subviews and models
         
         // If selected subview index == 0
-        if let modelIdx = stores!.index(where: {$0.id == modelId}) {
+        if let modelIdx = stores!.index(where: {$0.id == modelId}), stores!.count > 1 {
             if viewIdx == 0 {
                 let view = scrollSubview[2]
                 scrollSubview.remove(at: 2)
@@ -398,7 +406,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
                 offset += scrollSubviewWidth + 2 * scrollSubViewPadding
             }
             
-            scrollToScrollSubviewIndex (1, animation: false)
+            scrollToCenterOfScrollSubviewIndex (animation: false)
         }
         
 //        if viewIdx == 0{
