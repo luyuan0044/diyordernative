@@ -275,14 +275,22 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         isBySelectedAnnotation = true
     }
     
+    private func getPreModelIdx (idx: Int) -> Int {
+        return idx == 0 ? stores!.count - 1 : idx - 1
+    }
+    
+    private func getNextModelIdx (idx: Int) -> Int {
+        return idx == stores!.count - 1 ? 0 : idx + 1
+    }
+    
     func loadScrollViewData (with index: Int) {
         guard let stores = self.stores else {
             return
         }
         
         let store = stores[index]
-        let preStore = index == 0 ? stores[stores.count - 1] : stores[index - 1]
-        let nextStore = index == stores.count - 1 ? stores[0] : stores[index + 1]
+        let preStore = stores[getPreModelIdx(idx: index)]
+        let nextStore = stores[getNextModelIdx(idx: index)]
         
         print("\(preStore.name!) \(store.name!) \(nextStore.name!)")
         
@@ -291,7 +299,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         scrollSubview[2].update(model: nextStore)
     }
     
-    func scrollToScrollSubviewIndex (_ index: Int, with animation: Bool = true) {
+    func scrollToScrollSubviewIndex (_ index: Int, animation: Bool = true) {
         storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(index), y: 0)  , animated: animation)
     }
     
@@ -367,12 +375,24 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         // Update scroll view's subviews and models
         
         // If selected subview index == 0
-        if viewIdx == 0, let modelIdx = stores!.index(where: {$0.id == modelId}) {
-            let view = scrollSubview[2]
-            scrollSubview.remove(at: 0)
-            scrollSubview.insert(view, at: 0)
+        if let modelIdx = stores!.index(where: {$0.id == modelId}) {
+            let model: IMapAnnotation!
+            let view: StoresMapAnnotationView!
+            if viewIdx == 0 {
+                view = scrollSubview[2]
+                scrollSubview.remove(at: 2)
+                scrollSubview.insert(view, at: 0)
+                
+                model = stores![getPreModelIdx(idx: modelIdx)]
+            } else if viewIdx == 2 {
+                view = scrollSubview[0]
+                scrollSubview.remove(at: 0)
+                scrollSubview.append(view)
+                
+                model = stores![getNextModelIdx(idx: modelIdx)]
+            }
             
-            loadScrollViewData (with: modelIdx)
+            view.update(model: model)
             
             var offset: CGFloat = scrollSubViewPadding
             for idx in 0...2 {
@@ -380,8 +400,40 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
                 offset += scrollSubviewWidth + 2 * scrollSubViewPadding
             }
             
-            scrollToScrollSubviewIndex (1, with: false)
+            scrollToScrollSubviewIndex (1, animation: false)
         }
+        
+//        if viewIdx == 0{
+//            let view = scrollSubview[2]
+//            scrollSubview.remove(at: 2)
+//            scrollSubview.insert(view, at: 0)
+//
+//            var offset: CGFloat = scrollSubViewPadding
+//            for idx in 0...2 {
+//                scrollSubview[idx].frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
+//                offset += scrollSubviewWidth + 2 * scrollSubViewPadding
+//            }
+//
+//            let model = stores![getPreModelIdx(idx: modelIdx)]
+//            view.update(model: model)
+//
+//            scrollToScrollSubviewIndex (1, animation: false)
+//        } else if viewIdx == 2, let modelIdx = stores!.index(where: {$0.id == modelId}) {
+//            let view = scrollSubview[0]
+//            scrollSubview.remove(at: 0)
+//            scrollSubview.append(view)
+//
+//            var offset: CGFloat = scrollSubViewPadding
+//            for idx in 0...2 {
+//                scrollSubview[idx].frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
+//                offset += scrollSubviewWidth + 2 * scrollSubViewPadding
+//            }
+//
+//            let model = stores![getNextModelIdx(idx: modelIdx)]
+//            view.update(model: model)
+//
+//            scrollToScrollSubviewIndex (1, animation: false)
+//        }
     }
     
 
