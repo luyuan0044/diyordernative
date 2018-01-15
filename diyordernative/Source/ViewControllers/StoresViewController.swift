@@ -13,9 +13,14 @@ class StoresViewController: BaseViewController,
                             UITableViewDelegate,
                             TripleButtonHeaderViewDelegate,
                             StoreSubCategoryHeaderViewDelegate,
-                            StoresViewControllerPopupViewDelegate {
+                            StoresViewControllerPopupViewDelegate,
+                            StoresMapViewControllerDelegate {
+    
+    // MARK: - Properties
     
     let presentStoresMapViewControllerSegueId = "present_stores_map_view_controller"
+    
+    let showStoreViewControllerSegueId = "stores_view_controller_show_store_view_controller"
 
     @IBOutlet weak var contentTableView: UITableView!
     
@@ -491,7 +496,8 @@ class StoresViewController: BaseViewController,
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        loadMore()
+        let model = stores![indexPath.row]
+        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: model)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -623,7 +629,12 @@ class StoresViewController: BaseViewController,
             hideStoreViewControllerPopupView()
         }
     }
-
+    
+    // MARK: - StoresMapViewControllerDelegate
+    
+    func performSegueToStoreViewController(sender: AnyObject?) {
+        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: sender)
+    }
     
     // MARK: - Navigation
 
@@ -631,7 +642,9 @@ class StoresViewController: BaseViewController,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == presentStoresMapViewControllerSegueId {
             (segue.destination as! StoresMapViewController).setStoreCategoryType(self.storeCategory)
-            (segue.destination as! StoresMapViewController).setNavigationController(navigationController: self.navigationController!)
+            (segue.destination as! StoresMapViewController).delegate = self
+        } else if segue.identifier == showStoreViewControllerSegueId {
+//            print((sender as! Store).id)
         }
     }
 }

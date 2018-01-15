@@ -9,9 +9,17 @@
 import UIKit
 import MapKit
 
+protocol StoresMapViewControllerDelegate: class {
+    func performSegueToStoreViewController (sender: AnyObject?)
+}
+
 class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollViewDelegate {
     
     // MARK: - Properties
+    
+    let showStoreViewControllerSegueId = "stores_map_view_controller_show_store_view_controller"
+    
+    var delegate: StoresMapViewControllerDelegate?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -128,10 +136,6 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         self.storeCategoryType = storeCategoryType
     }
     
-    func setNavigationController (navigationController: UINavigationController) {
-        self.navController = navigationController
-    }
-    
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -151,6 +155,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
             let view = StoresMapAnnotationView.create()
             view.frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
             view.layoutIfNeeded()
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleScrollViewSubviewTapped(_:)))
+            view.addGestureRecognizer(tapGestureRecognizer)
             storesScrollView.addSubview(view)
             scrollSubview.append(view)
             offset += scrollSubviewWidth + 2 * scrollSubViewPadding
@@ -322,6 +328,12 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(idx), y: 0)  , animated: animation)
     }
     
+    @objc private func handleScrollViewSubviewTapped (_ sender: StoresMapAnnotationView) {
+        let model = sender.model!
+        delegate?.performSegueToStoreViewController(sender: nil)
+        dismiss(animated: false, completion: nil)
+    }
+    
     // MARK: - MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -419,38 +431,6 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
             
             scrollToCenterOfScrollSubviewIndex (animation: false)
         }
-        
-//        if viewIdx == 0{
-//            let view = scrollSubview[2]
-//            scrollSubview.remove(at: 2)
-//            scrollSubview.insert(view, at: 0)
-//
-//            var offset: CGFloat = scrollSubViewPadding
-//            for idx in 0...2 {
-//                scrollSubview[idx].frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
-//                offset += scrollSubviewWidth + 2 * scrollSubViewPadding
-//            }
-//
-//            let model = stores![getPreModelIdx(idx: modelIdx)]
-//            view.update(model: model)
-//
-//            scrollToScrollSubviewIndex (1, animation: false)
-//        } else if viewIdx == 2, let modelIdx = stores!.index(where: {$0.id == modelId}) {
-//            let view = scrollSubview[0]
-//            scrollSubview.remove(at: 0)
-//            scrollSubview.append(view)
-//
-//            var offset: CGFloat = scrollSubViewPadding
-//            for idx in 0...2 {
-//                scrollSubview[idx].frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
-//                offset += scrollSubviewWidth + 2 * scrollSubViewPadding
-//            }
-//
-//            let model = stores![getNextModelIdx(idx: modelIdx)]
-//            view.update(model: model)
-//
-//            scrollToScrollSubviewIndex (1, animation: false)
-//        }
     }
     
 

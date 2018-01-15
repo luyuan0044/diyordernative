@@ -139,11 +139,27 @@
                         <outlet property="toTopButton" destination="QAd-QD-t2d" id="s7c-eF-t32"/>
                         <outlet property="topTopButtonBottomConstraint" destination="Ep2-yy-faV" id="T9c-Ub-xDA"/>
                         <segue destination="x1C-9y-10I" kind="presentation" identifier="present_stores_map_view_controller" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xHZ-o7-PYK"/>
+                        <segue destination="1f0-HB-Emj" kind="show" identifier="stores_view_controller_show_store_view_controller" id="sT0-oY-25q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9de-Mi-KWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="48.799999999999997" y="186.65667166416793"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FVc-C6-Yua">
+            <objects>
+                <viewController id="1f0-HB-Emj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9on-d0-mhM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="S9v-aH-Ak1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e63-of-yM7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="948" y="187"/>
         </scene>
         <!--Stores Map View Controller-->
         <scene sceneID="YLY-En-Rw2">
