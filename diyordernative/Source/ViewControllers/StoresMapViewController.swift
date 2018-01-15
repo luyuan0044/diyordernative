@@ -376,23 +376,21 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         
         // If selected subview index == 0
         if let modelIdx = stores!.index(where: {$0.id == modelId}) {
-            let model: IMapAnnotation!
-            let view: StoresMapAnnotationView!
             if viewIdx == 0 {
-                view = scrollSubview[2]
+                let view = scrollSubview[2]
                 scrollSubview.remove(at: 2)
                 scrollSubview.insert(view, at: 0)
                 
-                model = stores![getPreModelIdx(idx: modelIdx)]
+                let model = stores![getPreModelIdx(idx: modelIdx)]
+                view.update(model: model)
             } else if viewIdx == 2 {
-                view = scrollSubview[0]
+                let view = scrollSubview[0]
                 scrollSubview.remove(at: 0)
                 scrollSubview.append(view)
                 
-                model = stores![getNextModelIdx(idx: modelIdx)]
+                let model = stores![getNextModelIdx(idx: modelIdx)]
+                view.update(model: model)
             }
-            
-            view.update(model: model)
             
             var offset: CGFloat = scrollSubViewPadding
             for idx in 0...2 {
