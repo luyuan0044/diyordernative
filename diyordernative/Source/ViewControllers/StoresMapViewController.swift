@@ -134,7 +134,14 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     }
     
     func configScrollSubview (numberOfSubViews: Int) {
-        scrollSubview = []
+        if scrollSubview.count > 0 {
+            for subview in scrollSubview {
+                subview.removeFromSuperview()
+            }
+            
+            scrollSubview = []
+        }
+        
         var offset: CGFloat = scrollSubViewPadding
         for _ in 1...numberOfSubViews {
             let view = StoresMapAnnotationView.create()
