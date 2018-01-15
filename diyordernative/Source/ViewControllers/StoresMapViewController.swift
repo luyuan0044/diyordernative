@@ -43,6 +43,22 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     
     var scrollSubview: [StoresMapAnnotationView] = []
     
+    let scrollSubViewPadding: CGFloat = 16
+    
+    let scrollSubviewPaddingY: CGFloat = 5
+    
+    var scrollSubviewWidth: CGFloat {
+        get {
+            return storesScrollView.frame.width - 2 * scrollSubViewPadding
+        }
+    }
+    
+    var scrollSubviewHeight: CGFloat {
+        get {
+            return storesScrollView.frame.height - 10
+        }
+    }
+    
     var isRegionChangedBySelectAnnotation = false
     
     var isBySelectedAnnotation = true
@@ -92,18 +108,17 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         storesScrollView.showsHorizontalScrollIndicator = false
         
         // config scroll view subviews
-        let padding: CGFloat = 16
-        var offset: CGFloat = padding
-        let width: CGFloat = storesScrollView.frame.width - 2 * padding
+        
+        var offset: CGFloat = scrollSubViewPadding
         for _ in 0...2 {
             let view = StoresMapAnnotationView.create()
-            view.frame = CGRect(x: offset, y: 5, width: width, height: storesScrollView.frame.height - 10)
+            view.frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
             view.layoutIfNeeded()
             storesScrollView.addSubview(view)
             scrollSubview.append(view)
-            offset += width + 2 * padding
+            offset += scrollSubviewWidth + 2 * scrollSubViewPadding
         }
-        storesScrollView.contentSize = CGSize (width: offset - padding, height: storesScrollView.frame.height)
+        storesScrollView.contentSize = CGSize (width: offset - scrollSubViewPadding, height: storesScrollView.frame.height)
         
         dismissButton.setImage(#imageLiteral(resourceName: "icon_list").withRenderingMode(.alwaysTemplate), for: .normal)
         dismissButton.tintColor = UIColor.darkGray
@@ -269,13 +284,15 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         let preStore = index == 0 ? stores[stores.count - 1] : stores[index - 1]
         let nextStore = index == stores.count - 1 ? stores[0] : stores[index + 1]
         
+        print("\(preStore.name!) \(store.name!) \(nextStore.name!)")
+        
         scrollSubview[0].update(model: preStore)
         scrollSubview[1].update(model: store)
         scrollSubview[2].update(model: nextStore)
     }
     
-    func scrollToScrollSubviewIndex (_ index: Int) {
-        storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(index), y: 0)  , animated: true)
+    func scrollToScrollSubviewIndex (_ index: Int, with animation: Bool = true) {
+        storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(index), y: 0)  , animated: animation)
     }
     
     // MARK: - MKMapViewDelegate
@@ -304,7 +321,6 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
             let centerLocation = CLLocation(latitude:  mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
             let lastLocation = CLLocation(latitude: lastSearchCoordinate.latitude, longitude: lastSearchCoordinate.longitude)
             let distance = centerLocation.distance(from: lastLocation)
-            print(distance)
             if reloadDataDistanceTolerance <= distance {
                 showSearchAreaButton(show: true)
             }
@@ -341,13 +357,30 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         // Turn off switch of annotation is selected the annotation on map self
         isBySelectedAnnotation = false
         
-        let offset = scrollView.contentOffset.x
-        let width = scrollView.frame.width
-        
-        let idx = Int(offset / width)
-        let modelId = (scrollSubview[idx] as StoresMapAnnotationView).model!.getId()
+        // Get selected annotation view on scroll view
+        let viewIdx = Int(scrollView.contentOffset.x / scrollView.frame.width)
+        let modelId = (scrollSubview[viewIdx] as StoresMapAnnotationView).model!.getId()
         if let annotation = mapView.annotations.filter({$0 is MapAnnotation && ($0 as! MapAnnotation).id == modelId}).first {
             handleSelectedAnnotationChanged (annotation: annotation as! MapAnnotation)
+        }
+        
+        // Update scroll view's subviews and models
+        
+        // If selected subview index == 0
+        if viewIdx == 0, let modelIdx = stores!.index(where: {$0.id == modelId}) {
+            let view = scrollSubview[2]
+            scrollSubview.remove(at: 0)
+            scrollSubview.insert(view, at: 0)
+            
+            loadScrollViewData (with: modelIdx)
+            
+            var offset: CGFloat = scrollSubViewPadding
+            for idx in 0...2 {
+                scrollSubview[idx].frame = CGRect(x: offset, y: scrollSubviewPaddingY, width: scrollSubviewWidth, height: scrollSubviewHeight)
+                offset += scrollSubviewWidth + 2 * scrollSubViewPadding
+            }
+            
+            scrollToScrollSubviewIndex (1, with: false)
         }
     }
     
