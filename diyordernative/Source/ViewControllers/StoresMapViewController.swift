@@ -328,9 +328,14 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         storesScrollView.setContentOffset(CGPoint(x: storesScrollView.frame.width * CGFloat(idx), y: 0)  , animated: animation)
     }
     
-    @objc private func handleScrollViewSubviewTapped (_ sender: StoresMapAnnotationView) {
-        let model = sender.model!
-        delegate?.performSegueToStoreViewController(sender: nil)
+    @objc private func handleScrollViewSubviewTapped (_ sender: AnyObject?) {
+        let model: IMapAnnotation!
+        if stores!.count > 1 {
+            model = scrollSubview[1].model!
+        } else {
+            model = scrollSubview[0].model!
+        }
+        delegate?.performSegueToStoreViewController(sender: model as! Store)
         dismiss(animated: false, completion: nil)
     }
     
