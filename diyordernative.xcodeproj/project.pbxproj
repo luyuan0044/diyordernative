@@ -491,12 +491,12 @@
 				7943802C1FE0B36100F6594D /* RootTabBarController.swift */,
 				79654EAE1FFC0C5E00BBC620 /* StoresViewController.swift */,
 				799E603B200871B900717375 /* StoresMapViewController.swift */,
+				792A93AE200D5F39009ED578 /* StoreViewController.swift */,
 				79DFC54B1FEDC3FB0050DFDE /* SettingViewController.swift */,
 				794599F51FE9AA2400419612 /* ShoppingCartViewController.swift */,
 				79CE931A1FFEA7EB00A283C2 /* UtilsPopupViewController.swift */,
 				79CE931B1FFEA7EB00A283C2 /* UtilsPopupViewController.xib */,
 				79FDBA6A1FE0984900E72807 /* BaseViewControllers */,
-				792A93AE200D5F39009ED578 /* StoreViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

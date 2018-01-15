@@ -9,6 +9,10 @@
 import UIKit
 
 class StoreViewController: UIViewController {
+    
+    var id: String!
+    
+    var store: Store?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,17 @@ class StoreViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Implementation
+    
+    func setId (_ id: String) {
+        self.id = id
+    }
+    
+    func setStore (_ store: Store) {
+        self.id = store.id
+        self.store = store
     }
     
 
