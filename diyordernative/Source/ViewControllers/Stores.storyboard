@@ -138,18 +138,20 @@
                         <outlet property="storeViewControllerPopupView" destination="9TP-F6-XYo" id="eld-Dh-6O7"/>
                         <outlet property="toTopButton" destination="QAd-QD-t2d" id="s7c-eF-t32"/>
                         <outlet property="topTopButtonBottomConstraint" destination="Ep2-yy-faV" id="T9c-Ub-xDA"/>
-                        <segue destination="x1C-9y-10I" kind="presentation" identifier="present_stores_map_view_controller" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xHZ-o7-PYK"/>
+                        <segue destination="5Dc-3e-Arl" kind="presentation" identifier="present_stores_map_view_controller" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xHZ-o7-PYK"/>
                         <segue destination="1f0-HB-Emj" kind="show" identifier="stores_view_controller_show_store_view_controller" id="sT0-oY-25q"/>
+                        <segue destination="mBw-Yy-w7l" kind="unwind" identifier="stores_view_controller_unwind_to_home_view_controller" unwindAction="unwindToHomeViewControllerWithSegue:" id="ol5-OK-XyM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9de-Mi-KWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mBw-Yy-w7l" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="48.799999999999997" y="186.65667166416793"/>
         </scene>
-        <!--View Controller-->
+        <!--Store View Controller-->
         <scene sceneID="FVc-C6-Yua">
             <objects>
-                <viewController id="1f0-HB-Emj" sceneMemberID="viewController">
+                <viewController id="1f0-HB-Emj" customClass="StoreViewController" customModule="diyordernative" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9on-d0-mhM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,7 +175,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5o-G8-hn2">
-                                <rect key="frame" x="16" y="28" width="343" height="44"/>
+                                <rect key="frame" x="16" y="72" width="343" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMo-DF-Ynt">
                                         <rect key="frame" x="299" y="0.0" width="44" height="44"/>
@@ -181,17 +183,29 @@
                                             <constraint firstAttribute="width" secondItem="pMo-DF-Ynt" secondAttribute="height" id="sg9-BM-KoV"/>
                                         </constraints>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hm7-Ad-Io8">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="hm7-Ad-Io8" secondAttribute="height" id="QUY-Ib-Z2x"/>
+                                        </constraints>
+                                        <state key="normal" image="icon_back">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="pMo-DF-Ynt" secondAttribute="trailing" id="Fzw-Cs-CXp"/>
                                     <constraint firstItem="pMo-DF-Ynt" firstAttribute="top" secondItem="m5o-G8-hn2" secondAttribute="top" id="Ioo-KM-C7x"/>
                                     <constraint firstAttribute="bottom" secondItem="pMo-DF-Ynt" secondAttribute="bottom" id="Ivy-0s-z0S"/>
+                                    <constraint firstItem="hm7-Ad-Io8" firstAttribute="top" secondItem="m5o-G8-hn2" secondAttribute="top" id="Jjy-R6-loX"/>
+                                    <constraint firstAttribute="bottom" secondItem="hm7-Ad-Io8" secondAttribute="bottom" id="UnB-EI-Ogv"/>
+                                    <constraint firstItem="hm7-Ad-Io8" firstAttribute="leading" secondItem="m5o-G8-hn2" secondAttribute="leading" id="c3m-3i-xGA"/>
                                     <constraint firstAttribute="height" constant="44" id="vVy-OO-mZ4"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pf-Zt-s1u">
-                                <rect key="frame" x="168" y="82" width="38" height="30"/>
+                                <rect key="frame" x="168" y="126" width="38" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="qKE-a6-9E2"/>
                                 </constraints>
@@ -199,7 +213,7 @@
                                 <state key="normal" title="Button"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNT-wd-NHP">
-                                <rect key="frame" x="214" y="82" width="30" height="30"/>
+                                <rect key="frame" x="214" y="126" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="pNT-wd-NHP" secondAttribute="height" id="tf8-sr-rbh"/>
                                 </constraints>
@@ -231,18 +245,45 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Cq-f6-7ED"/>
                     </view>
+                    <navigationItem key="navigationItem" id="xKl-9s-sSl"/>
                     <connections>
+                        <outlet property="backButton" destination="hm7-Ad-Io8" id="fdr-QP-TkH"/>
                         <outlet property="dismissButton" destination="pMo-DF-Ynt" id="yb5-aN-qGi"/>
                         <outlet property="mapView" destination="ucA-Vq-aho" id="vW7-hQ-rsF"/>
                         <outlet property="moveToCurrentLocationButton" destination="pNT-wd-NHP" id="1l0-UZ-YIE"/>
                         <outlet property="searchAreaButton" destination="4pf-Zt-s1u" id="k8b-zN-so4"/>
                         <outlet property="storesScrollView" destination="cOj-tz-cfq" id="NAH-p1-xtr"/>
                         <outlet property="storesScrollViewBottomConstraint" destination="2Sk-TR-eb9" id="BZ0-Cx-Fzb"/>
+                        <segue destination="1f0-HB-Emj" kind="show" identifier="stores_map_view_controller_show_store_view_controller" id="TJz-GV-UEM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gmg-YW-aTx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="48.799999999999997" y="926.98650674662679"/>
+            <point key="canvasLocation" x="948" y="975.56221889055485"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7JX-UZ-1mh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Dc-3e-Arl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xc1-2P-ry9">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x1C-9y-10I" kind="relationship" relationship="rootViewController" id="BS9-un-5ur"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lzQ-On-4Z9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="49" y="976"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon_back" width="30" height="30"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sT0-oY-25q"/>
+    </inferredMetricsTieBreakers>
 </document>

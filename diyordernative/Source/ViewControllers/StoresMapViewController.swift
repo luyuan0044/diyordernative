@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 protocol StoresMapViewControllerDelegate: class {
-    func performSegueToStoreViewController (sender: AnyObject?)
+    func onBackButtonTapped ()
 }
 
 class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollViewDelegate {
@@ -30,6 +30,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     @IBOutlet weak var storesScrollView: UIScrollView!
     
     @IBOutlet weak var dismissButton: UIButton!
+    
+    @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var storesScrollViewBottomConstraint: NSLayoutConstraint!
     
@@ -122,7 +124,16 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         dismissButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         dismissButton.addTarget(self, action: #selector(handleDismissButtonTapped(_:)), for: .touchUpInside)
         
+        backButton.addTarget(self, action: #selector(handleBackButtonTapped(_:)), for: .touchUpInside)
+        
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -277,6 +288,11 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         dismiss(animated: true, completion: nil)
     }
     
+    @objc private func handleBackButtonTapped (_ sender: AnyObject?) {
+        delegate?.onBackButtonTapped()
+        dismiss(animated: false, completion: nil)
+    }
+    
     func handleSelectedAnnotationChanged (annotation: MapAnnotation) {
         // If selected annotation changed is by selecting annotation on mapview
         // 1. get the selected model and update scroll view content
@@ -335,8 +351,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         } else {
             model = scrollSubview[0].model!
         }
-        delegate?.performSegueToStoreViewController(sender: model as! Store)
-        dismiss(animated: false, completion: nil)
+        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: model)
     }
     
     // MARK: - MKMapViewDelegate
@@ -439,14 +454,13 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == showStoreViewControllerSegueId {
+            (segue.destination as! StoreViewController).setStore(sender as! Store)
+        }
     }
-    */
-
 }

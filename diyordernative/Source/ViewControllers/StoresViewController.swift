@@ -15,12 +15,13 @@ class StoresViewController: BaseViewController,
                             StoreSubCategoryHeaderViewDelegate,
                             StoresViewControllerPopupViewDelegate,
                             StoresMapViewControllerDelegate {
-    
     // MARK: - Properties
     
     let presentStoresMapViewControllerSegueId = "present_stores_map_view_controller"
     
     let showStoreViewControllerSegueId = "stores_view_controller_show_store_view_controller"
+    
+    let unwindToHomeViewControllerSegueId = "stores_view_controller_unwind_to_home_view_controller"
 
     @IBOutlet weak var contentTableView: UITableView!
     
@@ -496,8 +497,8 @@ class StoresViewController: BaseViewController,
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = stores![indexPath.row]
-        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: model)
+        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: stores![indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -632,8 +633,8 @@ class StoresViewController: BaseViewController,
     
     // MARK: - StoresMapViewControllerDelegate
     
-    func performSegueToStoreViewController(sender: AnyObject?) {
-        performSegue(withIdentifier: showStoreViewControllerSegueId, sender: sender)
+    func onBackButtonTapped() {
+        performSegue(withIdentifier: unwindToHomeViewControllerSegueId, sender: nil)
     }
     
     // MARK: - Navigation
@@ -641,10 +642,11 @@ class StoresViewController: BaseViewController,
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == presentStoresMapViewControllerSegueId {
-            (segue.destination as! StoresMapViewController).setStoreCategoryType(self.storeCategory)
-            (segue.destination as! StoresMapViewController).delegate = self
+            let navigationController = (segue.destination as! UINavigationController)
+            (navigationController.topViewController as! StoresMapViewController).setStoreCategoryType(self.storeCategory)
+            (navigationController.topViewController as! StoresMapViewController).delegate = self
         } else if segue.identifier == showStoreViewControllerSegueId {
-//            print((sender as! Store).id)
+            (segue.destination as! StoreViewController).setStore(sender as! Store)
         }
     }
 }

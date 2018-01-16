@@ -292,5 +292,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             (segue.destination as! StoresViewController).setStoreCategory(storeCategory)
         }
     }
+    
+    @IBAction func unwindToHomeViewController (segue: UIStoryboardSegue) { }
 }
 
