@@ -124,6 +124,8 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
         dismissButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
         dismissButton.addTarget(self, action: #selector(handleDismissButtonTapped(_:)), for: .touchUpInside)
         
+        backButton.setImage(#imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate), for: .normal)
+        backButton.tintColor = UIColor.darkGray
         backButton.addTarget(self, action: #selector(handleBackButtonTapped(_:)), for: .touchUpInside)
         
         loadData()
@@ -290,7 +292,7 @@ class StoresMapViewController: BaseViewController, MKMapViewDelegate, UIScrollVi
     
     @objc private func handleBackButtonTapped (_ sender: AnyObject?) {
         delegate?.onBackButtonTapped()
-        dismiss(animated: false, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func handleSelectedAnnotationChanged (annotation: MapAnnotation) {

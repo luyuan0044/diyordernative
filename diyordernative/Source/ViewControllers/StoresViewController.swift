@@ -21,6 +21,8 @@ class StoresViewController: BaseViewController,
     
     let showStoreViewControllerSegueId = "stores_view_controller_show_store_view_controller"
     
+    let showSearchViewControllerSegueId = "stores_view_controller_show_search_view_controller"
+    
     let unwindToHomeViewControllerSegueId = "stores_view_controller_unwind_to_home_view_controller"
 
     @IBOutlet weak var contentTableView: UITableView!
@@ -94,11 +96,6 @@ class StoresViewController: BaseViewController,
         
         self.title = titleText
         
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
-        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
-        
         rightButtonItem = UIBarButtonItem (image: #imageLiteral(resourceName: "icon_dots"), style: .plain, target: self, action: #selector(onRightNavBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItem = rightButtonItem
         
@@ -122,6 +119,13 @@ class StoresViewController: BaseViewController,
         toTopButton.addTarget(self, action: #selector(handleOnToTopButtonTapped(_:)), for: .touchUpInside)
         
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = StoreCategoryControl.shared.themeColor
+        navigationController?.navigationBar.backIndicatorImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = #imageLiteral(resourceName: "icon_back").withRenderingMode(.alwaysTemplate)
     }
 
     override func didReceiveMemoryWarning() {
@@ -348,6 +352,7 @@ class StoresViewController: BaseViewController,
      Handle search button in utils popup view
      */
     func handleOnSearchButtonTapped () {
+        performSegue(withIdentifier: showSearchViewControllerSegueId, sender: nil)
         dismissUtilsPopupViewController()
     }
     
