@@ -69,6 +69,8 @@
 		79533809200003FF00FE589E /* StoreSubCategoryDataSourceAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79533808200003FF00FE589E /* StoreSubCategoryDataSourceAndDelegate.swift */; };
 		7953380B2000042900FE589E /* StoreSortDataSourceAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953380A2000042900FE589E /* StoreSortDataSourceAndDelegate.swift */; };
 		7953380D2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953380C2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift */; };
+		79572C9B200E83B7006FB705 /* StoreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79572C9A200E83B7006FB705 /* StoreHeaderView.swift */; };
+		79572C9D200E83C3006FB705 /* StoreHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79572C9C200E83C3006FB705 /* StoreHeaderView.xib */; };
 		7961D21A1FE79E9000C739C1 /* ListProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7961D2181FE79E9000C739C1 /* ListProductCell.swift */; };
 		7961D21B1FE79E9000C739C1 /* ListProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7961D2191FE79E9000C739C1 /* ListProductCell.xib */; };
 		79654EAD1FFC0AFF00BBC620 /* Stores.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */; };
@@ -228,6 +230,8 @@
 		79533808200003FF00FE589E /* StoreSubCategoryDataSourceAndDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSubCategoryDataSourceAndDelegate.swift; sourceTree = "<group>"; };
 		7953380A2000042900FE589E /* StoreSortDataSourceAndDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSortDataSourceAndDelegate.swift; sourceTree = "<group>"; };
 		7953380C2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFilterDataSourceAndDelegate.swift; sourceTree = "<group>"; };
+		79572C9A200E83B7006FB705 /* StoreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHeaderView.swift; sourceTree = "<group>"; };
+		79572C9C200E83C3006FB705 /* StoreHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StoreHeaderView.xib; sourceTree = "<group>"; };
 		7961D2181FE79E9000C739C1 /* ListProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductCell.swift; sourceTree = "<group>"; };
 		7961D2191FE79E9000C739C1 /* ListProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListProductCell.xib; sourceTree = "<group>"; };
 		79654EAC1FFC0AFF00BBC620 /* Stores.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Stores.storyboard; sourceTree = "<group>"; };
@@ -389,6 +393,15 @@
 			path = StoreViewControllerPopupView;
 			sourceTree = "<group>";
 		};
+		79572C98200E833B006FB705 /* StoreViewControllerComponents */ = {
+			isa = PBXGroup;
+			children = (
+				79572C9A200E83B7006FB705 /* StoreHeaderView.swift */,
+				79572C9C200E83C3006FB705 /* StoreHeaderView.xib */,
+			);
+			path = StoreViewControllerComponents;
+			sourceTree = "<group>";
+		};
 		79BC08C61FE090C100D53620 = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +553,7 @@
 		79FDBA5F1FE0937400E72807 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79572C98200E833B006FB705 /* StoreViewControllerComponents */,
 				795338052000038B00FE589E /* StoreViewControllerPopupView */,
 				794380281FE0A31800F6594D /* IconLabelButtonView.swift */,
 				794380261FE0A2ED00F6594D /* IconLabelButtonView.xib */,
@@ -747,6 +761,7 @@
 				7944496F1FFD6458000E5E8C /* TripleButtonHeaderView.xib in Resources */,
 				790DC2C01FEA3A2100A04AFA /* Localizable.strings in Resources */,
 				7978A6891FECE4E300306B6E /* ImageViewPeekViewController.xib in Resources */,
+				79572C9D200E83C3006FB705 /* StoreHeaderView.xib in Resources */,
 				79FDBA661FE0959700E72807 /* LaunchScreen.storyboard in Resources */,
 				792EC60B1FE486CD00B4C563 /* UtilityButtonsHeaderView.xib in Resources */,
 				79BC08DD1FE090C100D53620 /* Assets.xcassets in Resources */,
@@ -915,6 +930,7 @@
 				7943802B1FE0B15200F6594D /* RootNavigationController.swift in Sources */,
 				79FDBA641FE093F600E72807 /* UIConstants.swift in Sources */,
 				79CE931C1FFEA7EB00A283C2 /* UtilsPopupViewController.swift in Sources */,
+				79572C9B200E83B7006FB705 /* StoreHeaderView.swift in Sources */,
 				79E449811FE3BB7B005F4FCC /* StoreCategory.swift in Sources */,
 				7953380D2000044000FE589E /* StoreFilterDataSourceAndDelegate.swift in Sources */,
 				79FDBA6C1FE098B700E72807 /* BaseTableViewController.swift in Sources */,
