@@ -16,8 +16,6 @@ class StoreHeaderView: UITableViewHeaderFooterView {
     
     static let nib = UINib (nibName: key, bundle: nil)
     
-    @IBOutlet weak var storeIconImageView: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var addressLabel: UILabel!
@@ -33,19 +31,13 @@ class StoreHeaderView: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundColor = UIColor.clear
-        contentView.backgroundColor = UIColor.clear
+        nameLabel.textColor = UIColor.black
         
-        nameLabel.textColor = UIColor.white
+        addressLabel.textColor = UIColor.black
         
-        addressLabel.textColor = UIColor.white
+        openHourLabel.textColor = UIColor.black
         
-        openHourLabel.textColor = UIColor.white
-        
-        storeIconImageView.contentMode = .scaleAspectFit
-        storeIconImageView.layer.cornerRadius = 5
-        storeIconImageView.clipsToBounds = true
-        storeIconImageView.image = defaultImage
+        contentView.backgroundColor = UIColor.white
     }
     
     func update (store: Store) {
@@ -53,12 +45,5 @@ class StoreHeaderView: UITableViewHeaderFooterView {
         
         nameLabel.text = store.name
         addressLabel.text = store.address
-        
-        if let imageUrl = store.imageUrl {
-            let urlStr = ImageHelper.getFormattedImageUrl(imageId: imageUrl, size: storeIconImageView.frame.size)!
-            if let url = URL (string: urlStr) {
-                storeIconImageView.sd_setImage(with: url, placeholderImage: defaultImage)
-            }
-        }
     }
 }

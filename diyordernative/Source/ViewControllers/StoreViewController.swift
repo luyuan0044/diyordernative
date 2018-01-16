@@ -18,6 +18,12 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var contentTableView: UITableView!
     
+    @IBOutlet weak var iconImageView: UIImageView!
+    
+    @IBOutlet weak var iconImageViewConterYConstraint: NSLayoutConstraint!
+    
+    var shouldShowHeaderImage = true
+    
     var rightBarButtonItem: UIBarButtonItem!
     
     var id: String!
@@ -25,6 +31,12 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
     var store: Store?
     
     let defaultBackgroundImage = StoreCategoryControl.shared.defaultStoreCategoryImageLarge
+    
+    var heightOfFirstHeader: CGFloat {
+        get {
+            return shouldShowHeaderImage ? 40 : 0
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +44,36 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         //backgroundImageViewMask.backgroundColor = UIColor.black//.withAlphaComponent(0.1)
         
+        iconImageView.contentMode = .scaleAspectFill
+        iconImageView.layer.cornerRadius = 3
+        iconImageView.clipsToBounds = true
+        iconImageView.image = StoreCategoryControl.shared.defaultStoreCategoryImageSmall
+        
+        contentTableView.register(StoreHeaderView.nib, forHeaderFooterViewReuseIdentifier: StoreHeaderView.key)
+        contentTableView.backgroundColor = UIColor.clear
+        
         backgroundImageView.image = defaultBackgroundImage
         if store != nil, let imageUrl = store!.imageUrl {
             let urlStr = ImageHelper.getFormattedImageUrl(imageId: imageUrl, size: backgroundImageView.frame.size)!
             if let url = URL (string: urlStr) {
                 backgroundImageView.sd_setImage(with: url, placeholderImage: defaultBackgroundImage)
             }
+            
+            if let imageUrl = store!.imageUrl {
+                let urlStr = ImageHelper.getFormattedImageUrl(imageId: imageUrl, size: iconImageView.frame.size)!
+                if let url = URL (string: urlStr) {
+                    iconImageView.sd_setImage(with: url, placeholderImage: StoreCategoryControl.shared.defaultStoreCategoryImageSmall)
+                }
+            }
+            
             contentTableView.delegate = self
             contentTableView.dataSource = self
+            
+            if shouldShowHeaderImage {
+//                let headerFrame = contentTableView.rectForHeader(inSection: 1)
+                iconImageViewConterYConstraint.constant += heightOfFirstHeader
+                view.layoutIfNeeded()
+            }
         } else {
             // load data
         }
@@ -47,9 +81,6 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
         rightBarButtonItem = UIBarButtonItem (image: #imageLiteral(resourceName: "icon_dots").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleOnRightBarButtonItemTapped(_:)))
         rightBarButtonItem.tintColor = UIColor.white
         navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
-        
-        contentTableView.register(StoreHeaderView.nib, forHeaderFooterViewReuseIdentifier: StoreHeaderView.key)
-        contentTableView.backgroundColor = UIColor.clear
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,8 +115,12 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - UITableViewDataSource
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return section != 2 ? 0 : 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,20 +128,43 @@ class StoreViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: StoreHeaderView.key) as! StoreHeaderView
-        
-        header.backgroundColor = UIColor.clear
-        header.update(store: self.store!)
-        
-        return header
+        if section == 0 {
+            let view = UIView ()
+            
+            view.backgroundColor = UIColor.clear
+            
+            return view
+        } else if section == 1 {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: StoreHeaderView.key) as! StoreHeaderView
+            
+            header.update(store: self.store!)
+            
+            return header
+        } else {
+            let view = UIView ()
+            
+            view.backgroundColor = UIColor.gray
+            
+            return view
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return heightOfFirstHeader
+        }
+        
         return UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 
     /*
